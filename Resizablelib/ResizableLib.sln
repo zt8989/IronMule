@@ -1,0 +1,33 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ResizableLib", "ResizableLib.vcproj", "{A5743026-DE7A-4C3D-86EA-46D6B6847F14}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Debug Static = Debug Static
+		Release = Release
+		Release Static = Release Static
+		Unicode Debug = Unicode Debug
+		Unicode Release = Unicode Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{A5743026-DE7A-4C3D-86EA-46D6B6847F14}.Debug.ActiveCfg = Debug|Win32
+		{A5743026-DE7A-4C3D-86EA-46D6B6847F14}.Debug.Build.0 = Debug|Win32
+		{A5743026-DE7A-4C3D-86EA-46D6B6847F14}.Debug Static.ActiveCfg = Debug Static|Win32
+		{A5743026-DE7A-4C3D-86EA-46D6B6847F14}.Debug Static.Build.0 = Debug Static|Win32
+		{A5743026-DE7A-4C3D-86EA-46D6B6847F14}.Release.ActiveCfg = Release|Win32
+		{A5743026-DE7A-4C3D-86EA-46D6B6847F14}.Release.Build.0 = Release|Win32
+		{A5743026-DE7A-4C3D-86EA-46D6B6847F14}.Release Static.ActiveCfg = Release Static|Win32
+		{A5743026-DE7A-4C3D-86EA-46D6B6847F14}.Release Static.Build.0 = Release Static|Win32
+		{A5743026-DE7A-4C3D-86EA-46D6B6847F14}.Unicode Debug.ActiveCfg = Unicode Debug|Win32
+		{A5743026-DE7A-4C3D-86EA-46D6B6847F14}.Unicode Debug.Build.0 = Unicode Debug|Win32
+		{A5743026-DE7A-4C3D-86EA-46D6B6847F14}.Unicode Release.ActiveCfg = Unicode Release|Win32
+		{A5743026-DE7A-4C3D-86EA-46D6B6847F14}.Unicode Release.Build.0 = Unicode Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

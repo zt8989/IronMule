@@ -1,0 +1,2531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4a7c49ee-20fa-47f3-9bdc-7cf33ba77571}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Kademlia">
+      <UniqueIdentifier>{89b8c223-6ec0-478e-a381-de419c9fe029}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SMIRC">
+      <UniqueIdentifier>{667c4f30-b42d-498d-8b0c-c500132a2af6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{67a01857-95f9-4976-beca-27b56ca671a7}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Kademlia">
+      <UniqueIdentifier>{c83b9cb8-69b2-49e2-a073-1a8132463c78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SMIRC">
+      <UniqueIdentifier>{c6833425-8c93-4459-adf6-7817a8a87304}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interface Source">
+      <UniqueIdentifier>{4397e19a-3324-490c-b6a7-f4e7a6dce362}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interface Source\Lists">
+      <UniqueIdentifier>{688fb914-f75a-48e6-ade5-02b1ce0cbdd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interface Source\TrayMenu">
+      <UniqueIdentifier>{c14ed1cb-6730-4816-844c-eaf642bc93dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interface Source\SMIRC">
+      <UniqueIdentifier>{7a22bf1f-7f59-4c2f-a229-66f104d2e103}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interface Header">
+      <UniqueIdentifier>{41e6b435-6075-42a4-92ec-f4cf02545899}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interface Header\Lists">
+      <UniqueIdentifier>{05b03f15-a88e-487b-a3d7-f59b8a8c5a62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interface Header\TrayMenu">
+      <UniqueIdentifier>{b6a6884f-57ec-4fea-aed6-0b2dff6aaf90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interface Header\SMIRC">
+      <UniqueIdentifier>{c0c60f9a-bdfd-4618-ac80-61c1a337a0f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{91737931-afdc-47ce-b90c-c97da412b9af}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;jpg;jpeg;jpe;manifest;gif</Extensions>
+    </Filter>
+    <Filter Include="Templates">
+      <UniqueIdentifier>{683203a3-26ea-408f-a1c7-70b981a0daee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Documents">
+      <UniqueIdentifier>{a2ff1427-560a-4a0a-a5e0-5f335851ee5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Neo">
+      <UniqueIdentifier>{18a77200-be2f-4050-be9d-12fae6533cf6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AbstractFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AICHSyncThread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ArchiveRecovery.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AsyncProxySocketLayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AsyncSocketEx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AsyncSocketExLayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseClient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CaptchaGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CBase64Coding.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientCredits.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientUDPSocket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Collection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CollectionFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CommentListCtrl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CorruptionBlackBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DeadSourceList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DownloadClient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DownloadQueue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ED2KLink.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EMSocket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Emule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EncryptedDatagramSocket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EncryptedStreamSocket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FileIdentifier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FirewallOpener.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameGrabThread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Friend.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FriendList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GZipFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpClientReqSocket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="I18n.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ini2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IPFilter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="KnownFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="KnownFileList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LastCommonRouteFinder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ListenSocket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MD4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MD5Sum.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mdump.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MediaInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MfcStaticBinaryCompatible.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MMServer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MMSocket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OtherFunctions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Packets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Parser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PartFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PartFileConvert.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PeerCacheClient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PeerCacheFinder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PerfLog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Pinger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Preferences.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Preview.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Quantize.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RARFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SafeFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scanner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scheduler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SearchFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SearchList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SecRunAsUser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SelfTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SendMail.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Server.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerSocket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SHA.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SHAHashSet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShareableFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SharedFileList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SmileySelector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sockets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StatisticFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Statistics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StringConversion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeTick.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UDPSocket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UploadBandwidthThrottler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UploadClient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UploadQueue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UPnPImpl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UPnPImplMiniLib.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UPnPImplWinServ.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UPnPImplWrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="URLClient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Version.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WebSocket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ZIPFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="kademlia\io\BufferedFileIO.cpp">
+      <Filter>Source Files\Kademlia</Filter>
+    </ClCompile>
+    <ClCompile Include="kademlia\io\ByteIO.cpp">
+      <Filter>Source Files\Kademlia</Filter>
+    </ClCompile>
+    <ClCompile Include="kademlia\routing\Contact.cpp">
+      <Filter>Source Files\Kademlia</Filter>
+    </ClCompile>
+    <ClCompile Include="kademlia\io\DataIO.cpp">
+      <Filter>Source Files\Kademlia</Filter>
+    </ClCompile>
+    <ClCompile Include="kademlia\kademlia\Entry.cpp">
+      <Filter>Source Files\Kademlia</Filter>
+    </ClCompile>
+    <ClCompile Include="kademlia\io\FileIO.cpp">
+      <Filter>Source Files\Kademlia</Filter>
+    </ClCompile>
+    <ClCompile Include="kademlia\kademlia\Indexed.cpp">
+      <Filter>Source Files\Kademlia</Filter>
+    </ClCompile>
+    <ClCompile Include="kademlia\io\IOException.cpp">
+      <Filter>Source Files\Kademlia</Filter>
+    </ClCompile>
+    <ClCompile Include="kademlia\kademlia\Kademlia.cpp">
+      <Filter>Source Files\Kademlia</Filter>
+    </ClCompile>
+    <ClCompile Include="kademlia\net\KademliaUDPListener.cpp">
+      <Filter>Source Files\Kademlia</Filter>
+    </ClCompile>
+    <ClCompile Include="kademlia\utils\LittleEndian.cpp">
+      <Filter>Source Files\Kademlia</Filter>
+    </ClCompile>
+    <ClCompile Include="kademlia\utils\LookupHistory.cpp">
+      <Filter>Source Files\Kademlia</Filter>
+    </ClCompile>
+    <ClCompile Include="kademlia\utils\MiscUtils.cpp">
+      <Filter>Source Files\Kademlia</Filter>
+    </ClCompile>
+    <ClCompile Include="kademlia\net\PacketTracking.cpp">
+      <Filter>Source Files\Kademlia</Filter>
+    </ClCompile>
+    <ClCompile Include="kademlia\kademlia\Prefs.cpp">
+      <Filter>Source Files\Kademlia</Filter>
+    </ClCompile>
+    <ClCompile Include="kademlia\routing\RoutingBin.cpp">
+      <Filter>Source Files\Kademlia</Filter>
+    </ClCompile>
+    <ClCompile Include="kademlia\routing\RoutingZone.cpp">
+      <Filter>Source Files\Kademlia</Filter>
+    </ClCompile>
+    <ClCompile Include="kademlia\kademlia\Search.cpp">
+      <Filter>Source Files\Kademlia</Filter>
+    </ClCompile>
+    <ClCompile Include="kademlia\kademlia\SearchManager.cpp">
+      <Filter>Source Files\Kademlia</Filter>
+    </ClCompile>
+    <ClCompile Include="kademlia\utils\ThreadName.cpp">
+      <Filter>Source Files\Kademlia</Filter>
+    </ClCompile>
+    <ClCompile Include="kademlia\kademlia\UDPFirewallTester.cpp">
+      <Filter>Source Files\Kademlia</Filter>
+    </ClCompile>
+    <ClCompile Include="kademlia\utils\UInt128.cpp">
+      <Filter>Source Files\Kademlia</Filter>
+    </ClCompile>
+    <ClCompile Include="IrcMain.cpp">
+      <Filter>Source Files\SMIRC</Filter>
+    </ClCompile>
+    <ClCompile Include="IrcSocket.cpp">
+      <Filter>Source Files\SMIRC</Filter>
+    </ClCompile>
+    <ClCompile Include="3DPreviewControl.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="AddFriend.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="AddSourceDlg.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ArchivePreviewDlg.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="BarShader.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="BtnST.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="BuddyButton.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonsTabCtrl.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="CatDialog.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ChatSelector.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ChatWnd.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientDetailDialog.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ClosableTabCtrl.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="CollectionCreateDialog.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="CollectionViewDialog.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorButton.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorFrameCtrl.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ColourPopup.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ComboBoxEx2.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="CommentDialog.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="CommentDialogLst.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="CreditsDlg.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="CreditsThread.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomAutoComplete.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogMinTrayBtn.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectDownloadDlg.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectoryTreeCtrl.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="DropDownButton.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="DropTarget.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ED2kLinkDlg.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="EditDelayed.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="EditX.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="EmuleDlg.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="EnBitmap.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="FileDetailDialog.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="FileDetailDialogInfo.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="FileDetailDialogName.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="FileDetailDlgStatistics.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="FileInfoDialog.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GDIThread.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="HTRichEditCtrl.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpDownloadDlg.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="HyperTextCtrl.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="IconStatic.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="IESecurity.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="InputBox.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="IPFilterDlg.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="KadContactHistogramCtrl.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="KademliaWnd.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="KadLookupGraph.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="LayeredWindowHelperST.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ListBoxST.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ListCtrlEditable.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ListCtrlX.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ListViewSearchDlg.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ListViewWalkerPropertySheet.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="MetaDataDlg.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="MeterIcon.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniMule.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="MuleStatusBarCtrl.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="MuleToolBarCtrl.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkInfoDlg.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="OScopeCtrl.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PPgConnection.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PPgDebug.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PPgDirectories.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PPgDisplay.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PPgFiles.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PPgGeneral.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PPgIRC.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PPgMessages.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PPgNotify.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PPgProxy.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PPgScheduler.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PPgSecurity.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PPgServer.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PPgStats.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PPgTweaks.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PPgWebServer.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PreferencesDlg.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PreviewDlg.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgressCtrlX.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PShtWiz1.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="RichEditCtrlX.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="RichEditStream.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SearchDlg.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SearchParamsWnd.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SearchResultsWnd.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerWnd.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SharedDirsTreeCtrl.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SharedFilesWnd.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SplashScreen.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SplitterControl.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="StatisticsDlg.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="StatisticsTree.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="TabCtrl.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="TaskbarNotifier.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="TextToSpeech.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleMenu.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ToolBarCtrlX.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ToolbarWnd.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ToolTipCtrlX.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="TransferDlg.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="TransferWnd.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="TreeOptionsCtrl.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="TreeOptionsCtrlEx.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="TreePropSheet.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="TreePropSheetPgFrame.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="TreePropSheetPgFrameDef.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="VisualStylesXP.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="WebServer.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Wizard.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="XMessageBox.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientListCtrl.cpp">
+      <Filter>Interface Source\Lists</Filter>
+    </ClCompile>
+    <ClCompile Include="CollectionListCtrl.cpp">
+      <Filter>Interface Source\Lists</Filter>
+    </ClCompile>
+    <ClCompile Include="DownloadClientsCtrl.cpp">
+      <Filter>Interface Source\Lists</Filter>
+    </ClCompile>
+    <ClCompile Include="DownloadListCtrl.cpp">
+      <Filter>Interface Source\Lists</Filter>
+    </ClCompile>
+    <ClCompile Include="FriendListCtrl.cpp">
+      <Filter>Interface Source\Lists</Filter>
+    </ClCompile>
+    <ClCompile Include="KadContactListCtrl.cpp">
+      <Filter>Interface Source\Lists</Filter>
+    </ClCompile>
+    <ClCompile Include="KadSearchListCtrl.cpp">
+      <Filter>Interface Source\Lists</Filter>
+    </ClCompile>
+    <ClCompile Include="MuleListCtrl.cpp">
+      <Filter>Interface Source\Lists</Filter>
+    </ClCompile>
+    <ClCompile Include="QueueListCtrl.cpp">
+      <Filter>Interface Source\Lists</Filter>
+    </ClCompile>
+    <ClCompile Include="SearchListCtrl.cpp">
+      <Filter>Interface Source\Lists</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerListCtrl.cpp">
+      <Filter>Interface Source\Lists</Filter>
+    </ClCompile>
+    <ClCompile Include="SharedFilesCtrl.cpp">
+      <Filter>Interface Source\Lists</Filter>
+    </ClCompile>
+    <ClCompile Include="UploadListCtrl.cpp">
+      <Filter>Interface Source\Lists</Filter>
+    </ClCompile>
+    <ClCompile Include="GradientStatic.cpp">
+      <Filter>Interface Source\TrayMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="MuleSystrayDlg.cpp">
+      <Filter>Interface Source\TrayMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="TrayDialog.cpp">
+      <Filter>Interface Source\TrayMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="TrayMenuBtn.cpp">
+      <Filter>Interface Source\TrayMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="IrcChannelListCtrl.cpp">
+      <Filter>Interface Source\SMIRC</Filter>
+    </ClCompile>
+    <ClCompile Include="IrcChannelTabCtrl.cpp">
+      <Filter>Interface Source\SMIRC</Filter>
+    </ClCompile>
+    <ClCompile Include="IrcNickListCtrl.cpp">
+      <Filter>Interface Source\SMIRC</Filter>
+    </ClCompile>
+    <ClCompile Include="IrcWnd.cpp">
+      <Filter>Interface Source\SMIRC</Filter>
+    </ClCompile>
+    <ClCompile Include="Neo\Address.cpp">
+      <Filter>Neo</Filter>
+    </ClCompile>
+    <ClCompile Include="Neo\Buffer.cpp">
+      <Filter>Neo</Filter>
+    </ClCompile>
+    <ClCompile Include="Neo\UtpSocket.cpp">
+      <Filter>Neo</Filter>
+    </ClCompile>
+    <ClCompile Include="DLP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PPgXtreme2.cpp">
+      <Filter>Interface Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="MD4_asm.asm">
+      <Filter>Source Files</Filter>
+    </MASM>
+    <MASM Include="SHA_asm.asm">
+      <Filter>Source Files</Filter>
+    </MASM>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\all.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ArchivePreview.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\bold.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Browse8.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Cancel.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Category.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Chat.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\clear1.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\clear2.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Client0.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Client1.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Client2.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Client3.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Client4.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ClientaMule.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ClientaMulePlus.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ClientCompatible.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ClientCompatiblePlus.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ClientDefault.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ClientDefaultPlus.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ClienteDonkeyHybrid.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ClienteDonkeyHybridPlus.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ClientlPhant.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ClientlPhantPlus.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ClientMLDonkey.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ClientMLDonkeyPlus.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Clientobfuovl.ICO">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ClientSecureHashOvl.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Clientsecurehasobfuhovl.ICO">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ClientShareaza.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ClientShareazaPlus.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ClientsKnown.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ClientsOnQueue.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\CloseTab.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\CloseTabSelected.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Collapse.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\colour.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ConnectDo.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ConnectDrop.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Connected.gif">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ConnectedHighHigh.gif">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ConnectedHighHigh.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ConnectedHighLow.gif">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ConnectedHighLow.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ConnectedHighNot.gif">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ConnectedHighNot.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ConnectedLowHigh.gif">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ConnectedLowHigh.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ConnectedLowLow.gif">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ConnectedLowLow.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ConnectedLowNot.gif">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ConnectedLowNot.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ConnectedNotHigh.gif">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ConnectedNotHigh.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ConnectedNotLow.gif">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ConnectedNotLow.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ConnectedNotNot.gif">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ConnectedNotNot.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Connection.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ConnectStop.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Contact0.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Contact1.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Contact2.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Contact3.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Contact4.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Convert.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Copy.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\CopySelected.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\CopyVisible.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Delete.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\DeleteAll.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\DeleteSelected.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\DirectDownload.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Display.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Download.gif">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Download.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\DownloadFiles.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\eD2kLink.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\eD2kLinkPaste.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Empty.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\emule.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\emuleCollAdd.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\emuleCollectionFileType.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\emuleCollEdit.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\emuleCollSearch.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\emuleCollView.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Exit.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ExpandAll.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ExpandAll2.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ExportAll.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FileComments.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FileCommentsOvl.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FileDonkey.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FileInfo.gif">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FileInfo.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FileOpen.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FilePriority.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FileRating0.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FileRating1.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FileRating2.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FileRating3.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FileRating4.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FileRating5.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FileRename.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FileSharedKad.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FileSharedServer.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FileTypeAny.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FileTypeArchive.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FileTypeAudio.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FileTypeCDImage.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FileTypeDocument.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FileTypePicture.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FileTypeProgram.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FileTypeVideo.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FolderOpen.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Folders.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Friend.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Friends1.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Friends2.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Friends3.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FriendSlot.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Global.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\HardDisk.gif">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\HardDisk.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Help.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Import.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Incoming.gif">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Incoming.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\incomplete.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\InetDownload.avi">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Info.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\IPFilter.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\IRC.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\IRCClipboard.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Kad.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\KadBootstrap.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\KadContactList.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\KadCurrentSearches.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\KadFileSearch.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\KadNodeSearch.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\KadServer.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\KadStoreFile.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\KadStoreWord.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\KadWordSearch.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ListAdd.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ListRemove.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ListViewSortDown.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ListViewSortDown2x.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ListViewSortUp.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ListViewSortUp2x.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Log.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Logo.jpg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\MediaInfo.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Message.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\MessagePending.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Messages.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\MetaData.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\MiniMule.htm">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\MiniMuleBack.gif">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Mule.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\mule_wiz.gif">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\mule_wiz_hdr.gif">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\NavigateBack.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\NavigateForward.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\NoAccessFolderOvl.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Notifications.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Pause.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Preferences.gif">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Preferences.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Preview.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Priority.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Proxy.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Records.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Rename.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\resetformat.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Restore.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\RestoreWindow.gif">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\RestoreWindow.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Scheduler.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Search.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\SearchEdit.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\SearchGlobalActive.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\SearchKad.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\SearchKadActive.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\SearchParams.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\SearchResults.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\SearchServerActive.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Security.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Server.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ServerAdd.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ServerInfo.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ServerList.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ServerSearch.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ServersUpdate.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\SharedFiles.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\SharedFilesList.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\SharedFolderOvl.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Smiley_Cry.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Smiley_Disgust.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Smiley_Happy.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Smiley_Interest.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Smiley_Laugh.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Smiley_lookside.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Smiley_Love.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Smiley_omg.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Smiley_Ph34r.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Smiley_Sad.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Smiley_sadq.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Smiley_Sealed.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Smiley_Skeptic.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Smiley_Smile.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Smiley_smileq.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Smiley_Tongue.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Smiley_Wink.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Spam.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Speed.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\SpeedMax.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\SpeedMin.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\SplitWindow.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Start.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Statistics.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\StatisticsDetail.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\StatsCumulative.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\StatsDay.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\StatsGeneric.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\StatsMonth.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\StatsProjected.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\StatsTime.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\StatsYear.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Stop.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\TaskbarNotifier.gif">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Tools.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Transfer.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\TransferUpDown.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\TrayBtnBlue.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\TrayBtnHomestead.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\TrayBtnMetallic.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\TrayConnected.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\TrayDisconnected.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\TrayLowID.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Tweak.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\underline.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Up0down0.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Up0down1.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Up1down0.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Up1down1.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Upload.gif">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Upload.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\User.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\UserAdd.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\UserDelete.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\UserDetails.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\UserFiles.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\UserMessage.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Web.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\WideCharLowerMap.bin">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\Wizard.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\setup\eMule Light.tmpl">
+      <Filter>Templates</Filter>
+    </None>
+    <None Include="..\setup\eMule.tmpl">
+      <Filter>Templates</Filter>
+    </None>
+    <None Include="..\setup\staticservers.dat">
+      <Filter>Templates</Filter>
+    </None>
+    <None Include="..\setup\Template.eMuleSkin.ini">
+      <Filter>Templates</Filter>
+    </None>
+    <None Include="..\setup\webservices.dat">
+      <Filter>Templates</Filter>
+    </None>
+    <None Include="..\docs\kademlia\changelog.txt">
+      <Filter>Documents</Filter>
+    </None>
+    <None Include="..\docs\readme.txt">
+      <Filter>Documents</Filter>
+    </None>
+    <None Include="res\FileTypeEmuleCollection.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ClientFriend.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\ClientFriendPlus.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\clientml.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FileRequested.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\DROPICON.ICO">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\leecher.ICO">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\friends1slot.ICO">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\friends2slot.ICO">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\friends3slot.ICO">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FriendSlotOvl.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\FileMassRename.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\fileimportparts.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AbstractFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AICHSyncThread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ArchiveRecovery.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AsyncProxySocketLayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AsyncSocketEx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AsyncSocketExLayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CaptchaGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CBase64Coding.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientCredits.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientStateDefs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientUDPSocket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientVersionInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Collection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CollectionFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CommentListCtrl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CorruptionBlackBox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DeadSourceList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Debug_FileSize.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugHelpers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DownloadQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ED2KLink.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EMSocket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Emule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="emule_site_config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EncryptedDatagramSocket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EncryptedStreamSocket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Exceptions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FileIdentifier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FirewallOpener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameGrabThread.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Friend.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FriendList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GZipFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpClientReqSocket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ini2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IPFilter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\utils\KadClientSearcher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\utils\KadUDPKey.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="KnownFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="KnownFileList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="langids.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LastCommonRouteFinder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ListenSocket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Log.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MapKey.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MD4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MD5Sum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mdump.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MediaInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MMServer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MMSocket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Opcodes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OtherFunctions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Packets.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PartFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PartFileConvert.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PeerCacheFinder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PeerCacheSocket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PerfLog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pinger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Preferences.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Preview.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QArray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Quantize.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RARFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SafeFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scheduler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SearchFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SearchList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SecRunAsUser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SendMail.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Server.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerSocket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SHA.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SHAHashSet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShareableFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedFileList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SmileySelector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sockets.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StatisticFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Statistics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StringConversion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThrottledSocket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeTick.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UDPSocket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UpdownClient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UploadBandwidthThrottler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UploadQueue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UPnPImpl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UPnPImplMiniLib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UPnPImplWinServ.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="URLClient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Version.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VistaDefines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WebServices.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WebSocket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ZIPFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\io\BufferedFileIO.h">
+      <Filter>Header Files\Kademlia</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\io\ByteIO.h">
+      <Filter>Header Files\Kademlia</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\routing\Contact.h">
+      <Filter>Header Files\Kademlia</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\io\DataIO.h">
+      <Filter>Header Files\Kademlia</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\kademlia\Defines.h">
+      <Filter>Header Files\Kademlia</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\kademlia\Entry.h">
+      <Filter>Header Files\Kademlia</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\kademlia\Error.h">
+      <Filter>Header Files\Kademlia</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\io\FileIO.h">
+      <Filter>Header Files\Kademlia</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\kademlia\Indexed.h">
+      <Filter>Header Files\Kademlia</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\io\IOException.h">
+      <Filter>Header Files\Kademlia</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\kademlia\Kademlia.h">
+      <Filter>Header Files\Kademlia</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\net\KademliaUDPListener.h">
+      <Filter>Header Files\Kademlia</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\utils\LittleEndian.h">
+      <Filter>Header Files\Kademlia</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\utils\LookupHistory.h">
+      <Filter>Header Files\Kademlia</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\routing\Maps.h">
+      <Filter>Header Files\Kademlia</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\utils\MiscUtils.h">
+      <Filter>Header Files\Kademlia</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\net\PacketTracking.h">
+      <Filter>Header Files\Kademlia</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\kademlia\Prefs.h">
+      <Filter>Header Files\Kademlia</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\routing\RoutingBin.h">
+      <Filter>Header Files\Kademlia</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\routing\RoutingZone.h">
+      <Filter>Header Files\Kademlia</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\kademlia\Search.h">
+      <Filter>Header Files\Kademlia</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\kademlia\SearchManager.h">
+      <Filter>Header Files\Kademlia</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\kademlia\Tag.h">
+      <Filter>Header Files\Kademlia</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\utils\ThreadName.h">
+      <Filter>Header Files\Kademlia</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\kademlia\UDPFirewallTester.h">
+      <Filter>Header Files\Kademlia</Filter>
+    </ClInclude>
+    <ClInclude Include="kademlia\utils\UInt128.h">
+      <Filter>Header Files\Kademlia</Filter>
+    </ClInclude>
+    <ClInclude Include="IrcMain.h">
+      <Filter>Header Files\SMIRC</Filter>
+    </ClInclude>
+    <ClInclude Include="IrcSocket.h">
+      <Filter>Header Files\SMIRC</Filter>
+    </ClInclude>
+    <ClInclude Include="ToolbarWnd.h">
+      <Filter>Interface Source</Filter>
+    </ClInclude>
+    <ClInclude Include="3DPreviewControl.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="AddFriend.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="AddSourceDlg.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="AfxBeginMsgMapTemplate.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ArchivePreviewDlg.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="BarShader.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="BtnST.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonsTabCtrl.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="CatDialog.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ChatSelector.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ChatWnd.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientDetailDialog.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ClosableTabCtrl.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="CollectionCreateDialog.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="CollectionViewDialog.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorButton.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorFrameCtrl.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ColourPopup.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ComboBoxEx2.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="CommentDialog.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="CommentDialogLst.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="CreditsDlg.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="CreditsThread.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomAutoComplete.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogMinTrayBtn.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectDownloadDlg.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectoryTreeCtrl.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawgdix.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="DropDownButton.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="DropTarget.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ED2kLinkDlg.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="EditDelayed.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="EditX.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="EmuleDlg.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="EnBitmap.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="FileDetailDialog.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="FileDetailDialogInfo.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="FileDetailDialogName.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="FileDetailDlgStatistics.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="FileInfoDialog.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="GDIThread.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="HelpIDs.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="HighColorTab.hpp">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="HTRichEditCtrl.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpDownloadDlg.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="HyperTextCtrl.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="IconStatic.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="IESecurity.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="InputBox.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="IPFilterDlg.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="KadContactHistogramCtrl.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="KademliaWnd.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="KadLookupGraph.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="LayeredWindowHelperST.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ListBoxST.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ListCtrlEditable.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ListCtrlItemWalk.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ListCtrlX.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ListViewSearchDlg.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ListViewWalkerPropertySheet.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="MemDC.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuCmds.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="MetaDataDlg.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="MeterIcon.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniMule.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="MuleStatusBarCtrl.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="MuleToolBarCtrl.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkInfoDlg.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="OScopeCtrl.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Parser.hpp">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PPgConnection.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PPgDebug.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PPgDirectories.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PPgDisplay.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PPgFiles.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PPgGeneral.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PPgIRC.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PPgMessages.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PPgNotify.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PPgProxy.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PPgScheduler.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PPgSecurity.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PPgServer.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PPgStats.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PPgTweaks.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PPgWebServer.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PreferencesDlg.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PreviewDlg.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgressCtrlX.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="RichEditCtrlX.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="RichEditStream.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Scanner.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="SearchDlg.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="SearchExpr.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="SearchParams.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="SearchParamsWnd.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="SearchResultsWnd.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerWnd.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedDirsTreeCtrl.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedFilesWnd.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="SplashScreen.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="SplitterControl.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="StatisticsDlg.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="StatisticsTree.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="TabCtrl.hpp">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskbarNotifier.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="TextToSpeech.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleMenu.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ToolBarCtrlX.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ToolTipCtrlX.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="TransferDlg.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="TransferWnd.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeOptionsCtrl.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeOptionsCtrlEx.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="TreePropSheet.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="TreePropSheetPgFrame.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="TreePropSheetPgFrameDef.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="UPnPImplWrapper.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="UserMsgs.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="VisualStylesXP.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="WebServer.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Wizard.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="XMessageBox.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientListCtrl.h">
+      <Filter>Interface Header\Lists</Filter>
+    </ClInclude>
+    <ClInclude Include="CollectionListCtrl.h">
+      <Filter>Interface Header\Lists</Filter>
+    </ClInclude>
+    <ClInclude Include="DownloadClientsCtrl.h">
+      <Filter>Interface Header\Lists</Filter>
+    </ClInclude>
+    <ClInclude Include="DownloadListCtrl.h">
+      <Filter>Interface Header\Lists</Filter>
+    </ClInclude>
+    <ClInclude Include="FriendListCtrl.h">
+      <Filter>Interface Header\Lists</Filter>
+    </ClInclude>
+    <ClInclude Include="KadContactListCtrl.h">
+      <Filter>Interface Header\Lists</Filter>
+    </ClInclude>
+    <ClInclude Include="KadSearchListCtrl.h">
+      <Filter>Interface Header\Lists</Filter>
+    </ClInclude>
+    <ClInclude Include="MuleListCtrl.h">
+      <Filter>Interface Header\Lists</Filter>
+    </ClInclude>
+    <ClInclude Include="QueueListCtrl.h">
+      <Filter>Interface Header\Lists</Filter>
+    </ClInclude>
+    <ClInclude Include="SearchListCtrl.h">
+      <Filter>Interface Header\Lists</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerListCtrl.h">
+      <Filter>Interface Header\Lists</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedFilesCtrl.h">
+      <Filter>Interface Header\Lists</Filter>
+    </ClInclude>
+    <ClInclude Include="UploadListCtrl.h">
+      <Filter>Interface Header\Lists</Filter>
+    </ClInclude>
+    <ClInclude Include="GradientStatic.h">
+      <Filter>Interface Header\TrayMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="MuleSystrayDlg.h">
+      <Filter>Interface Header\TrayMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="TrayDialog.h">
+      <Filter>Interface Header\TrayMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="TrayMenuBtn.h">
+      <Filter>Interface Header\TrayMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="IrcChannelListCtrl.h">
+      <Filter>Interface Header\SMIRC</Filter>
+    </ClInclude>
+    <ClInclude Include="IrcChannelTabCtrl.h">
+      <Filter>Interface Header\SMIRC</Filter>
+    </ClInclude>
+    <ClInclude Include="IrcNickListCtrl.h">
+      <Filter>Interface Header\SMIRC</Filter>
+    </ClInclude>
+    <ClInclude Include="IrcWnd.h">
+      <Filter>Interface Header\SMIRC</Filter>
+    </ClInclude>
+    <ClInclude Include="Neo\Address.h">
+      <Filter>Neo</Filter>
+    </ClInclude>
+    <ClInclude Include="Neo\Buffer.h">
+      <Filter>Neo</Filter>
+    </ClInclude>
+    <ClInclude Include="Neo\NeoConfig.h">
+      <Filter>Neo</Filter>
+    </ClInclude>
+    <ClInclude Include="Neo\UtpSocket.h">
+      <Filter>Neo</Filter>
+    </ClInclude>
+    <ClInclude Include="DLP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PPgXtreme2.h">
+      <Filter>Interface Header</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="emule.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Parser.y">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Scanner.l">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

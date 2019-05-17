@@ -1,0 +1,1104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="BETA|Win32">
+      <Configuration>BETA</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Template|Win32">
+      <Configuration>Template</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>emule</ProjectName>
+    <ProjectGuid>{584EA69D-3443-4197-8994-364880FC1B9B}</ProjectGuid>
+    <RootNamespace>emule</RootNamespace>
+    <Keyword>MFCProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>Static</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='BETA|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>Static</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>Static</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='BETA|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)_vc9\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)_vc9\</IntDir>
+    <ExtensionsToDeleteOnClean Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">*.obj%3b*.ilk%3b*.pdb%3b*.tlb%3b*.tli%3b*.tlh%3b*.tmp%3b*.rsp%3b*.bat%3b*.asm%3b$(TargetPath)</ExtensionsToDeleteOnClean>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)_vc9\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='BETA|Win32'">$(Configuration)_vc9\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)_vc9\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='BETA|Win32'">$(Configuration)_vc9\</IntDir>
+    <ExtensionsToDeleteOnClean Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">*.obj%3b*.ilk%3b*.pdb%3b*.tlb%3b*.tli%3b*.tlh%3b*.tmp%3b*.rsp%3b*.bat%3b*.asm%3b$(TargetPath)</ExtensionsToDeleteOnClean>
+    <ExtensionsToDeleteOnClean Condition="'$(Configuration)|$(Platform)'=='BETA|Win32'">*.obj%3b*.ilk%3b*.pdb%3b*.tlb%3b*.tli%3b*.tlh%3b*.tmp%3b*.rsp%3b*.bat%3b*.asm%3b$(TargetPath)</ExtensionsToDeleteOnClean>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='BETA|Win32'">false</LinkIncremental>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='BETA|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='BETA|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='BETA|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Template|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Template|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Template|Win32'" />
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\libs\atl\include;$(IncludePath)</IncludePath>
+    <EmbedManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</EmbedManifest>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='BETA|Win32'">C:\libs\atl\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <CustomBuildStep>
+      <Command>
+      </Command>
+      <Inputs>%(Inputs)</Inputs>
+    </CustomBuildStep>
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Wall %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\site_config;.;..;..\id3lib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;ID3LIB_LINKOPTION=1;MINIUPNP_STATICLIB;SUPPORT_LARGE_FILES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level1</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>version.lib;winmm.lib;ws2_32.lib;gdiplus.lib;ADSIId.lib;crypt32.lib;wmvcore.lib;.\build\Debug\cryptlib100.lib;.\build\Debug\zlib100.lib;..\id3lib\libprj\debug_vc9\id3lib.lib;.\cximage\debug_vc9\cximage.lib;..\libpng\projects\visualc71\Win32_LIB_Debug\libpngd.lib;..\Resizablelib\Debug\resizablelib.lib;.\miniupnpc\debug_vc9\miniupnpc.lib;.\debug\utp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <DelayLoadDLLs>oleacc.dll;gdiplus.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>false</OptimizeReferences>
+      <EnableCOMDATFolding>false</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Manifest>
+      <AssemblyIdentity>Microsoft.Windows.emule, processorArchitecture=X86, version=1.0.0.0, type=win32</AssemblyIdentity>
+    </Manifest>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <MASM>
+      <UseSafeExceptionHandlers>true</UseSafeExceptionHandlers>
+    </MASM>
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Wall %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <AdditionalIncludeDirectories>..\site_config;.;..;..\id3lib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;ID3LIB_LINKOPTION=1;MINIUPNP_STATICLIB;SUPPORT_LARGE_FILES;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalOptions>/safeseh %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>unicows.lib;kernel32.lib;advapi32.lib;user32.lib;gdi32.lib;shell32.lib;comdlg32.lib;version.lib;mpr.lib;rasapi32.lib;winmm.lib;winspool.lib;vfw32.lib;secur32.lib;oleacc.lib;oledlg.lib;sensapi.lib;gdiplus.lib;ADSIId.lib;crypt32.lib;wmvcore.lib;.\build\Release\cryptlib90.lib;.\build\Release\zlib90.lib;..\id3lib\libprj\release_vc9\id3lib.lib;.\cximage\release_vc9\cximage.lib;..\libpng\projects\visualc71\Win32_LIB_ASM_Release\libpng.lib;..\Resizablelib\Release\resizablelib.lib;.\miniupnpc\release_vc9\miniupnpc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>kernel32.lib;advapi32.lib;user32.lib;gdi32.lib;shell32.lib;comdlg32.lib;version.lib;mpr.lib;rasapi32.lib;winmm.lib;winspool.lib;vfw32.lib;secur32.lib;oleacc.lib;oledlg.lib;sensapi.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <DelayLoadDLLs>oleacc.dll;gdiplus.dll;ws2_32.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Manifest>
+      <AssemblyIdentity>Microsoft.Windows.emule, processorArchitecture=X86, version=1.0.0.0, type=win32</AssemblyIdentity>
+    </Manifest>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='BETA|Win32'">
+    <MASM>
+      <UseSafeExceptionHandlers>true</UseSafeExceptionHandlers>
+    </MASM>
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions>/Wall %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <AdditionalIncludeDirectories>..\site_config;.;..;..\id3lib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;ID3LIB_LINKOPTION=1;MINIUPNP_STATICLIB;SUPPORT_LARGE_FILES;_BETA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalOptions>/safeseh %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>unicows.lib;kernel32.lib;advapi32.lib;user32.lib;gdi32.lib;shell32.lib;comdlg32.lib;version.lib;mpr.lib;rasapi32.lib;winmm.lib;winspool.lib;vfw32.lib;secur32.lib;oleacc.lib;oledlg.lib;sensapi.lib;gdiplus.lib;ADSIId.lib;crypt32.lib;wmvcore.lib;.\build\Release\cryptlib100.lib;.\build\Release\zlib100.lib;..\id3lib\libprj\release_vc9\id3lib.lib;.\cximage\release_vc9\cximage.lib;..\libpng\projects\visualc71\Win32_LIB_Release\libpng.lib;..\Resizablelib\Release\resizablelib.lib;.\miniupnpc\release_vc9\miniupnpc.lib;.\Release\utp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>kernel32.lib;advapi32.lib;user32.lib;gdi32.lib;shell32.lib;comdlg32.lib;version.lib;mpr.lib;rasapi32.lib;winmm.lib;winspool.lib;vfw32.lib;secur32.lib;oleacc.lib;oledlg.lib;sensapi.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <DelayLoadDLLs>oleacc.dll;gdiplus.dll;ws2_32.dll;%(DelayLoadDLLs)</DelayLoadDLLs>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Manifest>
+      <AssemblyIdentity>Microsoft.Windows.emule, processorArchitecture=X86, version=1.0.0.0, type=win32</AssemblyIdentity>
+    </Manifest>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="AbstractFile.cpp" />
+    <ClCompile Include="AICHSyncThread.cpp" />
+    <ClCompile Include="ArchiveRecovery.cpp" />
+    <ClCompile Include="AsyncProxySocketLayer.cpp" />
+    <ClCompile Include="AsyncSocketEx.cpp" />
+    <ClCompile Include="AsyncSocketExLayer.cpp" />
+    <ClCompile Include="BaseClient.cpp" />
+    <ClCompile Include="CaptchaGenerator.cpp" />
+    <ClCompile Include="CBase64Coding.cpp" />
+    <ClCompile Include="ClientCredits.cpp" />
+    <ClCompile Include="ClientList.cpp" />
+    <ClCompile Include="ClientUDPSocket.cpp" />
+    <ClCompile Include="Collection.cpp" />
+    <ClCompile Include="CollectionFile.cpp" />
+    <ClCompile Include="CommentListCtrl.cpp" />
+    <ClCompile Include="CorruptionBlackBox.cpp" />
+    <ClCompile Include="DeadSourceList.cpp" />
+    <ClCompile Include="DLP.cpp" />
+    <ClCompile Include="DownloadClient.cpp" />
+    <ClCompile Include="DownloadQueue.cpp" />
+    <ClCompile Include="ED2KLink.cpp" />
+    <ClCompile Include="EMSocket.cpp" />
+    <ClCompile Include="Emule.cpp" />
+    <ClCompile Include="EncryptedDatagramSocket.cpp" />
+    <ClCompile Include="EncryptedStreamSocket.cpp" />
+    <ClCompile Include="FileIdentifier.cpp" />
+    <ClCompile Include="FirewallOpener.cpp" />
+    <ClCompile Include="FrameGrabThread.cpp" />
+    <ClCompile Include="Friend.cpp" />
+    <ClCompile Include="FriendList.cpp" />
+    <ClCompile Include="GZipFile.cpp" />
+    <ClCompile Include="HttpClientReqSocket.cpp" />
+    <ClCompile Include="I18n.cpp" />
+    <ClCompile Include="Ini2.cpp" />
+    <ClCompile Include="IPFilter.cpp" />
+    <ClCompile Include="KnownFile.cpp" />
+    <ClCompile Include="KnownFileList.cpp" />
+    <ClCompile Include="LastCommonRouteFinder.cpp" />
+    <ClCompile Include="ListenSocket.cpp" />
+    <ClCompile Include="Log.cpp" />
+    <ClCompile Include="MD4.cpp" />
+    <ClCompile Include="MD5Sum.cpp" />
+    <ClCompile Include="Mdump.cpp" />
+    <ClCompile Include="MediaInfo.cpp" />
+    <ClCompile Include="MfcStaticBinaryCompatible.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='BETA|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="MMServer.cpp" />
+    <ClCompile Include="MMSocket.cpp" />
+    <ClCompile Include="OtherFunctions.cpp" />
+    <ClCompile Include="Packets.cpp" />
+    <ClCompile Include="Parser.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='BETA|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="PartFile.cpp" />
+    <ClCompile Include="PartFileConvert.cpp" />
+    <ClCompile Include="PeerCacheClient.cpp" />
+    <ClCompile Include="PeerCacheFinder.cpp" />
+    <ClCompile Include="PerfLog.cpp" />
+    <ClCompile Include="Pinger.cpp" />
+    <ClCompile Include="PPgXtreme2.cpp" />
+    <ClCompile Include="Preferences.cpp" />
+    <ClCompile Include="Preview.cpp" />
+    <ClCompile Include="Quantize.cpp" />
+    <ClCompile Include="RARFile.cpp" />
+    <ClCompile Include="SafeFile.cpp" />
+    <ClCompile Include="Scanner.cpp">
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_USE_32BIT_TIME_T;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">_USE_32BIT_TIME_T;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='BETA|Win32'">_USE_32BIT_TIME_T;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='BETA|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Scheduler.cpp" />
+    <ClCompile Include="SearchFile.cpp" />
+    <ClCompile Include="SearchList.cpp" />
+    <ClCompile Include="SecRunAsUser.cpp" />
+    <ClCompile Include="SelfTest.cpp" />
+    <ClCompile Include="SendMail.cpp" />
+    <ClCompile Include="Server.cpp" />
+    <ClCompile Include="ServerList.cpp" />
+    <ClCompile Include="ServerSocket.cpp" />
+    <ClCompile Include="SHA.cpp" />
+    <ClCompile Include="SHAHashSet.cpp" />
+    <ClCompile Include="ShareableFile.cpp" />
+    <ClCompile Include="SharedFileList.cpp" />
+    <ClCompile Include="SmileySelector.cpp" />
+    <ClCompile Include="Sockets.cpp" />
+    <ClCompile Include="StatisticFile.cpp" />
+    <ClCompile Include="Statistics.cpp" />
+    <ClCompile Include="Stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='BETA|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="StringConversion.cpp" />
+    <ClCompile Include="TimeTick.cpp" />
+    <ClCompile Include="UDPSocket.cpp" />
+    <ClCompile Include="UploadBandwidthThrottler.cpp" />
+    <ClCompile Include="UploadClient.cpp" />
+    <ClCompile Include="UploadQueue.cpp" />
+    <ClCompile Include="UPnPImpl.cpp" />
+    <ClCompile Include="UPnPImplMiniLib.cpp" />
+    <ClCompile Include="UPnPImplWinServ.cpp" />
+    <ClCompile Include="UPnPImplWrapper.cpp" />
+    <ClCompile Include="URLClient.cpp" />
+    <ClCompile Include="Version.cpp" />
+    <ClCompile Include="WebSocket.cpp" />
+    <ClCompile Include="ZIPFile.cpp" />
+    <ClCompile Include="kademlia\io\BufferedFileIO.cpp" />
+    <ClCompile Include="kademlia\io\ByteIO.cpp" />
+    <ClCompile Include="kademlia\routing\Contact.cpp" />
+    <ClCompile Include="kademlia\io\DataIO.cpp" />
+    <ClCompile Include="kademlia\kademlia\Entry.cpp" />
+    <ClCompile Include="kademlia\io\FileIO.cpp" />
+    <ClCompile Include="kademlia\kademlia\Indexed.cpp" />
+    <ClCompile Include="kademlia\io\IOException.cpp" />
+    <ClCompile Include="kademlia\kademlia\Kademlia.cpp" />
+    <ClCompile Include="kademlia\net\KademliaUDPListener.cpp" />
+    <ClCompile Include="kademlia\utils\LittleEndian.cpp" />
+    <ClCompile Include="kademlia\utils\LookupHistory.cpp" />
+    <ClCompile Include="kademlia\utils\MiscUtils.cpp" />
+    <ClCompile Include="kademlia\net\PacketTracking.cpp" />
+    <ClCompile Include="kademlia\kademlia\Prefs.cpp" />
+    <ClCompile Include="kademlia\routing\RoutingBin.cpp" />
+    <ClCompile Include="kademlia\routing\RoutingZone.cpp" />
+    <ClCompile Include="kademlia\kademlia\Search.cpp" />
+    <ClCompile Include="kademlia\kademlia\SearchManager.cpp" />
+    <ClCompile Include="kademlia\utils\ThreadName.cpp" />
+    <ClCompile Include="kademlia\kademlia\UDPFirewallTester.cpp" />
+    <ClCompile Include="kademlia\utils\UInt128.cpp" />
+    <ClCompile Include="IrcMain.cpp" />
+    <ClCompile Include="IrcSocket.cpp" />
+    <ClCompile Include="3DPreviewControl.cpp" />
+    <ClCompile Include="AddFriend.cpp" />
+    <ClCompile Include="AddSourceDlg.cpp" />
+    <ClCompile Include="ArchivePreviewDlg.cpp" />
+    <ClCompile Include="BarShader.cpp" />
+    <ClCompile Include="BtnST.cpp" />
+    <ClCompile Include="BuddyButton.cpp" />
+    <ClCompile Include="ButtonsTabCtrl.cpp" />
+    <ClCompile Include="CatDialog.cpp" />
+    <ClCompile Include="ChatSelector.cpp" />
+    <ClCompile Include="ChatWnd.cpp" />
+    <ClCompile Include="ClientDetailDialog.cpp" />
+    <ClCompile Include="ClosableTabCtrl.cpp" />
+    <ClCompile Include="CollectionCreateDialog.cpp" />
+    <ClCompile Include="CollectionViewDialog.cpp" />
+    <ClCompile Include="ColorButton.cpp" />
+    <ClCompile Include="ColorFrameCtrl.cpp" />
+    <ClCompile Include="ColourPopup.cpp" />
+    <ClCompile Include="ComboBoxEx2.cpp" />
+    <ClCompile Include="CommentDialog.cpp" />
+    <ClCompile Include="CommentDialogLst.cpp" />
+    <ClCompile Include="CreditsDlg.cpp" />
+    <ClCompile Include="CreditsThread.cpp" />
+    <ClCompile Include="CustomAutoComplete.cpp" />
+    <ClCompile Include="DialogMinTrayBtn.cpp" />
+    <ClCompile Include="DirectDownloadDlg.cpp" />
+    <ClCompile Include="DirectoryTreeCtrl.cpp" />
+    <ClCompile Include="DropDownButton.cpp" />
+    <ClCompile Include="DropTarget.cpp" />
+    <ClCompile Include="ED2kLinkDlg.cpp" />
+    <ClCompile Include="EditDelayed.cpp" />
+    <ClCompile Include="EditX.cpp" />
+    <ClCompile Include="EmuleDlg.cpp" />
+    <ClCompile Include="EnBitmap.cpp" />
+    <ClCompile Include="FileDetailDialog.cpp" />
+    <ClCompile Include="FileDetailDialogInfo.cpp" />
+    <ClCompile Include="FileDetailDialogName.cpp" />
+    <ClCompile Include="FileDetailDlgStatistics.cpp" />
+    <ClCompile Include="FileInfoDialog.cpp" />
+    <ClCompile Include="GDIThread.cpp" />
+    <ClCompile Include="HTRichEditCtrl.cpp" />
+    <ClCompile Include="HttpDownloadDlg.cpp" />
+    <ClCompile Include="HyperTextCtrl.cpp" />
+    <ClCompile Include="IconStatic.cpp" />
+    <ClCompile Include="IESecurity.cpp" />
+    <ClCompile Include="InputBox.cpp" />
+    <ClCompile Include="IPFilterDlg.cpp" />
+    <ClCompile Include="KadContactHistogramCtrl.cpp" />
+    <ClCompile Include="KademliaWnd.cpp" />
+    <ClCompile Include="KadLookupGraph.cpp" />
+    <ClCompile Include="LayeredWindowHelperST.cpp" />
+    <ClCompile Include="ListBoxST.cpp" />
+    <ClCompile Include="ListCtrlEditable.cpp" />
+    <ClCompile Include="ListCtrlX.cpp" />
+    <ClCompile Include="ListViewSearchDlg.cpp" />
+    <ClCompile Include="ListViewWalkerPropertySheet.cpp" />
+    <ClCompile Include="MetaDataDlg.cpp" />
+    <ClCompile Include="MeterIcon.cpp" />
+    <ClCompile Include="MiniMule.cpp" />
+    <ClCompile Include="MuleStatusBarCtrl.cpp" />
+    <ClCompile Include="MuleToolBarCtrl.cpp" />
+    <ClCompile Include="NetworkInfoDlg.cpp" />
+    <ClCompile Include="OScopeCtrl.cpp" />
+    <ClCompile Include="PPgConnection.cpp" />
+    <ClCompile Include="PPgDebug.cpp" />
+    <ClCompile Include="PPgDirectories.cpp" />
+    <ClCompile Include="PPgDisplay.cpp" />
+    <ClCompile Include="PPgFiles.cpp" />
+    <ClCompile Include="PPgGeneral.cpp" />
+    <ClCompile Include="PPgIRC.cpp" />
+    <ClCompile Include="PPgMessages.cpp" />
+    <ClCompile Include="PPgNotify.cpp" />
+    <ClCompile Include="PPgProxy.cpp" />
+    <ClCompile Include="PPgScheduler.cpp" />
+    <ClCompile Include="PPgSecurity.cpp" />
+    <ClCompile Include="PPgServer.cpp" />
+    <ClCompile Include="PPgStats.cpp" />
+    <ClCompile Include="PPgTweaks.cpp" />
+    <ClCompile Include="PPgWebServer.cpp" />
+    <ClCompile Include="PreferencesDlg.cpp" />
+    <ClCompile Include="PreviewDlg.cpp" />
+    <ClCompile Include="ProgressCtrlX.cpp" />
+    <ClCompile Include="PShtWiz1.cpp" />
+    <ClCompile Include="RichEditCtrlX.cpp" />
+    <ClCompile Include="RichEditStream.cpp" />
+    <ClCompile Include="SearchDlg.cpp" />
+    <ClCompile Include="SearchParamsWnd.cpp" />
+    <ClCompile Include="SearchResultsWnd.cpp" />
+    <ClCompile Include="ServerWnd.cpp" />
+    <ClCompile Include="SharedDirsTreeCtrl.cpp" />
+    <ClCompile Include="SharedFilesWnd.cpp" />
+    <ClCompile Include="SplashScreen.cpp" />
+    <ClCompile Include="SplitterControl.cpp" />
+    <ClCompile Include="StatisticsDlg.cpp" />
+    <ClCompile Include="StatisticsTree.cpp" />
+    <ClCompile Include="TabCtrl.cpp" />
+    <ClCompile Include="TaskbarNotifier.cpp" />
+    <ClCompile Include="TextToSpeech.cpp" />
+    <ClCompile Include="TitleMenu.cpp" />
+    <ClCompile Include="ToolBarCtrlX.cpp" />
+    <ClCompile Include="ToolbarWnd.cpp" />
+    <ClCompile Include="ToolTipCtrlX.cpp" />
+    <ClCompile Include="TransferDlg.cpp" />
+    <ClCompile Include="TransferWnd.cpp" />
+    <ClCompile Include="TreeOptionsCtrl.cpp" />
+    <ClCompile Include="TreeOptionsCtrlEx.cpp" />
+    <ClCompile Include="TreePropSheet.cpp" />
+    <ClCompile Include="TreePropSheetPgFrame.cpp" />
+    <ClCompile Include="TreePropSheetPgFrameDef.cpp" />
+    <ClCompile Include="VisualStylesXP.cpp" />
+    <ClCompile Include="WebServer.cpp" />
+    <ClCompile Include="Wizard.cpp" />
+    <ClCompile Include="XMessageBox.cpp" />
+    <ClCompile Include="ClientListCtrl.cpp" />
+    <ClCompile Include="CollectionListCtrl.cpp" />
+    <ClCompile Include="DownloadClientsCtrl.cpp" />
+    <ClCompile Include="DownloadListCtrl.cpp" />
+    <ClCompile Include="FriendListCtrl.cpp" />
+    <ClCompile Include="KadContactListCtrl.cpp" />
+    <ClCompile Include="KadSearchListCtrl.cpp" />
+    <ClCompile Include="MuleListCtrl.cpp" />
+    <ClCompile Include="QueueListCtrl.cpp" />
+    <ClCompile Include="SearchListCtrl.cpp" />
+    <ClCompile Include="ServerListCtrl.cpp" />
+    <ClCompile Include="SharedFilesCtrl.cpp" />
+    <ClCompile Include="UploadListCtrl.cpp" />
+    <ClCompile Include="GradientStatic.cpp" />
+    <ClCompile Include="MuleSystrayDlg.cpp" />
+    <ClCompile Include="TrayDialog.cpp" />
+    <ClCompile Include="TrayMenuBtn.cpp" />
+    <ClCompile Include="IrcChannelListCtrl.cpp" />
+    <ClCompile Include="IrcChannelTabCtrl.cpp" />
+    <ClCompile Include="IrcNickListCtrl.cpp" />
+    <ClCompile Include="IrcWnd.cpp" />
+    <ClCompile Include="Neo\Address.cpp" />
+    <ClCompile Include="Neo\Buffer.cpp" />
+    <ClCompile Include="Neo\UtpSocket.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="MD4_asm.asm">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">2</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">2</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='BETA|Win32'">2</WarningLevel>
+    </MASM>
+    <MASM Include="SHA_asm.asm">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">2</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">2</WarningLevel>
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='BETA|Win32'">2</WarningLevel>
+    </MASM>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Parser.y">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename)%(Extension)</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">bison --no-lines --defines --output "%(RootDir)%(Directory)%(Filename).cpp" "%(Filename)%(Extension)"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)\%(Filename).cpp; $(ProjectDir)\%(Filename).hpp;%(Outputs)</Outputs>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='BETA|Win32'">true</ExcludedFromBuild>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Custom Build Step</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='BETA|Win32'">Performing Custom Build Step</Message>
+    </CustomBuild>
+    <CustomBuild Include="Scanner.l">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename)%(Extension)</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">flex -L -o"$(ProjectDir)%(Filename).cpp" "%(FullPath)"
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)%(Filename).cpp;%(Outputs)</Outputs>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='BETA|Win32'">true</ExcludedFromBuild>
+    </CustomBuild>
+    <None Include="res\all.ico" />
+    <None Include="res\ArchivePreview.ico" />
+    <None Include="res\bold.ico" />
+    <None Include="res\Browse8.ico" />
+    <None Include="res\Cancel.ico" />
+    <None Include="res\Category.ico" />
+    <None Include="res\Chat.ico" />
+    <None Include="res\clear1.ico" />
+    <None Include="res\clear2.ico" />
+    <None Include="res\Client0.ico" />
+    <None Include="res\Client1.ico" />
+    <None Include="res\Client2.ico" />
+    <None Include="res\Client3.ico" />
+    <None Include="res\Client4.ico" />
+    <None Include="res\ClientaMule.ico" />
+    <None Include="res\ClientaMulePlus.ico" />
+    <None Include="res\ClientCompatible.ico" />
+    <None Include="res\ClientCompatiblePlus.ico" />
+    <None Include="res\ClientDefault.ico" />
+    <None Include="res\ClientDefaultPlus.ico" />
+    <None Include="res\ClienteDonkeyHybrid.ico" />
+    <None Include="res\ClienteDonkeyHybridPlus.ico" />
+    <None Include="res\ClientFriend.ico" />
+    <None Include="res\ClientFriendPlus.ico" />
+    <None Include="res\ClientlPhant.ico" />
+    <None Include="res\ClientlPhantPlus.ico" />
+    <None Include="res\clientml.ico" />
+    <None Include="res\ClientMLDonkey.ico" />
+    <None Include="res\ClientMLDonkeyPlus.ico" />
+    <None Include="res\Clientobfuovl.ICO" />
+    <None Include="res\ClientSecureHashOvl.ico" />
+    <None Include="res\Clientsecurehasobfuhovl.ICO" />
+    <None Include="res\ClientShareaza.ico" />
+    <None Include="res\ClientShareazaPlus.ico" />
+    <None Include="res\ClientsKnown.ico" />
+    <None Include="res\ClientsOnQueue.ico" />
+    <None Include="res\CloseTab.ico" />
+    <None Include="res\CloseTabSelected.ico" />
+    <None Include="res\Collapse.ico" />
+    <None Include="res\colour.ico" />
+    <None Include="res\ConnectDo.ico" />
+    <None Include="res\ConnectDrop.ico" />
+    <None Include="res\Connected.gif" />
+    <None Include="res\ConnectedHighHigh.gif" />
+    <None Include="res\ConnectedHighHigh.ico" />
+    <None Include="res\ConnectedHighLow.gif" />
+    <None Include="res\ConnectedHighLow.ico" />
+    <None Include="res\ConnectedHighNot.gif" />
+    <None Include="res\ConnectedHighNot.ico" />
+    <None Include="res\ConnectedLowHigh.gif" />
+    <None Include="res\ConnectedLowHigh.ico" />
+    <None Include="res\ConnectedLowLow.gif" />
+    <None Include="res\ConnectedLowLow.ico" />
+    <None Include="res\ConnectedLowNot.gif" />
+    <None Include="res\ConnectedLowNot.ico" />
+    <None Include="res\ConnectedNotHigh.gif" />
+    <None Include="res\ConnectedNotHigh.ico" />
+    <None Include="res\ConnectedNotLow.gif" />
+    <None Include="res\ConnectedNotLow.ico" />
+    <None Include="res\ConnectedNotNot.gif" />
+    <None Include="res\ConnectedNotNot.ico" />
+    <None Include="res\Connection.ico" />
+    <None Include="res\ConnectStop.ico" />
+    <None Include="res\Contact0.ico" />
+    <None Include="res\Contact1.ico" />
+    <None Include="res\Contact2.ico" />
+    <None Include="res\Contact3.ico" />
+    <None Include="res\Contact4.ico" />
+    <None Include="res\Convert.ico" />
+    <None Include="res\Copy.ico" />
+    <None Include="res\CopySelected.ico" />
+    <None Include="res\CopyVisible.ico" />
+    <None Include="res\Delete.ico" />
+    <None Include="res\DeleteAll.ico" />
+    <None Include="res\DeleteSelected.ico" />
+    <None Include="res\DirectDownload.ico" />
+    <None Include="res\Display.ico" />
+    <None Include="res\Download.gif" />
+    <None Include="res\Download.ico" />
+    <None Include="res\DownloadFiles.ico" />
+    <None Include="res\DROPICON.ICO" />
+    <None Include="res\eD2kLink.ico" />
+    <None Include="res\eD2kLinkPaste.ico" />
+    <None Include="res\Empty.ico" />
+    <None Include="res\emule.rc2" />
+    <None Include="res\emuleCollAdd.ico" />
+    <None Include="res\emuleCollectionFileType.ico" />
+    <None Include="res\emuleCollEdit.ico" />
+    <None Include="res\emuleCollSearch.ico" />
+    <None Include="res\emuleCollView.ico" />
+    <None Include="res\Exit.ico" />
+    <None Include="res\ExpandAll.ico" />
+    <None Include="res\ExpandAll2.ico" />
+    <None Include="res\ExportAll.ico" />
+    <None Include="res\FileComments.ico" />
+    <None Include="res\FileCommentsOvl.ico" />
+    <None Include="res\FileDonkey.ico" />
+    <None Include="res\fileimportparts.ico" />
+    <None Include="res\FileInfo.gif" />
+    <None Include="res\FileInfo.ico" />
+    <None Include="res\FileMassRename.ico" />
+    <None Include="res\FileOpen.ico" />
+    <None Include="res\FilePriority.ico" />
+    <None Include="res\FileRating0.ico" />
+    <None Include="res\FileRating1.ico" />
+    <None Include="res\FileRating2.ico" />
+    <None Include="res\FileRating3.ico" />
+    <None Include="res\FileRating4.ico" />
+    <None Include="res\FileRating5.ico" />
+    <None Include="res\FileRename.ico" />
+    <None Include="res\FileRequested.ico" />
+    <None Include="res\FileSharedKad.ico" />
+    <None Include="res\FileSharedServer.ico" />
+    <None Include="res\FileTypeAny.ico" />
+    <None Include="res\FileTypeArchive.ico" />
+    <None Include="res\FileTypeAudio.ico" />
+    <None Include="res\FileTypeCDImage.ico" />
+    <None Include="res\FileTypeDocument.ico" />
+    <None Include="res\FileTypeEmuleCollection.ico" />
+    <None Include="res\FileTypePicture.ico" />
+    <None Include="res\FileTypeProgram.ico" />
+    <None Include="res\FileTypeVideo.ico" />
+    <None Include="res\FolderOpen.ico" />
+    <None Include="res\Folders.ico" />
+    <None Include="res\Friend.ico" />
+    <None Include="res\Friends1.ico" />
+    <None Include="res\friends1slot.ICO" />
+    <None Include="res\Friends2.ico" />
+    <None Include="res\friends2slot.ICO" />
+    <None Include="res\Friends3.ico" />
+    <None Include="res\friends3slot.ICO" />
+    <None Include="res\FriendSlot.ico" />
+    <None Include="res\FriendSlotOvl.ico" />
+    <None Include="res\Global.ico" />
+    <None Include="res\HardDisk.gif" />
+    <None Include="res\HardDisk.ico" />
+    <None Include="res\Help.ico" />
+    <None Include="res\Import.ico" />
+    <None Include="res\Incoming.gif" />
+    <None Include="res\Incoming.ico" />
+    <None Include="res\incomplete.ico" />
+    <None Include="res\InetDownload.avi" />
+    <None Include="res\Info.ico" />
+    <None Include="res\IPFilter.ico" />
+    <None Include="res\IRC.ico" />
+    <None Include="res\IRCClipboard.ico" />
+    <None Include="res\Kad.ico" />
+    <None Include="res\KadBootstrap.ico" />
+    <None Include="res\KadContactList.ico" />
+    <None Include="res\KadCurrentSearches.ico" />
+    <None Include="res\KadFileSearch.ico" />
+    <None Include="res\KadNodeSearch.ico" />
+    <None Include="res\KadServer.ico" />
+    <None Include="res\KadStoreFile.ico" />
+    <None Include="res\KadStoreWord.ico" />
+    <None Include="res\KadWordSearch.ico" />
+    <None Include="res\leecher.ICO" />
+    <None Include="res\ListAdd.ico" />
+    <None Include="res\ListRemove.ico" />
+    <None Include="res\ListViewSortDown.bmp" />
+    <None Include="res\ListViewSortDown2x.bmp" />
+    <None Include="res\ListViewSortUp.bmp" />
+    <None Include="res\ListViewSortUp2x.bmp" />
+    <None Include="res\Log.ico" />
+    <None Include="res\Logo.jpg" />
+    <None Include="res\MediaInfo.ico" />
+    <None Include="res\Message.ico" />
+    <None Include="res\MessagePending.ico" />
+    <None Include="res\Messages.ico" />
+    <None Include="res\MetaData.ico" />
+    <None Include="res\MiniMule.htm">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="res\MiniMuleBack.gif" />
+    <None Include="res\Mule.ico" />
+    <None Include="res\mule_wiz.gif" />
+    <None Include="res\mule_wiz_hdr.gif" />
+    <None Include="res\NavigateBack.ico" />
+    <None Include="res\NavigateForward.ico" />
+    <None Include="res\NoAccessFolderOvl.ico" />
+    <None Include="res\Notifications.ico" />
+    <None Include="res\Pause.ico" />
+    <None Include="res\Preferences.gif" />
+    <None Include="res\Preferences.ico" />
+    <None Include="res\Preview.ico" />
+    <None Include="res\Priority.ico" />
+    <None Include="res\Proxy.ico" />
+    <None Include="res\Records.ico" />
+    <None Include="res\Rename.ico" />
+    <None Include="res\resetformat.ico" />
+    <None Include="res\Restore.ico" />
+    <None Include="res\RestoreWindow.gif" />
+    <None Include="res\RestoreWindow.ico" />
+    <None Include="res\Scheduler.ico" />
+    <None Include="res\Search.ico" />
+    <None Include="res\SearchEdit.ico" />
+    <None Include="res\SearchGlobalActive.ico" />
+    <None Include="res\SearchKad.ico" />
+    <None Include="res\SearchKadActive.ico" />
+    <None Include="res\SearchParams.ico" />
+    <None Include="res\SearchResults.ico" />
+    <None Include="res\SearchServerActive.ico" />
+    <None Include="res\Security.ico" />
+    <None Include="res\Server.ico" />
+    <None Include="res\ServerAdd.ico" />
+    <None Include="res\ServerInfo.ico" />
+    <None Include="res\ServerList.ico" />
+    <None Include="res\ServerSearch.ico" />
+    <None Include="res\ServersUpdate.ico" />
+    <None Include="res\SharedFiles.ico" />
+    <None Include="res\SharedFilesList.ico" />
+    <None Include="res\SharedFolderOvl.ico" />
+    <None Include="res\Smiley_Cry.ico" />
+    <None Include="res\Smiley_Disgust.ico" />
+    <None Include="res\Smiley_Happy.ico" />
+    <None Include="res\Smiley_Interest.ico" />
+    <None Include="res\Smiley_Laugh.ico" />
+    <None Include="res\Smiley_lookside.ico" />
+    <None Include="res\Smiley_Love.ico" />
+    <None Include="res\Smiley_omg.ico" />
+    <None Include="res\Smiley_Ph34r.ico" />
+    <None Include="res\Smiley_Sad.ico" />
+    <None Include="res\Smiley_sadq.ico" />
+    <None Include="res\Smiley_Sealed.ico" />
+    <None Include="res\Smiley_Skeptic.ico" />
+    <None Include="res\Smiley_Smile.ico" />
+    <None Include="res\Smiley_smileq.ico" />
+    <None Include="res\Smiley_Tongue.ico" />
+    <None Include="res\Smiley_Wink.ico" />
+    <None Include="res\Spam.ico" />
+    <None Include="res\Speed.ico" />
+    <None Include="res\SpeedMax.ico" />
+    <None Include="res\SpeedMin.ico" />
+    <None Include="res\SplitWindow.ico" />
+    <None Include="res\Start.ico" />
+    <None Include="res\Statistics.ico" />
+    <None Include="res\StatisticsDetail.ico" />
+    <None Include="res\StatsCumulative.ico" />
+    <None Include="res\StatsDay.ico" />
+    <None Include="res\StatsGeneric.ico" />
+    <None Include="res\StatsMonth.ico" />
+    <None Include="res\StatsProjected.ico" />
+    <None Include="res\StatsTime.ico" />
+    <None Include="res\StatsYear.ico" />
+    <None Include="res\Stop.ico" />
+    <None Include="res\TaskbarNotifier.gif" />
+    <None Include="res\Tools.ico" />
+    <None Include="res\Transfer.ico" />
+    <None Include="res\TransferUpDown.ico" />
+    <None Include="res\TrayBtnBlue.bmp" />
+    <None Include="res\TrayBtnHomestead.bmp" />
+    <None Include="res\TrayBtnMetallic.bmp" />
+    <None Include="res\TrayConnected.ico" />
+    <None Include="res\TrayDisconnected.ico" />
+    <None Include="res\TrayLowID.ico" />
+    <None Include="res\Tweak.ico" />
+    <None Include="res\underline.ico" />
+    <None Include="res\Up0down0.ico" />
+    <None Include="res\Up0down1.ico" />
+    <None Include="res\Up1down0.ico" />
+    <None Include="res\Up1down1.ico" />
+    <None Include="res\Upload.gif" />
+    <None Include="res\Upload.ico" />
+    <None Include="res\User.ico" />
+    <None Include="res\UserAdd.ico" />
+    <None Include="res\UserDelete.ico" />
+    <None Include="res\UserDetails.ico" />
+    <None Include="res\UserFiles.ico" />
+    <None Include="res\UserMessage.ico" />
+    <None Include="res\Web.ico" />
+    <None Include="res\WideCharLowerMap.bin" />
+    <None Include="res\Wizard.ico" />
+    <None Include="..\setup\eMule Light.tmpl" />
+    <None Include="..\setup\eMule.tmpl" />
+    <None Include="..\setup\staticservers.dat" />
+    <None Include="..\setup\Template.eMuleSkin.ini" />
+    <None Include="..\setup\webservices.dat" />
+    <None Include="..\docs\kademlia\changelog.txt" />
+    <None Include="..\docs\readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AbstractFile.h" />
+    <ClInclude Include="AICHSyncThread.h" />
+    <ClInclude Include="ArchiveRecovery.h" />
+    <ClInclude Include="AsyncProxySocketLayer.h" />
+    <ClInclude Include="AsyncSocketEx.h" />
+    <ClInclude Include="AsyncSocketExLayer.h" />
+    <ClInclude Include="CaptchaGenerator.h" />
+    <ClInclude Include="CBase64Coding.hpp" />
+    <ClInclude Include="ClientCredits.h" />
+    <ClInclude Include="ClientList.h" />
+    <ClInclude Include="ClientStateDefs.h" />
+    <ClInclude Include="ClientUDPSocket.h" />
+    <ClInclude Include="ClientVersionInfo.h" />
+    <ClInclude Include="Collection.h" />
+    <ClInclude Include="CollectionFile.h" />
+    <ClInclude Include="CommentListCtrl.h" />
+    <ClInclude Include="CorruptionBlackBox.h" />
+    <ClInclude Include="DeadSourceList.h" />
+    <ClInclude Include="Debug_FileSize.h" />
+    <ClInclude Include="DebugHelpers.h" />
+    <ClInclude Include="DLP.h" />
+    <ClInclude Include="DownloadQueue.h" />
+    <ClInclude Include="ED2KLink.h" />
+    <ClInclude Include="EMSocket.h" />
+    <ClInclude Include="Emule.h" />
+    <ClInclude Include="emule_site_config.h" />
+    <ClInclude Include="EncryptedDatagramSocket.h" />
+    <ClInclude Include="EncryptedStreamSocket.h" />
+    <ClInclude Include="Exceptions.h" />
+    <ClInclude Include="FileIdentifier.h" />
+    <ClInclude Include="FirewallOpener.h" />
+    <ClInclude Include="FrameGrabThread.h" />
+    <ClInclude Include="Friend.h" />
+    <ClInclude Include="FriendList.h" />
+    <ClInclude Include="GZipFile.h" />
+    <ClInclude Include="HttpClientReqSocket.h" />
+    <ClInclude Include="Ini2.h" />
+    <ClInclude Include="IPFilter.h" />
+    <ClInclude Include="kademlia\utils\KadClientSearcher.h" />
+    <ClInclude Include="kademlia\utils\KadUDPKey.h" />
+    <ClInclude Include="KnownFile.h" />
+    <ClInclude Include="KnownFileList.h" />
+    <ClInclude Include="langids.h" />
+    <ClInclude Include="LastCommonRouteFinder.h" />
+    <ClInclude Include="ListenSocket.h" />
+    <ClInclude Include="Log.h" />
+    <ClInclude Include="MapKey.h" />
+    <ClInclude Include="MD4.h" />
+    <ClInclude Include="MD5Sum.h" />
+    <ClInclude Include="Mdump.h" />
+    <ClInclude Include="MediaInfo.h" />
+    <ClInclude Include="MMServer.h" />
+    <ClInclude Include="MMSocket.h" />
+    <ClInclude Include="Opcodes.h" />
+    <ClInclude Include="OtherFunctions.h" />
+    <ClInclude Include="Packets.h" />
+    <ClInclude Include="PartFile.h" />
+    <ClInclude Include="PartFileConvert.h" />
+    <ClInclude Include="PeerCacheFinder.h" />
+    <ClInclude Include="PeerCacheSocket.h" />
+    <ClInclude Include="PerfLog.h" />
+    <ClInclude Include="Pinger.h" />
+    <ClInclude Include="PPgXtreme2.h" />
+    <ClInclude Include="Preferences.h" />
+    <ClInclude Include="Preview.h" />
+    <ClInclude Include="QArray.h" />
+    <ClInclude Include="Quantize.h" />
+    <ClInclude Include="RARFile.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="SafeFile.h" />
+    <ClInclude Include="Scheduler.h" />
+    <ClInclude Include="SearchFile.h" />
+    <ClInclude Include="SearchList.h" />
+    <ClInclude Include="SecRunAsUser.h" />
+    <ClInclude Include="SendMail.h" />
+    <ClInclude Include="Server.h" />
+    <ClInclude Include="ServerList.h" />
+    <ClInclude Include="ServerSocket.h" />
+    <ClInclude Include="SHA.h" />
+    <ClInclude Include="SHAHashSet.h" />
+    <ClInclude Include="ShareableFile.h" />
+    <ClInclude Include="SharedFileList.h" />
+    <ClInclude Include="SmileySelector.h" />
+    <ClInclude Include="Sockets.h" />
+    <ClInclude Include="StatisticFile.h" />
+    <ClInclude Include="Statistics.h" />
+    <ClInclude Include="Stdafx.h" />
+    <ClInclude Include="StringConversion.h" />
+    <ClInclude Include="ThrottledSocket.h" />
+    <ClInclude Include="TimeTick.h" />
+    <ClInclude Include="Types.h" />
+    <ClInclude Include="UDPSocket.h" />
+    <ClInclude Include="UpdownClient.h" />
+    <ClInclude Include="UploadBandwidthThrottler.h" />
+    <ClInclude Include="UploadQueue.h" />
+    <ClInclude Include="UPnPImpl.h" />
+    <ClInclude Include="UPnPImplMiniLib.h" />
+    <ClInclude Include="UPnPImplWinServ.h" />
+    <ClInclude Include="URLClient.h" />
+    <ClInclude Include="Version.h" />
+    <ClInclude Include="VistaDefines.h" />
+    <ClInclude Include="WebServices.h" />
+    <ClInclude Include="WebSocket.h" />
+    <ClInclude Include="ZIPFile.h" />
+    <ClInclude Include="kademlia\io\BufferedFileIO.h" />
+    <ClInclude Include="kademlia\io\ByteIO.h" />
+    <ClInclude Include="kademlia\routing\Contact.h" />
+    <ClInclude Include="kademlia\io\DataIO.h" />
+    <ClInclude Include="kademlia\kademlia\Defines.h" />
+    <ClInclude Include="kademlia\kademlia\Entry.h" />
+    <ClInclude Include="kademlia\kademlia\Error.h" />
+    <ClInclude Include="kademlia\io\FileIO.h" />
+    <ClInclude Include="kademlia\kademlia\Indexed.h" />
+    <ClInclude Include="kademlia\io\IOException.h" />
+    <ClInclude Include="kademlia\kademlia\Kademlia.h" />
+    <ClInclude Include="kademlia\net\KademliaUDPListener.h" />
+    <ClInclude Include="kademlia\utils\LittleEndian.h" />
+    <ClInclude Include="kademlia\utils\LookupHistory.h" />
+    <ClInclude Include="kademlia\routing\Maps.h" />
+    <ClInclude Include="kademlia\utils\MiscUtils.h" />
+    <ClInclude Include="kademlia\net\PacketTracking.h" />
+    <ClInclude Include="kademlia\kademlia\Prefs.h" />
+    <ClInclude Include="kademlia\routing\RoutingBin.h" />
+    <ClInclude Include="kademlia\routing\RoutingZone.h" />
+    <ClInclude Include="kademlia\kademlia\Search.h" />
+    <ClInclude Include="kademlia\kademlia\SearchManager.h" />
+    <ClInclude Include="kademlia\kademlia\Tag.h" />
+    <ClInclude Include="kademlia\utils\ThreadName.h" />
+    <ClInclude Include="kademlia\kademlia\UDPFirewallTester.h" />
+    <ClInclude Include="kademlia\utils\UInt128.h" />
+    <ClInclude Include="IrcMain.h" />
+    <ClInclude Include="IrcSocket.h" />
+    <ClInclude Include="ToolbarWnd.h" />
+    <ClInclude Include="3DPreviewControl.h" />
+    <ClInclude Include="AddFriend.h" />
+    <ClInclude Include="AddSourceDlg.h" />
+    <ClInclude Include="AfxBeginMsgMapTemplate.h" />
+    <ClInclude Include="ArchivePreviewDlg.h" />
+    <ClInclude Include="BarShader.h" />
+    <ClInclude Include="BtnST.h" />
+    <ClInclude Include="ButtonsTabCtrl.h" />
+    <ClInclude Include="CatDialog.h" />
+    <ClInclude Include="ChatSelector.h" />
+    <ClInclude Include="ChatWnd.h" />
+    <ClInclude Include="ClientDetailDialog.h" />
+    <ClInclude Include="ClosableTabCtrl.h" />
+    <ClInclude Include="CollectionCreateDialog.h" />
+    <ClInclude Include="CollectionViewDialog.h" />
+    <ClInclude Include="ColorButton.h" />
+    <ClInclude Include="ColorFrameCtrl.h" />
+    <ClInclude Include="ColourPopup.h" />
+    <ClInclude Include="ComboBoxEx2.h" />
+    <ClInclude Include="CommentDialog.h" />
+    <ClInclude Include="CommentDialogLst.h" />
+    <ClInclude Include="CreditsDlg.h" />
+    <ClInclude Include="CreditsThread.h" />
+    <ClInclude Include="CustomAutoComplete.h" />
+    <ClInclude Include="DialogMinTrayBtn.h" />
+    <ClInclude Include="DirectDownloadDlg.h" />
+    <ClInclude Include="DirectoryTreeCtrl.h" />
+    <ClInclude Include="Drawgdix.h" />
+    <ClInclude Include="DropDownButton.h" />
+    <ClInclude Include="DropTarget.h" />
+    <ClInclude Include="ED2kLinkDlg.h" />
+    <ClInclude Include="EditDelayed.h" />
+    <ClInclude Include="EditX.h" />
+    <ClInclude Include="EmuleDlg.h" />
+    <ClInclude Include="EnBitmap.h" />
+    <ClInclude Include="FileDetailDialog.h" />
+    <ClInclude Include="FileDetailDialogInfo.h" />
+    <ClInclude Include="FileDetailDialogName.h" />
+    <ClInclude Include="FileDetailDlgStatistics.h" />
+    <ClInclude Include="FileInfoDialog.h" />
+    <ClInclude Include="GDIThread.h" />
+    <ClInclude Include="HelpIDs.h" />
+    <ClInclude Include="HighColorTab.hpp" />
+    <ClInclude Include="HTRichEditCtrl.h" />
+    <ClInclude Include="HttpDownloadDlg.h" />
+    <ClInclude Include="HyperTextCtrl.h" />
+    <ClInclude Include="IconStatic.h" />
+    <ClInclude Include="IESecurity.h" />
+    <ClInclude Include="InputBox.h" />
+    <ClInclude Include="IPFilterDlg.h" />
+    <ClInclude Include="KadContactHistogramCtrl.h" />
+    <ClInclude Include="KademliaWnd.h" />
+    <ClInclude Include="KadLookupGraph.h" />
+    <ClInclude Include="LayeredWindowHelperST.h" />
+    <ClInclude Include="ListBoxST.h" />
+    <ClInclude Include="ListCtrlEditable.h" />
+    <ClInclude Include="ListCtrlItemWalk.h" />
+    <ClInclude Include="ListCtrlX.h" />
+    <ClInclude Include="ListViewSearchDlg.h" />
+    <ClInclude Include="ListViewWalkerPropertySheet.h" />
+    <ClInclude Include="MemDC.h" />
+    <ClInclude Include="MenuCmds.h" />
+    <ClInclude Include="MetaDataDlg.h" />
+    <ClInclude Include="MeterIcon.h" />
+    <ClInclude Include="MiniMule.h" />
+    <ClInclude Include="MuleStatusBarCtrl.h" />
+    <ClInclude Include="MuleToolBarCtrl.h" />
+    <ClInclude Include="NetworkInfoDlg.h" />
+    <ClInclude Include="OScopeCtrl.h" />
+    <ClInclude Include="Parser.hpp" />
+    <ClInclude Include="PPgConnection.h" />
+    <ClInclude Include="PPgDebug.h" />
+    <ClInclude Include="PPgDirectories.h" />
+    <ClInclude Include="PPgDisplay.h" />
+    <ClInclude Include="PPgFiles.h" />
+    <ClInclude Include="PPgGeneral.h" />
+    <ClInclude Include="PPgIRC.h" />
+    <ClInclude Include="PPgMessages.h" />
+    <ClInclude Include="PPgNotify.h" />
+    <ClInclude Include="PPgProxy.h" />
+    <ClInclude Include="PPgScheduler.h" />
+    <ClInclude Include="PPgSecurity.h" />
+    <ClInclude Include="PPgServer.h" />
+    <ClInclude Include="PPgStats.h" />
+    <ClInclude Include="PPgTweaks.h" />
+    <ClInclude Include="PPgWebServer.h" />
+    <ClInclude Include="PreferencesDlg.h" />
+    <ClInclude Include="PreviewDlg.h" />
+    <ClInclude Include="ProgressCtrlX.h" />
+    <ClInclude Include="RichEditCtrlX.h" />
+    <ClInclude Include="RichEditStream.h" />
+    <ClInclude Include="Scanner.h" />
+    <ClInclude Include="SearchDlg.h" />
+    <ClInclude Include="SearchExpr.h" />
+    <ClInclude Include="SearchParams.h" />
+    <ClInclude Include="SearchParamsWnd.h" />
+    <ClInclude Include="SearchResultsWnd.h" />
+    <ClInclude Include="ServerWnd.h" />
+    <ClInclude Include="SharedDirsTreeCtrl.h" />
+    <ClInclude Include="SharedFilesWnd.h" />
+    <ClInclude Include="SplashScreen.h" />
+    <ClInclude Include="SplitterControl.h" />
+    <ClInclude Include="StatisticsDlg.h" />
+    <ClInclude Include="StatisticsTree.h" />
+    <ClInclude Include="TabCtrl.hpp" />
+    <ClInclude Include="TaskbarNotifier.h" />
+    <ClInclude Include="TextToSpeech.h" />
+    <ClInclude Include="TitleMenu.h" />
+    <ClInclude Include="ToolBarCtrlX.h" />
+    <ClInclude Include="ToolTipCtrlX.h" />
+    <ClInclude Include="TransferDlg.h" />
+    <ClInclude Include="TransferWnd.h" />
+    <ClInclude Include="TreeOptionsCtrl.h" />
+    <ClInclude Include="TreeOptionsCtrlEx.h" />
+    <ClInclude Include="TreePropSheet.h" />
+    <ClInclude Include="TreePropSheetPgFrame.h" />
+    <ClInclude Include="TreePropSheetPgFrameDef.h" />
+    <ClInclude Include="UPnPImplWrapper.h" />
+    <ClInclude Include="UserMsgs.h" />
+    <ClInclude Include="VisualStylesXP.h" />
+    <ClInclude Include="WebServer.h" />
+    <ClInclude Include="Wizard.h" />
+    <ClInclude Include="XMessageBox.h" />
+    <ClInclude Include="ClientListCtrl.h" />
+    <ClInclude Include="CollectionListCtrl.h" />
+    <ClInclude Include="DownloadClientsCtrl.h" />
+    <ClInclude Include="DownloadListCtrl.h" />
+    <ClInclude Include="FriendListCtrl.h" />
+    <ClInclude Include="KadContactListCtrl.h" />
+    <ClInclude Include="KadSearchListCtrl.h" />
+    <ClInclude Include="MuleListCtrl.h" />
+    <ClInclude Include="QueueListCtrl.h" />
+    <ClInclude Include="SearchListCtrl.h" />
+    <ClInclude Include="ServerListCtrl.h" />
+    <ClInclude Include="SharedFilesCtrl.h" />
+    <ClInclude Include="UploadListCtrl.h" />
+    <ClInclude Include="GradientStatic.h" />
+    <ClInclude Include="MuleSystrayDlg.h" />
+    <ClInclude Include="TrayDialog.h" />
+    <ClInclude Include="TrayMenuBtn.h" />
+    <ClInclude Include="IrcChannelListCtrl.h" />
+    <ClInclude Include="IrcChannelTabCtrl.h" />
+    <ClInclude Include="IrcNickListCtrl.h" />
+    <ClInclude Include="IrcWnd.h" />
+    <ClInclude Include="Neo\Address.h" />
+    <ClInclude Include="Neo\Buffer.h" />
+    <ClInclude Include="Neo\NeoConfig.h" />
+    <ClInclude Include="Neo\UtpSocket.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="emule.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="emule.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
