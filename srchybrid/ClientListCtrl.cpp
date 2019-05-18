@@ -165,6 +165,7 @@ void CClientListCtrl::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	CRect rcClient;
 	GetClientRect(&rcClient);
 	const CUpDownClient *client = (CUpDownClient *)lpDrawItemStruct->itemData;
+	COLORREF crOldBackColor = dc->GetBkColor(); //Xman show LowIDs
 
 	CHeaderCtrl *pHeaderCtrl = GetHeaderCtrl();
 	int iCount = pHeaderCtrl->GetItemCount();
@@ -222,7 +223,12 @@ void CClientListCtrl::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 					}
 
 					default:
+						//Xman show LowIDs
+						if(iColumn == 5 && client->HasLowID()) 
+							dc.SetBkColor(RGB(255,250,200));
+						//Xman End
 						dc.DrawText(szItem, -1, &cur_rec, MLC_DT_TEXT | uDrawTextAlignment);
+						dc.SetBkColor(crOldBackColor); //Xman show LowIDs
 						break;
 				}
 			}
@@ -266,7 +272,12 @@ void CClientListCtrl::GetItemDisplayText(const CUpDownClient *client, int iSubIt
 			break;
 
 		case 5:
+			// Maella -Support for tag ET_MOD_VERSION 0x55
+			/*
 			_tcsncpy(pszText, client->GetClientSoftVer(), cchTextMax);
+			*/
+			_tcsncpy(pszText, client->DbgGetFullClientSoftVer(), cchTextMax);
+			//Xman end
 			if (pszText[0] == _T('\0'))
 				_tcsncpy(pszText, GetResString(IDS_UNKNOWN), cchTextMax);
 			break;
@@ -391,10 +402,24 @@ int CClientListCtrl::SortProc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
 			break;
 
 		case 5:
+			//Xman
+			// Maella -Support for tag ET_MOD_VERSION 0x55
+			/*
 			if (item1->GetClientSoft() == item2->GetClientSoft())
 			    iResult = item1->GetVersion() - item2->GetVersion();
 		    else 
 				iResult = -(item1->GetClientSoft() - item2->GetClientSoft()); // invert result to place eMule's at top
+			*/
+			if(item1->GetClientSoft() == item2->GetClientSoft())
+				if(item1->GetVersion() == item2->GetVersion() && (item1->GetClientSoft() == SO_EMULE || item1->GetClientSoft() == SO_AMULE)){
+					iResult = item2->DbgGetFullClientSoftVer().CompareNoCase( item1->DbgGetFullClientSoftVer());
+				}
+				else {
+					iResult = item1->GetVersion() - item2->GetVersion();
+				}
+			else
+				iResult = -(item1->GetClientSoft() - item2->GetClientSoft()); // invert result to place eMule's at top
+			//Xman end
 			break;
 
 		case 6:

@@ -60,27 +60,6 @@ static char THIS_FILE[] = __FILE__;
 
 CPreferences thePrefs;
 
-//Xman Anti-Leecher
-bool CPreferences::m_antileecher;
-bool CPreferences::m_antileechername;
-bool CPreferences::m_antighost;
-bool CPreferences::m_antileecherbadhello;
-bool CPreferences::m_antileechersnafu;
-bool CPreferences::m_antileechermod;
-bool CPreferences::m_antileecherthief;
-bool CPreferences::m_antileecherspammer;
-bool CPreferences::m_antileecherxsexploiter;
-bool CPreferences::m_antileecheremcrypt;
-bool CPreferences::m_antileecheruserhash;
-bool CPreferences::m_antileechercommunity_action;
-bool CPreferences::m_antileecherghost_action;
-bool CPreferences::m_antileecherthief_action;
-//X-Ray :: Fincan Hash Detection :: Start
-bool CPreferences::m_antileecherFincan;
-CString CPreferences::m_antileecherFincanURL;
-//X-Ray :: Fincan Hash Detection :: End
-//Xman end
-
 CString CPreferences::m_astrDefaultDirs[13];
 bool	CPreferences::m_abDefaultDirsCreated[13] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 int		CPreferences::m_nCurrentUserDirMode = -1;
@@ -894,27 +873,6 @@ void CPreferences::SaveStats(int bBackUp){
 	ini.WriteUInt64(L"UpOverheadServerPackets", theStats.GetUpDataOverheadServerPackets() + GetUpOverheadServerPackets());
 	ini.WriteUInt64(L"UpOverheadKadPackets", theStats.GetUpDataOverheadKadPackets() + GetUpOverheadKadPackets());
 
-	//Xman Anti-Leecher
-	ini.WriteBool(L"AntiLeecher",m_antileecher);
-	ini.WriteBool(L"AntiLeecherName", m_antileechername);
-	ini.WriteBool(L"AntiGhost", m_antighost);
-	ini.WriteBool(L"AntiLeecherBadHello", m_antileecherbadhello);
-	ini.WriteBool(L"AntiLeecherSnafu", m_antileechersnafu);
-	ini.WriteBool(L"AntiLeecherMod", m_antileechermod);
-	ini.WriteBool(L"AntiLeecherThief", m_antileecherthief);
-	ini.WriteBool(L"AntiLeecherSpammer", m_antileecherspammer);
-	ini.WriteBool(L"AntiLeecherXSExploiter", m_antileecherxsexploiter);
-	ini.WriteBool(L"AntiLeecheremcrypt", m_antileecheremcrypt);
-	ini.WriteBool(L"AntiLeecherUserhash", m_antileecheruserhash);
-	ini.WriteBool(L"AntiLeecherCommunity_Action", m_antileechercommunity_action);
-	ini.WriteBool(L"AntiLeecherGhost_Action", m_antileecherghost_action);
-	ini.WriteBool(L"AntiLeecherThief_Action", m_antileecherthief_action);
-	//X-Ray :: Fincan Hash Detection :: Start
-	ini.WriteBool(L"AntiLeecherFincan", m_antileecherFincan);
-	ini.WriteString(_T("AntiLeecherFincanURL"), m_antileecherFincanURL);
-	//X-Ray :: Fincan Hash Detection :: End
-	//Xman end
-
 	// Save Cumulative Connection Statistics
 	float tempRate = 0.0F;
 
@@ -1360,27 +1318,6 @@ bool CPreferences::LoadStats(int loadBackUp)
 	cumConnAvgConnections			= ini.GetInt(L"ConnAvgConnections");
 	cumConnMaxConnLimitReached		= ini.GetInt(L"ConnMaxConnLimitReached");
 	cumConnPeakConnections			= ini.GetInt(L"ConnPeakConnections");
-
-	//Xman Anti-Leecher
-	m_antileecher=ini.GetBool(L"AntiLeecher",true);
-	m_antileechername=ini.GetBool(L"AntiLeecherName",true);
-	m_antighost=ini.GetBool(L"AntiGhost",true);
-	m_antileecherbadhello= ini.GetBool(L"AntiLeecherBadHello", true );
-	m_antileechersnafu= ini.GetBool(L"AntiLeecherSnafu", true);
-	m_antileechermod= ini.GetBool(L"AntiLeecherMod", true);
-	m_antileecherthief=ini.GetBool(L"AntiLeecherThief", true);
-	m_antileecherspammer= ini.GetBool(L"AntiLeecherSpammer", true);
-	m_antileecherxsexploiter= ini.GetBool(L"AntiLeecherXSExploiter", true);
-	m_antileecheremcrypt= ini.GetBool(L"AntiLeecheremcrypt", true);
-	m_antileecheruserhash= ini.GetBool(L"AntiLeecherUserhash", true);
-	m_antileechercommunity_action= ini.GetBool(L"AntiLeecherCommunity_Action", true);
-	m_antileecherghost_action= ini.GetBool(L"AntiLeecherGhost_Action", true);
-	m_antileecherthief_action= ini.GetBool(L"AntiLeecherThief_Action", true);
-	//X-Ray :: Fincan Hash Detection :: Start
-	m_antileecherFincan = ini.GetBool(L"AntiLeecherFincan", false);
-	m_antileecherFincanURL = ini.GetString(_T("AntiLeecherFincanURL"), _T(""));
-	//X-Ray :: Fincan Hash Detection :: End
-	//Xman end
 
 	// Load date/time of last reset
 	stat_datetimeLastReset			= ini.GetInt(L"statsDateTimeLastReset");

@@ -6555,22 +6555,3 @@ void CPartFile::SetFileSize(EMFileSize nFileSize)
 	m_pAICHRecoveryHashSet->SetFileSize(nFileSize);
 	CKnownFile::SetFileSize(nFileSize);
 }
-
-//Xman Anti-Leecher
-void CPartFile::RemoveLeecherSources()
-{
-	//uint32 removed = 0;	
-
-	for(POSITION pos = srclist.GetHeadPosition(); pos != NULL; )
-	{
-		CUpDownClient* cur_src = srclist.GetNext(pos);
-		if (cur_src != NULL && cur_src->GetDownloadState() != DS_DOWNLOADING && cur_src->IsLeecher()) 
-		{
-			cur_src->droptime=::GetTickCount(); 
-			theApp.downloadqueue->RemoveSource(cur_src);
-			//removed ++; // Count removed source
-		}
-	}	
-	UpdateDisplayedInfo(true);
-}
-//Xman end

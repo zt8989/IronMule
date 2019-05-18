@@ -99,7 +99,6 @@ DWORD	CStatistics::transferStarttime;
 DWORD	CStatistics::serverConnectTime;
 uint32	CStatistics::filteredclients;
 DWORD	CStatistics::starttime;
-uint32	CStatistics::leecherclients; //Xman Anti-Leecher
 
 
 CStatistics::CStatistics()
@@ -167,7 +166,6 @@ CStatistics::CStatistics()
 	m_nUpDataOverheadOther = 0;
 	m_nUpDataOverheadOtherPackets = 0;
 	m_sumavgUDRO = 0;
-	leecherclients=0; //Xman Anti-Leecher
 }
 
 void CStatistics::Init()

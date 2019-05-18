@@ -825,9 +825,6 @@
     <ClCompile Include="DLP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PPgXtreme2.cpp">
-      <Filter>Interface Source</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <MASM Include="MD4_asm.asm">
@@ -2510,9 +2507,6 @@
     </ClInclude>
     <ClInclude Include="DLP.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PPgXtreme2.h">
-      <Filter>Interface Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -23,45 +23,6 @@ LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
 // Dialog
 //
 
-IDD_PPG_Xtreme2 DIALOGEX 0, 0, 223, 255
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "Xtreme II"
-FONT 8, "MS Shell Dlg", 400, 0, 0x1
-BEGIN
-    GROUPBOX        "Anti-Leecher",IDC_ANTILEECHER_GROUP,7,2,211,181
-    CONTROL         "Enable Anti-Leecher-Feature",IDC_ANTILEECHER_CHECK,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,20,197,12
-    CONTROL         "Detect Wrong Hello-Tag",IDC_ANTILEECHERBADHELLO_CHECK,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,23,32,188,12
-    CONTROL         "Detect Bad Tags",IDC_ANTILEECHERSNAFU_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,23,43,188,12
-    CONTROL         "Anti-Ghost-Mod",IDC_ANTIGHOST_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,23,54,188,12
-    CONTROL         "Detect Leecher by Modstring",IDC_ANTILEECHERMOD_CHECK,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,23,65,188,12
-    CONTROL         "Detect Leecher by UserName",IDC_ANTILEECHERNAME_CHECK,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,23,76,188,12
-    CONTROL         "Detect Nick / Modthiefs",IDC_ANTILEECHERTHIEF_CHECK,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,23,87,188,12
-    CONTROL         "Detect Spammers",IDC_ANTILEECHERSPAMMER_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,23,98,188,12
-    CONTROL         "Detect XS-Exploiter",IDC_ANTILEECHERXSEXPLOITER_CHECK,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,23,109,188,12
-    CONTROL         "Detect emcrypt",IDC_ANTILEECHEREMCRYPT_CHECK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,23,120,188,12
-    CONTROL         "Detect bad userhashes",IDC_ANTILEECHERUSERHASH_CHECK,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,23,131,188,12
-    CONTROL         "Detect Fincan userhashes",IDC_ANTILEECHERFINCAN_CHECK,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,23,142,188,12
-    PUSHBUTTON      "Reload",IDC_DLPRELOAD,152,9,59,11
-    LTEXT           "version",IDC_DLP_STATIC,14,12,106,10
-    LTEXT           "Community Mods:",IDC_STATIC_LEECHERCOMMUNITY,14,157,84,10,SS_WORDELLIPSIS
-    CONTROL         "ban",IDC_RADIO_LEECHERCOMMUNITY_1,"Button",BS_AUTORADIOBUTTON | WS_GROUP,103,157,35,10
-    CONTROL         "reduce score",IDC_RADIO_LEECHERCOMMUNITY_2,"Button",BS_AUTORADIOBUTTON,140,157,77,10
-    CONTROL         "ban",IDC_RADIO_LEECHERGHOST_1,"Button",BS_AUTORADIOBUTTON | NOT WS_VISIBLE | WS_GROUP | WS_TABSTOP,103,177,28,10
-    CONTROL         "reduce score",IDC_RADIO_LEECHERGHOST_2,"Button",BS_AUTORADIOBUTTON | NOT WS_VISIBLE | WS_TABSTOP,135,177,76,10
-    LTEXT           "Ghost Mods:",IDC_STATIC_LEECHERGHOST,9,177,92,10,SS_WORDELLIPSIS | NOT WS_VISIBLE
-    LTEXT           "Nick / Modthiefs",IDC_STATIC_LEECHERTHIEF,14,168,84,10,SS_WORDELLIPSIS
-    CONTROL         "ban",IDC_RADIO_LEECHERTHIEF_1,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,103,168,34,10
-    CONTROL         "reduce score",IDC_RADIO_LEECHERTHIEF_2,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,140,168,77,10
-END
-
 IDD_HTTPDOWNLOAD DIALOGEX 0, 0, 231, 145
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
 CAPTION "Downloading..."
@@ -143,7 +104,7 @@ BEGIN
     PUSHBUTTON      "v",IDC_DD,491,129,11,12,BS_CENTER
     PUSHBUTTON      "Update",IDC_UPDATESERVERMETFROMURL,445,145,57,13
     GROUPBOX        "My Info",IDC_MYINFO,367,164,139,122
-    CONTROL         "",IDC_MYINFOLIST,"RichEdit20W",WS_VSCROLL | WS_HSCROLL | WS_TABSTOP | 0x804,372,176,130,106,WS_EX_STATICEDGE
+    CONTROL         "",IDC_MYINFOLIST,"RichEdit20W",ES_MULTILINE | ES_READONLY | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP,372,176,130,106,WS_EX_STATICEDGE
     ICON            "",IDC_SERVLST_ICO,5,5,20,20,SS_NOTIFY
     CONTROL         "Servers:",IDC_SERVLIST_TEXT,"Static",SS_LEFTNOWORDWRAP | WS_GROUP,18,6,91,8
     CONTROL         "",IDC_SERVLIST,"SysListView32",LVS_REPORT | LVS_OWNERDRAWFIXED | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,5,17,358,159
@@ -153,7 +114,6 @@ BEGIN
     CONTROL         "",IDC_SERVMSG,"Static",SS_BLACKFRAME | NOT WS_VISIBLE,9,207,348,75
     CONTROL         "",IDC_LOGBOX,"Static",SS_BLACKFRAME | NOT WS_VISIBLE,9,207,348,75
     CONTROL         "",IDC_DEBUG_LOG,"Static",SS_BLACKFRAME | NOT WS_VISIBLE,9,207,348,75
-    CONTROL         "",IDC_LEECHERLOG,"Static",SS_BLACKFRAME | NOT WS_VISIBLE,9,207,348,75
 END
 
 IDD_SEARCH DIALOGEX 0, 0, 284, 136
@@ -561,7 +521,7 @@ BEGIN
     CONTROL         "-",IDC_ASAMPLERATE,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,279,83,112,8
     LTEXT           "Language:",IDC_STATIC_LANGUAGE,210,93,65,8,0,WS_EX_RIGHT
     LTEXT           "-",IDC_ALANGUAGE,279,93,112,8
-    CONTROL         "",IDC_FULL_FILE_INFO,"RichEdit20W",WS_VSCROLL | WS_HSCROLL | WS_TABSTOP | 0x884,4,110,394,72,WS_EX_STATICEDGE
+    CONTROL         "",IDC_FULL_FILE_INFO,"RichEdit20W",ES_MULTILINE | ES_AUTOHSCROLL | ES_READONLY | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP,4,110,394,72,WS_EX_STATICEDGE
     GROUPBOX        "General",IDC_GENERAL,4,2,394,41
 END
 
@@ -929,12 +889,12 @@ BEGIN
     CONTROL         "Wnd1Toolbar",IDC_KADICO1,"ToolbarWindow32",WS_TABSTOP | 0x994e,5,5,74,12
 END
 
-IDD_SOURCEDETAILWND DIALOGEX 0, 0, 322, 230
+IDD_SOURCEDETAILWND DIALOGEX 0, 0, 322, 228
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Client Details"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
-    GROUPBOX        "General",IDC_STATIC30,7,1,308,91
+    GROUPBOX        "General",IDC_STATIC30,7,1,308,95
     LTEXT           "Name:",IDC_STATIC31,19,14,62,8,0,WS_EX_RIGHT
     CONTROL         "Static",IDC_DNAME,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,84,14,224,8
     LTEXT           "Hash:",IDC_STATIC32,19,25,62,8,0,WS_EX_RIGHT
@@ -948,30 +908,30 @@ BEGIN
     CONTROL         "Static",IDC_DSNAME,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,219,47,92,8
     LTEXT           "Identification:",IDC_STATIC133x,19,58,62,8,0,WS_EX_RIGHT
     CONTROL         "Static",IDC_CDIDENT,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,84,58,106,8
-    GROUPBOX        "Transfer",IDC_STATIC40,7,95,308,77
-    LTEXT           "Currently downloading:",IDC_STATIC41,19,105,87,8,0,WS_EX_RIGHT
-    CONTROL         "Static",IDC_DDOWNLOADING,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,110,105,202,8
-    LTEXT           "Downloaded (this session):",IDC_STATIC42,19,127,87,8,0,WS_EX_RIGHT
-    CONTROL         "Static",IDC_DDOWN,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,110,127,53,8
-    LTEXT           "Average Downloadrate:",IDC_STATIC43,19,138,87,8,0,WS_EX_RIGHT
-    CONTROL         "Static",IDC_DAVDR,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,110,138,53,8
-    LTEXT           "Downloaded total:",IDC_STATIC44,19,148,87,8,0,WS_EX_RIGHT
-    CONTROL         "Static",IDC_DDOWNTOTAL,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,110,148,53,8
-    LTEXT           "Uploaded (this session):",IDC_STATIC45,163,127,90,8,0,WS_EX_RIGHT
-    CONTROL         "Static",IDC_DDUP,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,256,127,51,8
-    LTEXT           "Average Uploadrate:",IDC_STATIC46,163,138,90,8,0,WS_EX_RIGHT
-    CONTROL         "Static",IDC_DAVUR,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,256,138,50,8
-    LTEXT           "Uploaded total:",IDC_STATIC47,163,148,90,8,0,WS_EX_RIGHT
-    CONTROL         "Static",IDC_DUPTOTAL,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,256,148,50,8
-    GROUPBOX        "Scores",IDC_STATIC50,7,174,308,47
-    LTEXT           "DL/UP Modifier:",IDC_STATIC51,19,184,87,8,0,WS_EX_RIGHT
-    CONTROL         "Static",IDC_DRATIO,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,110,184,53,8
-    LTEXT           "Rating (total):",IDC_STATIC52,19,195,87,8,0,WS_EX_RIGHT
-    CONTROL         "Static",IDC_DRATING,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,110,195,53,8
-    LTEXT           "Uploadqueue Score:",IDC_STATIC53,19,206,87,8,0,WS_EX_RIGHT
-    CONTROL         "Static",IDC_DSCORE,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,110,206,105,8
-    LTEXT           "Currently downloading:",IDC_STATIC48,19,116,87,8,0,WS_EX_RIGHT
-    CONTROL         "Static",IDC_UPLOADING,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,110,116,202,8
+    GROUPBOX        "Transfer",IDC_STATIC40,7,100,308,70
+    LTEXT           "Currently downloading:",IDC_STATIC41,19,110,87,8,0,WS_EX_RIGHT
+    CONTROL         "Static",IDC_DDOWNLOADING,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,110,110,202,8
+    LTEXT           "Downloaded (this session):",IDC_STATIC42,19,132,87,8,0,WS_EX_RIGHT
+    CONTROL         "Static",IDC_DDOWN,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,110,132,53,8
+    LTEXT           "Average Downloadrate:",IDC_STATIC43,19,143,87,8,0,WS_EX_RIGHT
+    CONTROL         "Static",IDC_DAVDR,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,110,143,53,8
+    LTEXT           "Downloaded total:",IDC_STATIC44,19,154,87,8,0,WS_EX_RIGHT
+    CONTROL         "Static",IDC_DDOWNTOTAL,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,110,154,53,8
+    LTEXT           "Uploaded (this session):",IDC_STATIC45,163,132,90,8,0,WS_EX_RIGHT
+    CONTROL         "Static",IDC_DDUP,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,256,132,51,8
+    LTEXT           "Average Uploadrate:",IDC_STATIC46,163,143,90,8,0,WS_EX_RIGHT
+    CONTROL         "Static",IDC_DAVUR,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,256,143,50,8
+    LTEXT           "Uploaded total:",IDC_STATIC47,163,154,90,8,0,WS_EX_RIGHT
+    CONTROL         "Static",IDC_DUPTOTAL,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,256,154,50,8
+    GROUPBOX        "Scores",IDC_STATIC50,8,174,308,47
+    LTEXT           "DL/UP Modifier:",IDC_STATIC51,20,184,87,8,0,WS_EX_RIGHT
+    CONTROL         "Static",IDC_DRATIO,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,111,184,53,8
+    LTEXT           "Rating (total):",IDC_STATIC52,20,195,87,8,0,WS_EX_RIGHT
+    CONTROL         "Static",IDC_DRATING,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,111,195,53,8
+    LTEXT           "Uploadqueue Score:",IDC_STATIC53,20,206,87,8,0,WS_EX_RIGHT
+    CONTROL         "Static",IDC_DSCORE,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,111,206,105,8
+    LTEXT           "Currently downloading:",IDC_STATIC48,19,121,87,8,0,WS_EX_RIGHT
+    CONTROL         "Static",IDC_UPLOADING,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,110,121,202,8
     RTEXT           "Kad:",IDC_CLIENTDETAIL_KAD,195,57,20,8
     CONTROL         "Static",IDC_CLIENTDETAIL_KADCON,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,219,57,92,8
     RTEXT           "Obfuscation:",IDC_STATIC_OBF_LABEL,163,36,52,8
@@ -980,7 +940,6 @@ BEGIN
     LTEXT           "Use IPv6:",IDC_STATIC133x2,17,68,62,8,0,WS_EX_RIGHT
     RTEXT           "Client IPv6:",IDC_CLIENTDETAIL_KAD2,18,80,61,8
     CONTROL         "Static",IDC_CLIENT_IPV6,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,83,80,227,8
-    CONTROL         "Static",IDC_LEECHERINFO,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,208,195,103,21
 END
 
 IDD_META_DATA DIALOGEX 0, 0, 327, 130
@@ -1166,7 +1125,7 @@ CAPTION "Network Information"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     LTEXT           "Network Information",IDC_NETWORK_INFO_LABEL,7,7,277,8
-    CONTROL         "",IDC_NETWORK_INFO,"RichEdit20W",WS_VSCROLL | WS_HSCROLL | WS_TABSTOP | 0x804,7,16,277,125,WS_EX_STATICEDGE
+    CONTROL         "",IDC_NETWORK_INFO,"RichEdit20W",ES_MULTILINE | ES_READONLY | WS_VSCROLL | WS_HSCROLL | WS_TABSTOP,7,16,277,125,WS_EX_STATICEDGE
     DEFPUSHBUTTON   "OK",IDOK,234,146,50,14
 END
 
@@ -1491,7 +1450,6 @@ SEARCHFILETYPE_PICTURE  ICON                    "res\\FileTypePicture.ico"
 SEARCHFILETYPE_PROGRAM  ICON                    "res\\FileTypeProgram.ico"
 SEARCHFILETYPE_VIDEO    ICON                    "res\\FileTypeVideo.ico"
 SEARCHFILETYPE_DOCUMENT ICON                    "res\\FileTypeDocument.ico"
-SEARCHFILETYPE_EMULECOLLECTION ICON                    "res\\FileTypeEmuleCollection.ico"
 RATING_NOTRATED         ICON                    "res\\FileRating0.ico"
 RATING_FAKE             ICON                    "res\\FileRating1.ico"
 RATING_POOR             ICON                    "res\\FileRating2.ico"
@@ -1517,7 +1475,6 @@ OVERLAYSECUREOBFU       ICON                    "res\\Clientsecurehasobfuhovl.ic
 OVERLAYOBFU             ICON                    "res\\Clientobfuovl.ico"
 SHAREDFOLDEROVL         ICON                    "res\\SharedFolderOvl.ico"
 NOACCESSFOLDEROVL       ICON                    "res\\NoAccessFolderOvl.ico"
-SPAM                    ICON                    "res\\Spam.ico"
 SMILEY_SMILE            ICON                    "res\\Smiley_Smile.ico"
 SMILEY_CRY              ICON                    "res\\Smiley_Cry.ico"
 SMILEY_DISGUST          ICON                    "res\\Smiley_Disgust.ico"
@@ -1536,20 +1493,6 @@ SMILEY_SADQ             ICON                    "res\\Smiley_sadq.ico"
 SMILEY_SMILEQ           ICON                    "res\\Smiley_smileq.ico"
 SMILEY_LOOKSIDE         ICON                    "res\\Smiley_lookside.ico"
 BROWSEFOLDERSMALL       ICON                    "res\\Browse8.ico"
-CLIENTFRIEND            ICON                    "res\\ClientFriend.ico"
-CLIENTFRIENDPLUS        ICON                    "res\\ClientFriendPlus.ico"
-CLIENTDEFAULT           ICON                    "res\\ClientDefault.ico"
-CLIENTDEFAULTPLUS       ICON                    "res\\ClientDefaultPlus.ico"
-CLIENTMLDONKEYPLUS1     ICON                    "res\\clientml.ico"
-FILEREQUESTED           ICON                    "res\\FileRequested.ico"
-DROPICON                ICON                    "res\\DROPICON.ICO"
-LEECHER                 ICON                    "res\\leecher.ICO"
-FRIENDNOCLIENTSLOT      ICON                    "res\\friends1slot.ICO"
-FRIENDWITHCLIENTSLOT    ICON                    "res\\friends2slot.ICO"
-FRIENDCONNECTEDSLOT     ICON                    "res\\friends3slot.ICO"
-CLIENTFRIENDSLOTOVL     ICON                    "res\\FriendSlotOvl.ico"
-FILEMASSRENAME          ICON                    "res\\FileMassRename.ico"
-FILEIMPORTPARTS         ICON                    "res\\fileimportparts.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -1700,25 +1643,6 @@ END
 #ifdef APSTUDIO_INVOKED
 GUIDELINES DESIGNINFO
 BEGIN
-    IDD_PPG_Xtreme2, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 176
-    END
-
-    IDD_SERVER, DIALOG
-    BEGIN
-    END
-
-    IDD_SEARCH, DIALOG
-    BEGIN
-    END
-
-    IDD_PPG_SERVER, DIALOG
-    BEGIN
-    END
-
     IDD_PPG_GENERAL, DIALOG
     BEGIN
         VERTGUIDE, 11
@@ -1783,7 +1707,7 @@ BEGIN
 
     IDD_SOURCEDETAILWND, DIALOG
     BEGIN
-        BOTTOMMARGIN, 229
+        BOTTOMMARGIN, 211
     END
 
     IDD_ED2KLINK, DIALOG
@@ -3803,244 +3727,6 @@ BEGIN
     IDS_DONOTASKAGAIN       "Don't ask me again"
     IDS_POPULARITY          "Popularity Rank"
     IDS_SHOWWIN7TASKBARGOODIES "Enable Windows 7 taskbar effects"
-END
-
-STRINGTABLE
-BEGIN
-    IDS_DROPNONEEDEDSRCS    "Drop NNS"
-    IDS_DROPQUEUEFULLSRCS   "Drop FullQ"
-    IDS_DROPQUEUETOOMANY    "Drop Too Many"
-    IDS_DROPQUEUEUNKNOWN    "Drop Unknown"
-    IDS_DROP_ASKING         "Drop Asking"
-    IDS_DROPCONNECTING      "Drop Connecting"
-    IDS_STOP_CLIENT         "Stop this client"
-    IDS_SubMenu_Drop        "&Drop"
-    IDS_13RATIO             "Use amount based 1:3 ratio if upload < 11"
-    IDS_PPG_MAELLA_MTU_STATIC "MTU (500..1500, default 1340)"
-    IDS_PPG_MAELLA_NAFC_CHECK02 "NAFC Full Control U/D Limits"
-    IDS_OPENMORESLOTS       "Open more slots if needed (recommended)"
-    IDS_AVG_DATARATE_TIME   "Show Average Datarate over seconds: %u"
-    IDS_XTREMESETTINGS      "Xtreme"
-    IDS_ZOOMSTATIC          "Zoom: %u"
-END
-
-STRINGTABLE
-BEGIN
-    IDS_AVGQR               "AvgQR"
-    IDS_USEDOUBLESENDSIZE   "Use Double Sendsize"
-    IDS_LOGDROP             "Log Drop actions"
-    IDS_ANTILEECHER_GROUP   "Anti-Leecher"
-    IDS_ANTILEECHER_CHECK   "Enable Anti-Leecher-Protection"
-    IDS_ANTILEECHERNAME_CHECK "Detect Leecher by UserName"
-    IDS_POWERRELEASE        "PowerRelease"
-    IDS_DONTREMOVESTATICSERVER "Don't remove static server"
-    IDS_LISTREQUESTED       "list requested files"
-    IDS_HIGHPRIOPROCESS     "High"
-    IDS_ABOVENORMALPROCESS  "Above Normal"
-    IDS_NORMALPROCESS       "Normal"
-    IDS_PROCESSGROUP        "Process Priority"
-    IDS_COUNTRYNAME_SHORT   "Display 2 letters"
-    IDS_COUNTRYNAME_MID     "Display 3 letters"
-    IDS_COUNTRYNAME_LONG    "Display full name"
-END
-
-STRINGTABLE
-BEGIN
-    IDS_COUNTRYNAME_SHOWFLAG "ShowFlag"
-    IDS_IP2COUNTRY_MSG1     "IP2Country uses the IP-to-Country Database provided by WebHosting.Info"
-    IDS_IP2COUNTRY_MSG2     "(http://www.webhosting.info), available from http://ip-to-country.webhosting.info"
-    IDS_IP2COUNTRY_LOADED   "IP2Country loaded"
-    IDS_IP2COUNTRY_UNLOADED "IP2Country unloaded"
-    IDS_IP2COUNTRY_ERROR1   "error line number : %i"
-    IDS_IP2COUNTRY_ERROR3   "Failed to load in"
-    IDS_IP2COUNTRY_ERROR4   "CountryFlag Disabled, failed to load"
-    IDS_IP2COUNTRY_ERROR5   "Invalid resID, maybe you need to upgrade your flag icon Dll,"
-    IDS_IP2COUNTRY_INFO     "Parsed lines:%u  Found IPCountry ranges:%u  Duplicate:%u  Merged:%u"
-    IDS_IP2COUNTRY_FLAGLOAD "Country Flags have been loaded"
-    IDS_IP2COUNTRY_FILELOAD "IP2Countryfile has been unloaded"
-    IDS_IP2COUNTRY_FLAGUNLD "Country Flags have been unloaded"
-    IDS_IP2COUNTRY_NALONG   "Not Applicable"
-    IDS_IP2COUNTRY_NASHORT  "N/A"
-    IDS_IP2COUNTRY_LOADED2  "Loaded IP2Country from ""%s"" in %ums"
-END
-
-STRINGTABLE
-BEGIN
-    IDS_ACCURATEGRAPH       "accurate"
-    IDS_SMOOTHGRAPH         "smooth"
-    IDS_MULTIQUEUE          "One queue per file (Multiqueue)"
-    IDS_RETRYCONNECTIONATTEMPTS "Retry failed TCP connection attempts"
-    IDS_ANTIGHOST           "Detect Ghost-Mods"
-    IDS_REMEMBERAICH        "Remember unused AICH-Hashes (known2.met)"
-    IDS_MARKCANCELLED       "Mark as Cancelled"
-    IDS_DOWNHISTORY_CHECK1  "eMule has found a file already downloaded with the same file ID:\n"
-    IDS_DOWNHISTORY_CHECK2  "eMule has found %i files already downloaded with the same file name (%s):\n"
-    IDS_DOWNHISTORY_CHECK3  "Do you want to download the file anyway?"
-    IDS_DOWNHISTORY_CHECK4  "eMule has found a file already cancelled with the same file ID:\n"
-    IDS_DOWNHISTORY         "Downloaded history"
-    IDS_DOWNHISTORY_REMOVE  "Remove from history"
-    IDS_DOWNHISTORY_REMOVE_QUESTION 
-                            "Do you really want to remove ""%s"" from downloaded history?"
-    IDS_DOWNHISTORY_REMOVE_QUESTION_MULTIPLE 
-                            "Do you really want to remove selected files from downloaded history?"
-    IDS_DOWNHISTORY_SHARED  "Shared"
-END
-
-STRINGTABLE
-BEGIN
-    IDS_DOWNHISTORY_CLEAR   "Clear downloaded history"
-    IDS_DOWNHISTORY_SHOWSHARED "Show shared files"
-    IDS_DOWNHISTORY_ACTIONS "Actions"
-    IDS_DOWNHISTORY_CLEAR_QUESTION 
-                            "Are you sure you want to clear download history?"
-    IDS_SENDBUFFER          "Sendbuffer"
-    IDS_LEERCHERLOGTITLE    "Leecher-Messages"
-    IDS_ALL_A4AF_TO_THIS    "Swap All Sources To This File Now"
-    IDS_ALL_A4AF_TO_OTHER   "Swap All Sources To Any Other File Now"
-    IDS_SWAP_A4AF_TO_THIS   "Swap (A4AF) Sources To This File Now"
-    IDS_SWAP_A4AF_TO_OTHER  "Swap (A4AF) Sources To Any Other File Now"
-    IDS_ALL_A4AF_AUTO       "Automatically Swap All (A4AF) Sources To This File"
-    IDS_LEECHER_ACTION_BAN  "Ban"
-    IDS_LEECHER_ACTION_REDUCE "Reduce score"
-    IDS_ANTILEECHERBADHELLO_CHECK "Detect wrong Hello-Tag"
-END
-
-STRINGTABLE
-BEGIN
-    IDS_ANTILEECHERSNAFU_CHECK "Detect bad Tags"
-    IDS_ANTILEECHERMOD_CHECK "Detect Leecher by Modstring"
-    IDS_ANTILEECHERTHIEF_CHECK "Detect Nick- / Modthiefs"
-    IDS_ANTILEECHERSPAMMER_CHECK "Detect Spammers"
-END
-
-STRINGTABLE
-BEGIN
-    IDS_ANTILEECHERXSEXPLOITER_CHECK "Detect XS-Exploiter"
-    IDS_STATIC_LEECHERCOMMUNITY "Community Mods"
-    IDS_STATIC_LEECHERGHOST "Ghost-Mods"
-    IDS_STATIC_LEECHERTHIEF "Nick- / Modthiefs"
-    IDS_NEWXTREMEVERSION    "New Xtreme-Version available"
-    IDS_NEWXTREMEVERSIONDOWNLOAD 
-                            "New Xtreme-Version available \n Do you want it to download ?"
-    IDS_NEWDLP              "New antiLeech.dll (DLP) available"
-    IDS_NEWDLPDOWNLOAD      "New antiLeech.dll (DLP) available \n Do you want it to download ?"
-END
-
-STRINGTABLE
-BEGIN
-    IDS_DROPLEECHER         "Drop Leecher"
-    IDS_ACTIVEDOWNLOADSBOLD "Show active downloads bold"
-    IDS_UPDOWNUPLOADLIST    "Up / Down"
-    IDS_MAXGLOBALSOURCES    "global sourcelimit:"
-    IDS_ACCEPTSOURCES       "Accept global sourcelimit"
-    IDS_ACCEPTRATIO         "Accept 1:3 session ratio if found sources > sourcelimit"
-    IDS_SHOWADDITIONALGRAPH "Show additional graph-lines"
-    IDS_CHECK4UPDATEMOD     "Check for new Xtreme version on startup"
-    IDS_ANTILEECHEREMCRYPT_CHECK "Detect emcrypt"
-    IDS_UPLOADMANAGEMENT_FRAME "Upload Management"
-    IDS_UPLOADSLOTSPEED_LABEL "Upload Slot Speed"
-    IDS_USENARROWFONT       "Use narrow font in transfer window"
-    IDS_SHOWBLOCKINGRATIO   "Show socket blocking ratio"
-    IDS_FUNNYNICK           "Display Funny Nick"
-    IDS_AUTOUPDATEIPFILTER  "Auto-update IPFilter.dat"
-END
-
-STRINGTABLE
-BEGIN
-    IDS_DROPBLOCKINGSOCKETS "Drop too frequently blocking sockets"
-    IDS_LOGPARTMISMATCH     "Log size-mismatch of requested files"
-    IDS_CN_UPNPTRYRANDOM    "Try to use random port on UPnP gateway"
-    IDS_CN_UPNPNAT          "Enable UPnP support"
-    IDS_CHUNKCHOOSER        "Chunk choosing method"
-    IDS_UPLOADINSTABLE      "Warning: your upload settings seem to be too high. Please review your settings! \n look at the uploadgraph, the white or the yellow(with NAFC) line should be straight \n this message is only generated once"
-    IDS_CLIENTPERCENTAGE    "Show client percentage"
-    IDS_ONERELEASESLOT      "Always one release-slot"
-    IDS_A_UPPRIO            "Use advanced auto-uploadpriority"
-    IDS_SHAREFACTOR         "Sharefactor"
-    IDS_MASSRENAME1         "Filename mask (changes here will be done to all filenames below):"
-    IDS_FILENAMELEFT        "Filenames left-justified"
-    IDS_FILENAMERIGHT       "Filenames right-justified"
-    IDS_RESETFILENAMES      "&Reset"
-    IDS_SIMPLECLEANUP       "&Simple cleanup"
-    IDS_INSERTTEXTCOLUMN    "&Insert text column from clipboard"
-END
-
-STRINGTABLE
-BEGIN
-    IDS_MASSRENAME2         "Original filenames:"
-    IDS_MASSRENAME3         "New filenames:"
-    IDS_NOTENOUGHFILENAMES  "Not enough filenames in the list of new filenames. Rename not possible."
-    IDS_IDENTICALFILENAMES  "Two or more equal filenames within the same directory are not allowed (Line %d). Rename not possible."
-    IDS_MR                  "Mass Rename..."
-    IDS_MASSRENAME_TITLE    "Mass-Rename"
-    IDS_STATIC_DOWNINFO     "Download 0 = unlimited"
-    IDS_ANTILEECHERUSERHASH_CHECK "Detect bad userhashes"
-    IDS_UPNPSTATUS          "UPnP Status:"
-    IDS_UPNPSTATUS_OK       "OK"
-    IDS_UPNPSTATUS_NOTINLAN "You aren't behind a Hardware Firewall or Router"
-    IDS_UPNPSTATUS_ERROR    "Can not find a UPnP Router"
-    IDS_UPNPSTATUS_PORTINUSE "External NAT port in use"
-    IDS_UPNPSTATUS_PORTINUSE2 "External NAT port in use: Too many retries"
-END
-
-STRINGTABLE
-BEGIN
-    IDS_UPNP_REBINDTEXT     "Rebind UPnP On IP-Change"
-    IDS_IMPORTPARTS         "Import parts to file..."
-    IDS_IMPORTPARTS_STOP    "Stop Import parts to file"
-    IDS_SR13_IMPORTPARTS_ERR_ALREADYCOMPLETE 
-                            "Import aborted: Can't import to a complete file."
-    IDS_SR13_IMPORTPARTS_ERR_HASHSETINCOMPLETE 
-                            "Import aborted: hashset incomplete for %s (%i hashes for %i parts)."
-    IDS_SR13_IMPORTPARTS_ERR_CANTOPENFILE "Import aborted: Couldn't open %s."
-    IDS_SR13_IMPORTPARTS_IMPORTSTART "Importing %i parts to %s."
-    IDS_SR13_IMPORTPARTS_PARTIMPORTEDGOOD "Part %i: imported."
-    IDS_SR13_IMPORTPARTS_PARTIMPORTEDBAD "Part %i: imported for ICH handling."
-    IDS_SR13_IMPORTPARTS_PARTSKIPPEDDONTMATCH 
-                            "Part %i: skipped, doesn't match partially completed block."
-    IDS_SR13_IMPORTPARTS_BADPARTSREHASH 
-                            "%i bad parts were imported for A/ICH. Initiating rehash."
-    IDS_SR13_IMPORTPARTS_ERR_FILETOOSMALL 
-                            "File is smaller than minimal recovery block for AICH - there's no use in importing data to it."
-    IDS_SR13_IMPORTPARTS_IMPORTFINISH 
-                            "Import finished. %i parts were imported to %s."
-    IDS_OBFUSCATION_PADDING_LENGTH "Obfuscation-Padding-Length [10-254]"
-    IDS_GETFRIENDED2KLINK   "Copy friend link to clipboard"
-END
-
-STRINGTABLE
-BEGIN
-    IDS_SMALL               "Small"
-    IDS_PUSH_SMALL_FILE_SIZE "Small file size limit in KB [1-2048]"
-    IDS_TRUSTEVERYHASH      "Trust Every AICHHash (current session, not saved, not recommended)"
-END
-
-STRINGTABLE
-BEGIN
-    IDS_GETHTMLFRIENDED2KLINK "Copy friend link to clipboard (HTML)"
-    IDS_DOWNLOADEMFRIENDSMET "Download emfriends.met"
-    IDS_EMFRIENDSMETURL     "Please enter the URL of emfriends.met:"
-    IDS_ERR_FAILEDDOWNLOADEMFRIENDS 
-                            "Failed to download the friendlist from %s"
-    IDS_GETMYFRIENDED2KLINK "Copy my friend link to clipboard"
-    IDS_GETMYHTMLFRIENDED2KLINK "Copy my friend link to clipboard (HTML)"
-    IDS_FRIENDLINKMENUTITLE "FriendLinks"
-    IDS_USER_ALREADY_FRIEND "User ""%s"" is already in your friend list"
-    IDS_PROGRESSHASHDONE    "Hashing done: %s"
-    IDS_USEACATUPNPNEXTSTART1 "Keep using ACAT UPnP lib after restart eMule"
-    IDS_USEACATUPNPNEXTSTART2 "Switch to ACAT UPnP lib after restart eMule"
-    IDS_RETRIEVEMTUFROMSOCKET "Try to Retrieve MTU from System"
-    IDS_ENABLEKNOWN2BUFFER  "Enable AICHHashset buffer (reduce diskio while hashing tons of files)"
-    IDS_ANTILEECHERFINCAN_CHECK 
-                            "Detect Fincan Community Hash (CPU intensive!)"
-    IDS_ENABLEKNOWN2SPLIT   "Split Known2_64.met, let unshared AICHHashsets in a single file"
-    IDS_PUSH_SMALL          "Push small files"
-END
-
-STRINGTABLE
-BEGIN
-    IDS_EMULE_CTRL_DATA     "eMule control + data"
-    IDS_NETWORK_ADAPTER     "Network Adapter"
 END
 
 #endif    // Ó¢Óï(ÃÀ¹ú) resources

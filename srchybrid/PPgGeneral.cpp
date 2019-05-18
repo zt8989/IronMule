@@ -34,7 +34,6 @@
 #include "HelpIDs.h"
 #include "StringConversion.h"
 #include "Log.h"
-#include "DLP.h" //Xman DLP
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

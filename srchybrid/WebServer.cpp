@@ -791,7 +791,12 @@ CString CWebServer::_GetHeader(ThreadData Data, long lSession)
 	Out.Replace(_T("[RefreshVal]"), sRefresh);
 	Out.Replace(_T("[wCommand]"), _ParseURL(Data.sURL, _T("w")) + strCat + _T("&dummy=") + strDummyNumber);
 	Out.Replace(_T("[eMuleAppName]"), _T("eMule"));
+	// Xman // Maella -Support for tag ET_MOD_VERSION 0x55
+	/*
 	Out.Replace(_T("[version]"), theApp.m_strCurVersionLong);
+	*/
+	Out.Replace(_T("[version]"), theApp.m_strCurVersionLong + _T(" ") + MOD_VERSION);
+	//Xman end
 	Out.Replace(_T("[StyleSheet]"), pThis->m_Templates.sHeaderStylesheet);
 	Out.Replace(_T("[WebControl]"), _GetPlainResString(IDS_WEB_CONTROL));
 	Out.Replace(_T("[Transfer]"), _GetPlainResString(IDS_CD_TRANS));
@@ -4155,7 +4160,12 @@ CString CWebServer::_GetLoginScreen(ThreadData Data)
 
 	Out.Replace(_T("[CharSet]"), HTTPENCODING );
 	Out.Replace(_T("[eMuleAppName]"), _T("eMule") );
+	// Xman // Maella -Support for tag ET_MOD_VERSION 0x55
+	/*
 	Out.Replace(_T("[version]"), theApp.m_strCurVersionLong );
+	*/
+	Out.Replace(_T("[version]"), theApp.m_strCurVersionLong + _T(" ") + MOD_VERSION);
+	//Xman end
 	Out.Replace(_T("[Login]"), _GetPlainResString(IDS_WEB_LOGIN));
 	Out.Replace(_T("[EnterPassword]"), _GetPlainResString(IDS_WEB_ENTER_PASSWORD));
 	Out.Replace(_T("[LoginNow]"), _GetPlainResString(IDS_WEB_LOGIN_NOW));

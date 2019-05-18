@@ -49,7 +49,6 @@ CPreferencesDlg::CPreferencesDlg()
 	m_wndScheduler.m_psp.dwFlags &= ~PSH_HASHELP;
 	m_wndProxy.m_psp.dwFlags &= ~PSH_HASHELP;
 	m_wndMessages.m_psp.dwFlags &= ~PSH_HASHELP;
-	m_wndXtreme2.m_psp.dwFlags &= ~PSH_HASHELP; //Xman Xtreme Mod
 #if defined(_DEBUG) || defined(USE_DEBUG_DEVICE)
 	m_wndDebug.m_psp.dwFlags &= ~PSH_HASHELP;
 #endif
@@ -69,7 +68,6 @@ CPreferencesDlg::CPreferencesDlg()
 	CTreePropSheet::SetPageIcon(&m_wndWebServer, _T("WEB"));
 	CTreePropSheet::SetPageIcon(&m_wndTweaks, _T("TWEAK"));
 	CTreePropSheet::SetPageIcon(&m_wndMessages, _T("MESSAGES"));
-	CTreePropSheet::SetPageIcon(&m_wndXtreme2, _T("AAAEMULEAPP")); //Xman Xtreme Mod
 #if defined(_DEBUG) || defined(USE_DEBUG_DEVICE)
 	CTreePropSheet::SetPageIcon(&m_wndDebug, _T("Preferences"));
 #endif
@@ -89,7 +87,6 @@ CPreferencesDlg::CPreferencesDlg()
 	AddPage(&m_wndScheduler);
 	AddPage(&m_wndWebServer);
 	AddPage(&m_wndTweaks);
-	AddPage(&m_wndXtreme2); //Xman Xtreme Mod
 #if defined(_DEBUG) || defined(USE_DEBUG_DEVICE)
 	AddPage(&m_wndDebug);
 #endif
@@ -156,7 +153,6 @@ void CPreferencesDlg::Localize()
 	m_wndScheduler.Localize();
 	m_wndProxy.Localize();
 	m_wndMessages.Localize();
-	m_wndXtreme2.Localize(); //Xman Xtreme Mod
 
 	int c = 0;
 
@@ -178,7 +174,6 @@ void CPreferencesDlg::Localize()
 		pTree->SetItemText(GetPageTreeItem(c++), RemoveAmbersand(GetResString(IDS_SCHEDULER)));
 		pTree->SetItemText(GetPageTreeItem(c++), RemoveAmbersand(GetResString(IDS_PW_WS)));
 		pTree->SetItemText(GetPageTreeItem(c++), RemoveAmbersand(GetResString(IDS_PW_TWEAK)));
-		pTree->SetItemText(GetPageTreeItem(c++), RemoveAmbersand(GetResString(IDS_XTREMESETTINGS)) + _T(" II")); //Xman Xtreme Mod
 	#if defined(_DEBUG) || defined(USE_DEBUG_DEVICE)
 		pTree->SetItemText(GetPageTreeItem(c++), _T("Debug"));
 	#endif
@@ -190,12 +185,7 @@ void CPreferencesDlg::Localize()
 void CPreferencesDlg::OnHelp()
 {
 	int iCurSel = GetActiveIndex();
-	//Xman no crash on F1 (remark: 12 pages are official)
-	/*
 	if (iCurSel >= 0)
-	*/
-	if (iCurSel >= 0 && iCurSel<=12)
-	//Xman end
 	{
 		CPropertyPage* pPage = GetPage(iCurSel);
 		if (pPage)

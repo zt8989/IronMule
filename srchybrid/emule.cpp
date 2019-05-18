@@ -73,7 +73,6 @@
 #include "UPnPImplWrapper.h"
 #include "VisualStylesXP.h"
 #include <iphlpapi.h> //>>> WiZaRd::IPv6 [Xanatos]
-#include "DLP.h" //Xman DLP
 
 #define WORKING_BUFFER_SIZE 15000
 #define MAX_TRIES 3
@@ -694,8 +693,6 @@ BOOL CemuleApp::InitInstance()
     lastCommonRouteFinder = new LastCommonRouteFinder();
     uploadBandwidthThrottler = new UploadBandwidthThrottler();
 	// ZZ:UploadSpeedSense <--
-
-	dlp = new CDLP(thePrefs.GetMuleDirectory(EMULE_EXECUTEABLEDIR),thePrefs.GetMuleDirectory(EMULE_CONFIGDIR)); //Xman DLP  
 
 	clientlist = new CClientList();
 	friendlist = new CFriendList();

@@ -111,8 +111,7 @@ enum ESourceFrom{
 	SF_KADEMLIA			= 1,
 	SF_SOURCE_EXCHANGE	= 2,
 	SF_PASSIVE			= 3,
-	SF_LINK				= 4,
-	SF_SLS				= 5			//Xman SLS
+	SF_LINK				= 4
 };
 
 enum EChatCaptchaState{

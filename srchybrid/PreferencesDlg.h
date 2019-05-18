@@ -14,7 +14,6 @@
 #include "PPgScheduler.h"
 #include "PPgProxy.h"
 #include "PPgMessages.h"
-#include "PPgXtreme2.h" //Xman Xtreme Mod
 #if defined(_DEBUG) || defined(USE_DEBUG_DEVICE)
 #include "PPgDebug.h"
 #endif
@@ -44,7 +43,6 @@ public:
 	CPPgScheduler	m_wndScheduler;
 	CPPgProxy		m_wndProxy;
 	CPPgMessages	m_wndMessages;
-	CPPgXtreme2		m_wndXtreme2; //Xman Xtreme Mod
 #if defined(_DEBUG) || defined(USE_DEBUG_DEVICE)
 	CPPgDebug		m_wndDebug;
 #endif

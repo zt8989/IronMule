@@ -33,6 +33,7 @@
 #include "OtherFunctions.h"
 #include "Log.h"
 #include "StringConversion.h"
+#include "opcodes.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -357,7 +358,12 @@ CString CStatisticsTree::GetHTML(bool onlyVisible, HTREEITEM theItem, int theIte
 
 	CString	strBuffer;
 	if (firstItem)
+		//Xman // Maella -Support for tag ET_MOD_VERSION 0x55
+		/*
 		strBuffer.Format(_T("<font face=\"Tahoma,Verdana,Courier New,Helvetica\" size=\"2\">\r\n<b>eMule v%s %s [%s]</b>\r\n<br /><br />\r\n"), theApp.m_strCurVersionLong, GetResString(IDS_SF_STATISTICS), thePrefs.GetUserNick());
+		*/
+		strBuffer.Format(_T("<font face=\"Tahoma,Verdana,Courier New,Helvetica\" size=\"2\">\r\n<b>eMule v%s %s [%s]</b>\r\n<br /><br />\r\n"), theApp.m_strCurVersionLong + _T(" ") + MOD_VERSION, GetResString(IDS_SF_STATISTICS), thePrefs.GetUserNick());
+		//Xman end
 
 	while (hCurrent != NULL)
 	{

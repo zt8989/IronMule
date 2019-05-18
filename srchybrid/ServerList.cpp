@@ -35,7 +35,6 @@
 #include "HttpDownloadDlg.h"
 #include "ServerWnd.h"
 #include "Log.h"
-#include "DLP.h" //Xman DLP
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

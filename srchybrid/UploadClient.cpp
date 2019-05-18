@@ -243,16 +243,6 @@ uint32 CUpDownClient::GetScore(bool sysvalue, bool isdownloading, bool onlybasev
 
 	if( (IsEmuleClient() || this->GetClientSoft() < 10) && m_byEmuleVersion <= 0x19 )
 		fBaseValue *= 0.5f;
-	//Xman Xtreme Mod : 80% score for non SI clients
-	else if(credits->GetCurrentIdentState(GetIP()) != IS_IDENTIFIED)
-		fBaseValue *= 0.8f;
-	//Xman end
-
-	//Xman Anti-Leecher
-	if(IsLeecher()>0)
-		fBaseValue *=0.33f;
-	//Xman end
-
 	return (uint32)fBaseValue;
 }
 
@@ -1048,81 +1038,3 @@ void CUpDownClient::SetCollectionUploadSlot(bool bValue){
 	ASSERT( !IsDownloading() || bValue == m_bCollectionUploadSlot );
 	m_bCollectionUploadSlot = bValue;
 }
-//Xman Anti-Leecher
-void CUpDownClient::BanLeecher(LPCTSTR pszReason, uint8 leechercategory){
-	//possible categories:
-	//0 = no leecher
-	//1 = bad hello + reduce score
-	//2 = snafu
-	//3 = ghost
-	//4 = modstring soft
-	//5 = modstring/username hard
-	//6 = mod thief
-	//7 = spammer
-	//8 = XS-Exploiter
-	//9 = other (fake emule version/ Credit Hack)
-	//10 = username soft
-	//11 = nick thief
-	//12 = emcrypt
-	//13 = bad hello + ban
-	//14 = wrong HashSize + reduce score (=new united)
-	//15 = snafu = m4 string
-	//16 = wrong Startuploadrequest (bionic community)
-	//17 = wrong m_fSupportsAICH (applejuice )
-	//18 = detected by userhash (AJ) (ban)
-	//19 = filefaker (in deadsourcelist but still requesting the file)
-	//20 = Fincan Community
-
-	m_strBanMessage.Empty();
-	bool reducescore=false;
-	switch(leechercategory) 
-	{
-	case 1:
-	case 4:
-	case 10:
-	case 14:
-	case 15:
-	case 17:
-		reducescore=thePrefs.GetAntiLeecherCommunity_Action();
-		break;
-	case 12: //emcrypt
-		reducescore=true;
-		break;
-	case 3:
-		//Xman always ban ghost mods
-		//reducescore=thePrefs.GetAntiLeecherGhost_Action();
-		break;
-	case 6:
-	case 11:
-		reducescore=thePrefs.GetAntiLeecherThief_Action();
-		break;
-	}
-
-	if (m_bLeecher!=leechercategory){
-		theStats.leecherclients++;
-		m_bLeecher = leechercategory;
-		strBanReason_permament=pszReason;
-
-		if(reducescore)
-		{
-			m_strBanMessage.Format(_T("[%s](reduce score)- Client %s"),pszReason==NULL ? _T("No Reason") : pszReason, DbgGetClientInfo());
-			//AddLeecherLogLine(false,_T("[%s](reduce score)- Client %s"),pszReason==NULL ? _T("No Reason") : pszReason, DbgGetClientInfo());
-		}
-		else
-			m_strBanMessage.Format(_T("[%s](ban)- Client %s"),pszReason==NULL ? _T("No Reason") : pszReason, DbgGetClientInfo());
-			//AddLeecherLogLine(false,_T("[%s](ban)- Client %s"),pszReason==NULL ? _T("No Reason") : pszReason, DbgGetClientInfo());
-	}
-
-	if(reducescore)
-		return;
-
-	SetChatState(MS_NONE);
-	theApp.clientlist->AddTrackClient(this);
-	theApp.clientlist->AddBannedClient( GetConnectIP().ToIPv4() );
-	SetUploadState(US_BANNED);
-	theApp.emuledlg->transferwnd->ShowQueueCount(theApp.uploadqueue->GetWaitingUserCount());
-	theApp.emuledlg->transferwnd->GetQueueList()->RefreshClient(this);
-	if (socket != NULL && socket->IsConnected())
-		socket->ShutDown(SD_RECEIVE); // let the socket timeout, since we dont want to risk to delete the client right now. This isnt acutally perfect, could be changed later
-}
-//Xman end

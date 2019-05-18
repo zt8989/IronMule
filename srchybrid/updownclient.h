@@ -20,7 +20,6 @@
 #include "Neo/NeoConfig.h"
 #include "Neo/Address.h"
 
-class CTag; //Xman Anti-Leecher
 class CClientReqSocket;
 class CPeerCacheDownSocket;
 class CPeerCacheUpSocket;
@@ -525,47 +524,6 @@ public:
 	CPeerCacheDownSocket* m_pPCDownSocket;
 	CPeerCacheUpSocket* m_pPCUpSocket;
 
-public:
-	//Xman Anti-Leecher
-	void			TestLeecher();
-	void			BanLeecher(LPCTSTR pszReason , uint8 leechercategory); 
-	uint8			IsLeecher()	const		{return m_bLeecher;}
-	bool			ProcessUnknownHelloTag(CTag *tag, CString &pszReason);
-	void			ProcessUnknownInfoTag(CTag *tag, CString &pszReason);
-	void			ProcessBanMessage();
-	CString			GetBanMessageString() const {return strBanReason_permament;}
-
-
-	//>>> Anti-XS-Exploit (Xman)
-	void IncXSAnswer()  {m_uiXSAnswer++;}
-	void IncXSReqs()  {m_uiXSReqs++;}
-	UINT GetXSReqs() const { return m_uiXSReqs;}
-	UINT GetXSAnswers() const {return m_uiXSAnswer;}
-	bool IsXSExploiter() const { return m_uiXSReqs>2 && ((float)(m_uiXSAnswer+1))/m_uiXSReqs<0.5f;}
-	//<<< Anti-XS-Exploit
-
-	//Xman end
-
-	//Xman Xtreme Downloadmanager
-	uint32 droptime;
-private:
-	//Xman Anti-Leecher
-	uint8	m_bLeecher; 
-	CString	old_m_strClientSoftwareFULL;
-	CString	old_m_pszUsername;
-	CString m_strBanMessage; //hold the message temporary
-	CString strBanReason_permament; //keeps the message in short version
-	uint8 uhashsize;
-	uint8 m_uNickchanges; //Xman Anti-Nick-Changer
-	uint32 m_ulastNickChage; //Xman Anti-Nick-Changer
-
-	//>>> Anti-XS-Exploit (Xman)
-	uint32 m_uiXSAnswer;
-	uint32 m_uiXSReqs;
-	//<<< Anti-XS-Exploit
-
-	//Xman end
-
 	//Xman Anti-Leecher: simple Anti-Thief
 	//zz_fly :: Better Xtreme Faker Check :: unused
 	/*
@@ -586,7 +544,6 @@ private:
 		return nick;
 	}
 	//Xman end
-
 protected:
 	int		m_iHttpSendState;
 	uint32	m_uPeerCacheDownloadPushId;
@@ -600,12 +557,7 @@ protected:
 protected:
 	// base
 	void	Init();
-	//Xman Anti-Leecher: decide if Hello or Hello-Answer ->now independent from any other variables
-	/*
 	bool	ProcessHelloTypePacket(CSafeMemFile* data);
-	*/
-	bool	ProcessHelloTypePacket(CSafeMemFile* data, bool isHelloPacket);
-	//Xman end
 	void	SendHelloTypePacket(CSafeMemFile* data);
 	void	CreateStandartPackets(byte* data, UINT togo, Requested_Block_Struct* currentblock, bool bFromPF = true);
 	void	CreatePackedPackets(byte* data, UINT togo, Requested_Block_Struct* currentblock, bool bFromPF = true);

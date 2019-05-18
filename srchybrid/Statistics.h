@@ -152,7 +152,6 @@ public:
 	static DWORD	serverConnectTime;
 	static uint32	filteredclients;
 	static DWORD	starttime;
-	static uint32	leecherclients; //Xman Anti-Leecher
 
 private:
 	typedef struct TransferredData {

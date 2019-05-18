@@ -201,5 +201,3 @@
 #define Irc_OpCommands			10250
 //Note: reserve at least 100 ID's (Irc_ChanCommands-Irc_ChanCommands+99).
 #define Irc_ChanCommands		Irc_OpCommands+50
-
-#define MP_DROPLEECHER			14017 //Xman Anti-Leecher

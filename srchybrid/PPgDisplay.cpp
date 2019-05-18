@@ -26,6 +26,7 @@
 #include "TransferDlg.h"
 #include "ServerWnd.h"
 #include "HelpIDs.h"
+#include "opcodes.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -218,7 +219,12 @@ BOOL CPPgDisplay::OnApply()
 	if (mintotray_old != thePrefs.mintotray)
 		theApp.emuledlg->TrayMinimizeToTrayChange();
 	if (!thePrefs.ShowRatesOnTitle())
+		// Xman // Maella -Support for tag ET_MOD_VERSION 0x55
+		/*
 		theApp.emuledlg->SetWindowText(_T("eMule v") + theApp.m_strCurVersionLong);
+		*/
+		theApp.emuledlg->SetWindowText(_T("eMule v") + theApp.m_strCurVersionLong + _T(" ") + MOD_VERSION); 
+		//Xman End
 
 	SetModified(FALSE);
 	return CPropertyPage::OnApply();

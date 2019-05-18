@@ -141,13 +141,6 @@ BOOL CClientDetailPage::OnSetActive()
 			GetDlgItem(IDC_DSNAME)->SetWindowText(_T("?"));
 		}
 
-		//Xman Anti-Leecher
-		if(client->IsLeecher()>0 && client->GetBanMessageString().IsEmpty()==false)
-			GetDlgItem(IDC_LEECHERINFO)->SetWindowText(client->GetBanMessageString());
-		else
-			GetDlgItem(IDC_LEECHERINFO)->SetWindowText(_T(" "));
-		//Xman end
-
 		CKnownFile* file = theApp.sharedfiles->GetFileByID(client->GetUploadFileID());
 		if (file)
 			GetDlgItem(IDC_DDOWNLOADING)->SetWindowText(file->GetFileName());

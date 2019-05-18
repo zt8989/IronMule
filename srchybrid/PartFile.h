@@ -324,8 +324,6 @@ public:
 
 	CDeadSourceList	m_DeadSourceList;
 
-	void	RemoveLeecherSources(); //Xman Anti-Leecher
-
 #ifdef _DEBUG
 	// Diagnostic Support
 	virtual void AssertValid() const;

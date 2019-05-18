@@ -185,6 +185,7 @@ void CUploadListCtrl::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	CRect rcClient;
 	GetClientRect(&rcClient);
 	const CUpDownClient *client = (CUpDownClient *)lpDrawItemStruct->itemData;
+	COLORREF crOldBackColor = dc->GetBkColor(); //Xman PowerRelease show LowIDs
     if (client->GetSlotNumber() > theApp.uploadqueue->GetActiveUploadsCount())
         dc.SetTextColor(::GetSysColor(COLOR_GRAYTEXT));
 
@@ -278,7 +279,17 @@ void CUploadListCtrl::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 						break;
 
 					default:
+						//Xman PowerRelease //Xman show LowIDs
+						if(iColumn == 1){ 
+							//const CKnownFile *file = theApp.sharedfiles->GetFileByID(client->GetUploadFileID());
+							//if(file && file->GetUpPriority()==PR_POWER)
+							//	dc->SetBkColor(RGB(255,225,225));
+						}
+						else if(iColumn == 8 && client->HasLowID())
+							dc->SetBkColor(RGB(255,250,200));
+						//Xman End
 						dc.DrawText(szItem, -1, &cur_rec, MLC_DT_TEXT | uDrawTextAlignment);
+						dc.SetBkColor(crOldBackColor); //Xman PowerRelease //Xman show LowIDs
 						break;
 				}
 			}
@@ -341,6 +352,8 @@ void CUploadListCtrl::GetItemDisplayText(const CUpDownClient *client, int iSubIt
 		case 7:
 			_tcsncpy(pszText, GetResString(IDS_UPSTATUS), cchTextMax);
 			break;
+		case 8:
+			_sntprintf(pszText, cchTextMax, _T("%s"), client->DbgGetFullClientSoftVer()); //Xman // Maella -Support for tag ET_MOD_VERSION 0x55
 	}
 	pszText[cchTextMax - 1] = _T('\0');
 }
@@ -493,6 +506,20 @@ int CUploadListCtrl::SortProc(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort)
 		case 7:
 			iResult = CompareUnsigned(item1->GetUpPartCount(), item2->GetUpPartCount());
 			break;
+		//Xman version see clientversion in every window
+		case 8:
+			// Maella -Support for tag ET_MOD_VERSION 0x55-
+			if(item1->GetClientSoft() == item2->GetClientSoft())
+				if(item1->GetVersion() == item2->GetVersion() && (item1->GetClientSoft() == SO_EMULE || item1->GetClientSoft() == SO_AMULE)){  
+					iResult = item2->DbgGetFullClientSoftVer().CompareNoCase( item1->DbgGetFullClientSoftVer());
+				}
+				else {
+					iResult = item1->GetVersion() - item2->GetVersion();
+				}
+			else
+				iResult = -(item1->GetClientSoft() - item2->GetClientSoft()); // invert result to place eMule's at top
+			break;
+		//Xman end
 	}
 
 	if (lParamSort >= 100)

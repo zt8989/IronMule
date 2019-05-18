@@ -192,6 +192,7 @@ void CQueueListCtrl::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	CRect rcClient;
 	GetClientRect(&rcClient);
 	const CUpDownClient *client = (CUpDownClient *)lpDrawItemStruct->itemData;
+	COLORREF crOldBackColor = dc->GetBkColor(); //Xman PowerRelease //Xman show LowIDs
 
 	CHeaderCtrl *pHeaderCtrl = GetHeaderCtrl();
 	int iCount = pHeaderCtrl->GetItemCount();
@@ -285,7 +286,17 @@ void CQueueListCtrl::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 						break;
 
 					default:
+						//Xman PowerRelease //Xman show LowIDs
+						if(iColumn == 1) { 
+							//const CKnownFile *file = theApp.sharedfiles->GetFileByID(client->GetUploadFileID());
+							//if(file && file->GetUpPriority()==PR_POWER)
+							//dc.SetBkColor(RGB(255,225,225));
+						}
+						else if(iColumn == 10 && client->HasLowID()) 
+							dc.SetBkColor(RGB(255,250,200));
+						//Xman end
 						dc.DrawText(szItem, -1, &cur_rec, MLC_DT_TEXT | uDrawTextAlignment);
+						dc.SetBkColor(crOldBackColor); //Xman PowerRelease //Xman show LowIDs
 						break;
 				}
 			}
@@ -391,6 +402,12 @@ void CQueueListCtrl::GetItemDisplayText(const CUpDownClient *client, int iSubIte
 		case 9:
 			_tcsncpy(pszText, GetResString(IDS_UPSTATUS), cchTextMax);
 			break;
+
+		//Xman version see clientversion in every window
+		case 10:
+			_sntprintf(pszText, cchTextMax, _T("%s"), client->DbgGetFullClientSoftVer()); //Xman // Maella -Support for tag ET_MOD_VERSION 0x55
+			break;
+		//Xman end
 	}
 	pszText[cchTextMax - 1] = _T('\0');
 }

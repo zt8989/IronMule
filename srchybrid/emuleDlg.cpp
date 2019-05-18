@@ -107,7 +107,6 @@
 #include "UPnPImplWrapper.h"
 #include <dbt.h>
 #include "XMessageBox.h"
-#include "DLP.h" //Xman DLP
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -744,7 +743,12 @@ void CALLBACK CemuleDlg::StartupTimer(HWND /*hwnd*/, UINT /*uiMsg*/, UINT /*idEv
 				}
 				
 				if (!bError) // show the success msg, only if we had no serious error
+					// XMan // Maella -Support for tag ET_MOD_VERSION 0x55
+					/*
 					AddLogLine(true, GetResString(IDS_MAIN_READY), theApp.m_strCurVersionLong);
+					*/
+					AddLogLine(true, GetResString(IDS_MAIN_READY),theApp.m_strCurVersionLong + _T(" ") + MOD_VERSION);
+					//Xman end
 
 				if (thePrefs.DoAutoConnect())
 					theApp.emuledlg->OnBnClickedConnect();
@@ -906,13 +910,6 @@ void CemuleDlg::ResetDebugLog(){
 	serverwnd->debuglog->Reset();
 }
 
-//Xman Anti-Leecher-Log
-void CemuleDlg::ResetLeecherLog()
-{
-	serverwnd->leecherlog->Reset();
-}
-//Xman end
-
 void CemuleDlg::AddLogText(UINT uFlags, LPCTSTR pszText)
 {
 	if (GetCurrentThreadId() != g_uMainThreadId)
@@ -938,20 +935,11 @@ void CemuleDlg::AddLogText(UINT uFlags, LPCTSTR pszText)
 	if ((uFlags & LOG_DEBUG) && !thePrefs.GetVerbose())
 		return;
 
-	//Xman Anti-Leecher-Log
-	if ((uFlags & LOG_LEECHER) && !thePrefs.GetVerbose())
-		return;
-
 	TCHAR temp[1060];
 	int iLen = _sntprintf(temp, _countof(temp), _T("%s: %s\r\n"), CTime::GetCurrentTime().Format(thePrefs.GetDateTimeFormat4Log()), pszText);
 	if (iLen >= 0)
 	{
-		//Xman Anti-Leecher-Log
-		/*
 		if (!(uFlags & LOG_DEBUG))
-		*/
-		if (!(uFlags & LOG_DEBUG) && !(uFlags & LOG_LEECHER))
-		//Xman end
 		{
 			serverwnd->logbox->AddTyped(temp, iLen, uFlags & LOGMSGTYPEMASK);
 			if (IsWindow(serverwnd->StatusSelector) && serverwnd->StatusSelector.GetCurSel() != CServerWnd::PaneLog)
@@ -961,19 +949,6 @@ void CemuleDlg::AddLogText(UINT uFlags, LPCTSTR pszText)
 			if (thePrefs.GetLog2Disk())
 				theLog.Log(temp, iLen);
 		}
-		//Xman Anti-Leecher-Log
-		else
-		if (thePrefs.GetVerbose() && (uFlags & LOG_LEECHER) )
-		{
-			serverwnd->leecherlog->AddTyped(temp, iLen, uFlags & LOGMSGTYPEMASK);
-			if (IsWindow(serverwnd->StatusSelector) && serverwnd->StatusSelector.GetCurSel() != CServerWnd::PaneLeecherLog)
-				serverwnd->StatusSelector.HighlightItem(CServerWnd::PaneLeecherLog, TRUE);
-
-			if (thePrefs.GetDebug2Disk())
-				theVerboseLog.Log(temp, iLen);
-		}
-		else
-		//Xman end
 
 		if (thePrefs.GetVerbose() && ((uFlags & LOG_DEBUG) || thePrefs.GetFullVerbose()))
 		{
@@ -1262,7 +1237,12 @@ void CemuleDlg::ShowTransferRate(bool bForceAll)
 	if (IsWindowVisible() && thePrefs.ShowRatesOnTitle())
 	{
 		TCHAR szBuff[128];
+		// Maella -Support for tag ET_MOD_VERSION 0x55
+		/*
 		_sntprintf(szBuff, _countof(szBuff), _T("(U:%.1f D:%.1f) eMule v%s"), (float)m_uUpDatarate/1024, (float)m_uDownDatarate/1024, theApp.m_strCurVersionLong);
+		*/
+		_sntprintf(szBuff, _countof(szBuff), _T("(U:%.1f D:%.1f) eMule v%s"), (float)m_uUpDatarate/1024, (float)m_uDownDatarate/1024, theApp.m_strCurVersionLong + _T(" ") + MOD_VERSION);
+		//Xman end
 		szBuff[_countof(szBuff) - 1] = _T('\0');
 		SetWindowText(szBuff);
 	}
@@ -2848,7 +2828,6 @@ void CemuleDlg::ApplyLogFont(LPLOGFONT plf)
 		thePrefs.SetLogFont(plf);
 		serverwnd->logbox->SetFont(&theApp.m_fontLog);
 		serverwnd->debuglog->SetFont(&theApp.m_fontLog);
-		serverwnd->leecherlog->SetFont(&theApp.m_fontLog); //Xman Anti-Leecher-Log
 	}
 }
 

@@ -278,7 +278,6 @@
     <ClCompile Include="PeerCacheFinder.cpp" />
     <ClCompile Include="PerfLog.cpp" />
     <ClCompile Include="Pinger.cpp" />
-    <ClCompile Include="PPgXtreme2.cpp" />
     <ClCompile Include="Preferences.cpp" />
     <ClCompile Include="Preview.cpp" />
     <ClCompile Include="Quantize.cpp" />
@@ -869,7 +868,6 @@
     <ClInclude Include="PeerCacheSocket.h" />
     <ClInclude Include="PerfLog.h" />
     <ClInclude Include="Pinger.h" />
-    <ClInclude Include="PPgXtreme2.h" />
     <ClInclude Include="Preferences.h" />
     <ClInclude Include="Preview.h" />
     <ClInclude Include="QArray.h" />

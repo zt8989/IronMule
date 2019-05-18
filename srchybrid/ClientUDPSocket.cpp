@@ -291,19 +291,6 @@ void CClientUDPSocket::OnReceive(int nErrorCode)
 					case OP_KADEMLIAHEADER:
 					{
 						theStats.AddDownDataOverheadKad(nPacketLen);
-						//zz_fly :: Anti-Leecher
-						//note: Clients sending a KAD tag from 0.49a+ but pretending to be 0.48a
-						byte byOpcode = pBuffer[1];
-						if(byOpcode == KADEMLIA_FIREWALLED2_REQ)
-						{
-							CUpDownClient* client = theApp.clientlist->FindClientByIP(IP);
-							if(client != NULL && client->GetClientSoft() == SO_EMULE && client->GetVersion() != 0 && client->GetVersion() < MAKE_CLIENT_VERSION(0, 49, 0))
-							{
-								client->BanLeecher(_T("Detected Vagaa"),5); //Bad Leecher, Hard Ban
-								break;
-							}
-						}
-						//zz_fly :: Anti-Leecher end
 						if (nPacketLen >= 2)
 #ifdef USE_IP_6 // NEO: IP6 - [IPv6]
 							Kademlia::CKademlia::ProcessPacket(pBuffer, nPacketLen, IP.ToIPv4(), nPort

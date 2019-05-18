@@ -40,7 +40,6 @@
 #include "SHAHashSet.h"
 #include "SharedFileList.h"
 #include "Log.h"
-#include "DLP.h" //Xman DLP
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -272,11 +271,6 @@ bool CUpDownClient::AskForDownload()
 
 bool CUpDownClient::IsSourceRequestAllowed() const
 {
-	//Xman Anti-Leecher
-	//>>> Anti-XS-Exploit (Xman)
-	if(thePrefs.GetAntiLeecherXSExploiter() && IsXSExploiter())
-		return false; //this client doesn't answer
-	//Xman end
     return IsSourceRequestAllowed(reqfile);
 }
 

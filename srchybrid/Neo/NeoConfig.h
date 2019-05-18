@@ -28,7 +28,7 @@
 // NEO: IP6 END
 
 // NEO: MID - [ModID]
-#define MOD_VERSION "Neo Mule Protocol Reference v0.1a"
+// #define MOD_VERSION "Neo Mule Protocol Reference v0.1a"
 // NEO: MID END
 
 union UMuleMiscN

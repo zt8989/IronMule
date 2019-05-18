@@ -722,7 +722,12 @@ void CDownloadListCtrl::GetSourceItemDisplayText(const CtrlItem_Struct *pCtrlIte
 			break;
 
 		case 6:		// sources
+			//Xman // Maella -Support for tag ET_MOD_VERSION 0x55
+			/*
 			_tcsncpy(pszText, pClient->GetClientSoftVer(), cchTextMax);
+			*/
+			_tcsncpy(pszText, pClient->DbgGetFullClientSoftVer(), cchTextMax);
+			//Xman End
 			break;
 
 		case 7:		// prio
@@ -1023,6 +1028,20 @@ void CDownloadListCtrl::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 					cur_rec.left = iNextLeft;
 					cur_rec.right = iNextRight;
 				}
+				//Xman show LowIDs
+				else if(iColumn==6)
+				{
+					bool haslowid=((CUpDownClient*)content->value)->HasLowID();
+					COLORREF crOldBackColor = dc->GetBkColor();
+					if(haslowid)
+						dc->SetBkColor(RGB(255,250,200));
+					cur_rec.right += iColumnWidth;
+					DrawSourceItem(dc, 6, &cur_rec, uDrawTextAlignment, content);
+					cur_rec.left += iColumnWidth;
+					if(haslowid)
+						dc->SetBkColor(crOldBackColor);
+				}
+				//Xman end
 				else
 				{
 					cur_rec.right += iColumnWidth;
@@ -2269,9 +2288,23 @@ int CDownloadListCtrl::Compare(const CUpDownClient *client1, const CUpDownClient
 			return CompareUnsigned(client1->GetAvailablePartCount(), client2->GetAvailablePartCount());
 
 		case 6:
+			//Xman
+			// Maella -Support for tag ET_MOD_VERSION 0x55-
+			/*
 			if (client1->GetClientSoft() == client2->GetClientSoft())
 				return client1->GetVersion() - client2->GetVersion();
 			return -(client1->GetClientSoft() - client2->GetClientSoft()); // invert result to place eMule's at top
+			*/
+			if (client1->GetClientSoft() == client2->GetClientSoft())
+			{
+				if(client2->GetVersion() == client1->GetVersion() && (client1->GetClientSoft() == SO_EMULE || client1->GetClientSoft() == SO_AMULE))  
+					return client2->DbgGetFullClientSoftVer().CompareNoCase( client1->DbgGetFullClientSoftVer());
+				else
+					return client1->GetVersion() - client2->GetVersion();
+			}
+			else
+				return -(client1->GetClientSoft() - client2->GetClientSoft());
+			// Maella end
 		
 		case 7: //qr asc
 			if (client1->GetDownloadState() == DS_DOWNLOADING) {

@@ -52,7 +52,6 @@ class CUpDownClient;
 class CPeerCacheFinder;
 class CFirewallOpener;
 class CUPnPImplWrapper;
-class CDLP;	//Xman DLP
 
 struct SLogItem;
 
@@ -91,8 +90,6 @@ public:
 	CPeerCacheFinder*	m_pPeerCache;
 	CFirewallOpener*	m_pFirewallOpener;
 	CUPnPImplWrapper*	m_pUPnPFinder;
-
-	CDLP*				dlp; // Xman DLP
 
 	HANDLE				m_hMutexOneInstance;
 	int					m_iDfltImageListColorFlags;

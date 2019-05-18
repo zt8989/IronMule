@@ -35,7 +35,6 @@
 #include "NetworkInfoDlg.h"
 #include "Log.h"
 #include "UserMsgs.h"
-#include "opcodes.h" //Xman ModID
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -78,7 +77,6 @@ CServerWnd::CServerWnd(CWnd* pParent /*=NULL*/)
 	servermsgbox = new CHTRichEditCtrl;
 	logbox = new CHTRichEditCtrl;
 	debuglog = new CHTRichEditCtrl;
-	leecherlog = new CHTRichEditCtrl; //Xman Anti-Leecher-Log
 	m_pacServerMetURL=NULL;
 	icon_srvlist = NULL;
 	memset(&m_cfDef, 0, sizeof m_cfDef);
@@ -94,7 +92,6 @@ CServerWnd::~CServerWnd()
 		m_pacServerMetURL->Unbind();
 		m_pacServerMetURL->Release();
 	}
-	delete leecherlog; //Xman Anti-Leecher-Log
 	delete debuglog;
 	delete logbox;
 	delete servermsgbox;
@@ -171,22 +168,6 @@ BOOL CServerWnd::OnInitDialog()
 		debuglog->SetAutoURLDetect(FALSE);
 	}
 
-	//Xman Anti-Leecher-Log
-	GetDlgItem(IDC_LEECHERLOG)->GetWindowRect(rect);
-	GetDlgItem(IDC_LEECHERLOG)->DestroyWindow();
-	::MapWindowPoints(NULL, m_hWnd, (LPPOINT)&rect, 2);
-	if (leecherlog->Create(LOG_PANE_RICHEDIT_STYLES, rect, this, IDC_LEECHERLOG)){
-		leecherlog->SetProfileSkinKey(_T("VerboseLog"));
-		leecherlog->ModifyStyleEx(0, WS_EX_STATICEDGE, SWP_FRAMECHANGED);
-		leecherlog->SendMessage(EM_SETMARGINS, EC_LEFTMARGIN | EC_RIGHTMARGIN, MAKELONG(3, 3));
-		if (theApp.m_fontLog.m_hObject)
-			leecherlog->SetFont(&theApp.m_fontLog);
-		leecherlog->ApplySkin();
-		leecherlog->SetTitle(GetResString(IDS_LEERCHERLOGTITLE));
-		leecherlog->SetAutoURLDetect(FALSE);
-	}
-	//Xman end
-
 	SetAllIcons();
 	Localize();
 	serverlistctrl.Init();
@@ -217,15 +198,6 @@ BOOL CServerWnd::OnInitDialog()
 	newitem.iImage = 0;
 	VERIFY( StatusSelector.InsertItem(StatusSelector.GetItemCount(), &newitem) == PaneVerboseLog );
 
-	//Xman Anti-Leecher-Log
-	name=GetResString(IDS_LEERCHERLOGTITLE);
-	name.Replace(_T("&"), _T("&&"));
-	newitem.mask = TCIF_TEXT|TCIF_IMAGE;
-	newitem.pszText = const_cast<LPTSTR>((LPCTSTR)name);
-	newitem.iImage = 0;
-	VERIFY( StatusSelector.InsertItem(StatusSelector.GetItemCount(), &newitem) == PaneLeecherLog );
-	//Xman end
-
 	AddAnchor(IDC_SERVLST_ICO, TOP_LEFT);
 	AddAnchor(IDC_SERVLIST_TEXT, TOP_LEFT);
 	AddAnchor(serverlistctrl, TOP_LEFT, MIDDLE_RIGHT);
@@ -251,7 +223,6 @@ BOOL CServerWnd::OnInitDialog()
 	AddAnchor(*servermsgbox, MIDDLE_LEFT, BOTTOM_RIGHT);
 	AddAnchor(*logbox, MIDDLE_LEFT, BOTTOM_RIGHT);
 	AddAnchor(*debuglog, MIDDLE_LEFT, BOTTOM_RIGHT);
-	AddAnchor(*leecherlog, MIDDLE_LEFT, BOTTOM_RIGHT); //Xman Anti-Leecher-Log
 
 	// Set the tab control to the bottom of the z-order. This solves a lot of strange repainting problems with
 	// the rich edit controls (the log panes).
@@ -260,7 +231,6 @@ BOOL CServerWnd::OnInitDialog()
 	debug = true;
 	ToggleDebugWindow();
 
-	leecherlog->ShowWindow(SW_HIDE); //Xman Anti-Leecher-Log
 	debuglog->ShowWindow(SW_HIDE);
 	logbox->ShowWindow(SW_HIDE);
 	servermsgbox->ShowWindow(SW_SHOW);
@@ -436,14 +406,6 @@ void CServerWnd::Localize()
 	item.pszText = const_cast<LPTSTR>((LPCTSTR)name);
 	StatusSelector.SetItem(PaneVerboseLog, &item);
 
-	//Xman Anti-Leecher-Log
-	name = GetResString(IDS_LEERCHERLOGTITLE);
-	name.Replace(_T("&"), _T("&&"));
-	item.mask = TCIF_TEXT;
-	item.pszText = const_cast<LPTSTR>((LPCTSTR)name);
-	StatusSelector.SetItem(PaneLeecherLog, &item);
-	//Xman end
-
 	UpdateLogTabSelection();
 	UpdateControlsState();
 }
@@ -614,13 +576,6 @@ void CServerWnd::OnBnClickedResetLog()
 	int cur_sel = StatusSelector.GetCurSel();
 	if (cur_sel == -1)
 		return;
-	//Xman Anti-Leecher-Log
-	if (cur_sel == PaneLeecherLog)
-	{
-		theApp.emuledlg->ResetLeecherLog();
-		theApp.emuledlg->statusbar->SetText(_T(""), SBarLog, 0);
-	}
-	//Xman end
 	if (cur_sel == PaneVerboseLog)
 	{
 		theApp.emuledlg->ResetDebugLog();
@@ -649,24 +604,10 @@ void CServerWnd::UpdateLogTabSelection()
 	int cur_sel = StatusSelector.GetCurSel();
 	if (cur_sel == -1)
 		return;
-	//Xman Anti-Leecher-Log
-	if (cur_sel == PaneLeecherLog)
-	{
-		servermsgbox->ShowWindow(SW_HIDE);
-		logbox->ShowWindow(SW_HIDE);
-		debuglog->ShowWindow(SW_HIDE);
-		leecherlog->ShowWindow(SW_SHOW);
-		if (leecherlog->IsAutoScroll() && (StatusSelector.GetItemState(cur_sel, TCIS_HIGHLIGHTED) & TCIS_HIGHLIGHTED))
-			leecherlog->ScrollToLastLine(true);
-		leecherlog->Invalidate();
-		StatusSelector.HighlightItem(cur_sel, FALSE);
-	}
-	//Xman end
 	if (cur_sel == PaneVerboseLog)
 	{
 		servermsgbox->ShowWindow(SW_HIDE);
 		logbox->ShowWindow(SW_HIDE);
-		leecherlog->ShowWindow(SW_HIDE);//Xman Anti-Leecher-Log
 		debuglog->ShowWindow(SW_SHOW);
 		if (debuglog->IsAutoScroll() && (StatusSelector.GetItemState(cur_sel, TCIS_HIGHLIGHTED) & TCIS_HIGHLIGHTED))
 			debuglog->ScrollToLastLine(true);
@@ -677,7 +618,6 @@ void CServerWnd::UpdateLogTabSelection()
 	{
 		debuglog->ShowWindow(SW_HIDE);
 		servermsgbox->ShowWindow(SW_HIDE);
-		leecherlog->ShowWindow(SW_HIDE);//Xman Anti-Leecher-Log
 		logbox->ShowWindow(SW_SHOW);
 		if (logbox->IsAutoScroll() && (StatusSelector.GetItemState(cur_sel, TCIS_HIGHLIGHTED) & TCIS_HIGHLIGHTED))
 			logbox->ScrollToLastLine(true);
@@ -688,7 +628,6 @@ void CServerWnd::UpdateLogTabSelection()
 	{
 		debuglog->ShowWindow(SW_HIDE);
 		logbox->ShowWindow(SW_HIDE);
-		leecherlog->ShowWindow(SW_HIDE);//Xman Anti-Leecher-Log
 		servermsgbox->ShowWindow(SW_SHOW);
 		if (servermsgbox->IsAutoScroll() && (StatusSelector.GetItemState(cur_sel, TCIS_HIGHLIGHTED) & TCIS_HIGHLIGHTED))
 			servermsgbox->ScrollToLastLine(true);
@@ -710,35 +649,18 @@ void CServerWnd::ToggleDebugWindow()
 		newitem.pszText = const_cast<LPTSTR>((LPCTSTR)name);
 		newitem.iImage = 0;
 		StatusSelector.InsertItem(StatusSelector.GetItemCount(),&newitem);
-
-		//Xman Anti-Leecher-Log
-		name = GetResString(IDS_LEERCHERLOGTITLE);
-		name.Replace(_T("&"), _T("&&"));
-		newitem.mask = TCIF_TEXT|TCIF_IMAGE;
-		newitem.pszText = const_cast<LPTSTR>((LPCTSTR)name);
-		newitem.iImage = 0;
-		StatusSelector.InsertItem(StatusSelector.GetItemCount(),&newitem);
-		//Xman end
-
 		debug = true;
 	}
 	else if (!thePrefs.GetVerbose() && debug)
 	{
-		//Xman Anti-Leecher-Log
-		/*
 		if (cur_sel == PaneVerboseLog)
-		*/
-		if (cur_sel == PaneVerboseLog || cur_sel == PaneLeecherLog)
-		//Xman end
 		{
 			StatusSelector.SetCurSel(PaneLog);
 			StatusSelector.SetFocus();
 		}
 		debuglog->ShowWindow(SW_HIDE);
 		servermsgbox->ShowWindow(SW_HIDE);
-		leecherlog->ShowWindow(SW_HIDE); //Xman Anti-Leecher-Log
 		logbox->ShowWindow(SW_SHOW);
-		StatusSelector.DeleteItem(PaneLeecherLog); //Xman Anti-Leecher-Log
 		StatusSelector.DeleteItem(PaneVerboseLog);
 		debug = false;
 	}
@@ -910,7 +832,6 @@ void CServerWnd::DoResize(int delta)
 	CSplitterControl::ChangeHeight(servermsgbox, -delta,CW_BOTTOMALIGN);
 	CSplitterControl::ChangeHeight(logbox, -delta, CW_BOTTOMALIGN);
 	CSplitterControl::ChangeHeight(debuglog, -delta, CW_BOTTOMALIGN);
-	CSplitterControl::ChangeHeight(leecherlog, -delta, CW_BOTTOMALIGN); //Xman Anti-Leecher-Log
 	UpdateSplitterRange();
 }
 
@@ -960,14 +881,6 @@ void CServerWnd::InitSplitter()
 	rcDlgItem.bottom = rcWnd.bottom-12;
 	debuglog->MoveWindow(rcDlgItem);
 
-	//Xman Anti-Leecher-Log
-	leecherlog->GetWindowRect(rcDlgItem);
-	ScreenToClient(rcDlgItem);
-	rcDlgItem.top=splitpos+35;
-	rcDlgItem.bottom = rcWnd.bottom-12;
-	leecherlog->MoveWindow(rcDlgItem);
-	//Xman end
-
 	long right=rcDlgItem.right;
 	GetDlgItem(IDC_SPLITTER_SERVER)->GetWindowRect(rcDlgItem);
 	ScreenToClient(rcDlgItem);
@@ -985,7 +898,6 @@ void CServerWnd::ReattachAnchors()
 	RemoveAnchor(*servermsgbox);
 	RemoveAnchor(*logbox);
 	RemoveAnchor(*debuglog);
-	RemoveAnchor(*leecherlog); //Xman Anti-Leecher-Log
 
 	AddAnchor(serverlistctrl, TOP_LEFT, CSize(100, thePrefs.GetSplitterbarPositionServer()));
 	AddAnchor(StatusSelector, CSize(0, thePrefs.GetSplitterbarPositionServer()), BOTTOM_RIGHT);
@@ -993,7 +905,6 @@ void CServerWnd::ReattachAnchors()
 	AddAnchor(*servermsgbox, CSize(0, thePrefs.GetSplitterbarPositionServer()), BOTTOM_RIGHT);
 	AddAnchor(*logbox, CSize(0, thePrefs.GetSplitterbarPositionServer()), BOTTOM_RIGHT);
 	AddAnchor(*debuglog, CSize(0, thePrefs.GetSplitterbarPositionServer()), BOTTOM_RIGHT);
-	AddAnchor(*leecherlog, CSize(0, thePrefs.GetSplitterbarPositionServer()), BOTTOM_RIGHT); //Xman Anti-Leecher-Log
 
 	GetDlgItem(IDC_LOGRESET)->Invalidate();
 
@@ -1003,10 +914,6 @@ void CServerWnd::ReattachAnchors()
 		logbox->Invalidate();
 	if (debuglog->IsWindowVisible())
 		debuglog->Invalidate();
-	//Xman Anti-Leecher-Log
-	if (leecherlog->IsWindowVisible())
-		leecherlog->Invalidate();
-	//Xman end
 }
 
 void CServerWnd::UpdateSplitterRange()
