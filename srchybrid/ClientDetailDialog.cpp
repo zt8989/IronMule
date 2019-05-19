@@ -74,6 +74,11 @@ BOOL CClientDetailPage::OnInitDialog()
 	AddAnchor(IDC_STATIC50, TOP_LEFT, TOP_RIGHT);
 	AddAnchor(IDC_DNAME, TOP_LEFT, TOP_RIGHT);
 	AddAnchor(IDC_DSNAME, TOP_LEFT, TOP_RIGHT);
+	//zz_fly :: let it resize together with the dialog
+	CSize tAnchor(40,0);
+	AddAnchor(IDC_DSOFT, TOP_LEFT, tAnchor);
+	AddAnchor(IDC_DLOC, tAnchor, TOP_RIGHT);
+	//zz_fly :: end
 	AddAnchor(IDC_DDOWNLOADING, TOP_LEFT, TOP_RIGHT);
 	AddAnchor(IDC_UPLOADING, TOP_LEFT, TOP_RIGHT);
 	AddAnchor(IDC_OBFUSCATION_STAT, TOP_LEFT, TOP_RIGHT);
@@ -104,7 +109,12 @@ BOOL CClientDetailPage::OnSetActive()
 		else
 			GetDlgItem(IDC_DHASH)->SetWindowText(_T("?"));
 		
+		//Xman ModId
+		/*
 		GetDlgItem(IDC_DSOFT)->SetWindowText(client->GetClientSoftVer());
+		*/
+		GetDlgItem(IDC_DSOFT)->SetWindowText(client->DbgGetFullClientSoftVer());
+		//Xman end
 
 		if (client->SupportsCryptLayer() && thePrefs.IsClientCryptLayerSupported() && (client->RequestsCryptLayer() || thePrefs.IsClientCryptLayerRequested()) 
 			&& (client->IsObfuscatedConnectionEstablished() || !(client->socket != NULL && client->socket->IsConnected())))

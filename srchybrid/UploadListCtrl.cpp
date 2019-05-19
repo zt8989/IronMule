@@ -88,6 +88,8 @@ void CUploadListCtrl::Init()
 	InsertColumn(5, GetResString(IDS_UPLOADTIME),	LVCFMT_LEFT,   80);
 	InsertColumn(6, GetResString(IDS_STATUS),		LVCFMT_LEFT,  100);
 	InsertColumn(7, GetResString(IDS_UPSTATUS),		LVCFMT_LEFT,  DFLT_PARTSTATUS_COL_WIDTH);
+	InsertColumn(8,	GetResString(IDS_CD_CSOFT),		LVCFMT_LEFT, 90); //Xman version see clientversion in every window
+	
 
 	SetAllIcons();
 	Localize();
@@ -134,6 +136,13 @@ void CUploadListCtrl::Localize()
 	strRes = GetResString(IDS_UPSTATUS);
 	hdi.pszText = const_cast<LPTSTR>((LPCTSTR)strRes);
 	pHeaderCtrl->SetItem(7, &hdi);
+
+	//Xman version see clientversion in every window
+	strRes = GetResString(IDS_CD_CSOFT);
+	hdi.pszText = const_cast<LPTSTR>((LPCTSTR)strRes);
+	pHeaderCtrl->SetItem(8, &hdi);
+	//Xman end
+
 }
 
 void CUploadListCtrl::OnSysColorChange()

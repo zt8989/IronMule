@@ -1817,6 +1817,7 @@
 #define IDC_FD_X15                      2400
 #define IDC_STATIC38                    2402
 #define IDC_FD_LASTCHANGE               2403
+#define IDC_STATIC39                    2403
 #define IDC_STATIC40                    2404
 #define IDC_FD_X16                      2405
 #define IDC_STATIC41                    2406
@@ -2332,7 +2333,6 @@
 #define IDC_FS_POPULARITY2_LBL          3010
 #define IDC_FS_POPULARITY2_VAL          3011
 #define IDC_OPENPREFINI                 3012
-// ==========  Xtreme Mod  ==========
 #define IDS_DROPNONEEDEDSRCS            4000
 #define IDS_DROPQUEUEFULLSRCS           4001
 #define IDS_DROPQUEUETOOMANY            4002
@@ -2467,8 +2467,6 @@
 #define IDI_ICONMR                      4151
 #define IDS_ANTILEECHERFILENAME_CHECK   4152
 #define IDS_ANTILEECHERUSERHASH_CHECK   4153
-//zz_fly :: Start
-//upnp status
 #define IDS_UPNPSTATUS                  4154
 #define IDS_UPNPSTATUS_OK               4155
 #define IDS_UPNPSTATUS_NOTINLAN         4156
@@ -2476,7 +2474,6 @@
 #define IDS_UPNPSTATUS_PORTINUSE        4158
 #define IDS_UPNPSTATUS_PORTINUSE2       4159
 #define IDS_UPNP_REBINDTEXT             4160
-//import parts
 #define IDS_IMPORTPARTS                 4161
 #define IDS_IMPORTPARTS_STOP            4162
 #define IDS_SR13_IMPORTPARTS_ERR_ALREADYCOMPLETE 4163
@@ -2490,9 +2487,7 @@
 #define IDS_SR13_IMPORTPARTS_BADPARTSREHASH 4171
 #define IDS_SR13_IMPORTPARTS_ERR_FILETOOSMALL 4172
 #define IDS_SR13_IMPORTPARTS_IMPORTFINISH 4173
-//Obfuscation-Padding-Length
-#define IDS_OBFUSCATION_PADDING_LENGTH	4174
-//Friendlinks
+#define IDS_OBFUSCATION_PADDING_LENGTH  4174
 #define IDS_GETFRIENDED2KLINK           4175
 #define IDS_GETHTMLFRIENDED2KLINK       4176
 #define IDS_DOWNLOADEMFRIENDSMET        4177
@@ -2503,20 +2498,17 @@
 #define IDS_FRIENDLINKMENUTITLE         4182
 #define IDS_USER_ALREADY_FRIEND         4183
 #define IDS_PROGRESSHASHDONE            4184
-#define IDS_USEACATUPNPNEXTSTART1	4185
-#define IDS_USEACATUPNPNEXTSTART2	4186
-#define IDS_RETRIEVEMTUFROMSOCKET	4187
-#define IDS_ENABLEKNOWN2BUFFER		4188
-#define IDS_ANTILEECHERFINCAN_CHECK	4189
-#define IDS_ENABLEKNOWN2SPLIT		4190
-// ==> push small files [sivka] - Stulle
+#define IDS_USEACATUPNPNEXTSTART1       4185
+#define IDS_USEACATUPNPNEXTSTART2       4186
+#define IDS_RETRIEVEMTUFROMSOCKET       4187
+#define IDS_ENABLEKNOWN2BUFFER          4188
+#define IDS_ANTILEECHERFINCAN_CHECK     4189
+#define IDS_ENABLEKNOWN2SPLIT           4190
 #define IDS_PUSH_SMALL                  4191
 #define IDS_SMALL                       4192
 #define IDS_PUSH_SMALL_FILE_SIZE        4193
-// <== push small files [sivka] - Stulle
-#define IDS_TRUSTEVERYHASH              4194 //Trust every AICHHash
-#define IDC_KNOWN2SPLIT_PPGFILES		4195 //Known2Split checkbox in ppgfiles
-//zz_fly :: End
+#define IDS_TRUSTEVERYHASH              4194
+#define IDC_KNOWN2SPLIT_PPGFILES        4195
 #define IDD_PPG_Xtreme                  5000
 #define IDC_13RATIO                     5001
 #define IDC_UPREDUCTION                 5002
@@ -2620,18 +2612,18 @@
 #define IDC_OLDFILENAMESEDIT            5100
 #define IDC_SIMPLECLEANUP               5101
 #define IDC_INSERTTEXTCOLUMN            5102
-#define IDC_SENDBUFFER4			5103 //zz_fly :: support 24k send buffer
-#define IDC_BTN_MENU                    5104 //Friendlinks
-#define IDC_RETRIEVEMTUFROMSOCKET		5105 // netfinity: Maximum Segment Size (MSS - Vista only) //added by zz_fly
-#define IDC_ANTILEECHERFINCAN_CHECK		5106 //X-Ray :: Fincan Hash Detection
+#define IDC_SENDBUFFER4                 5103
+#define IDC_BTN_MENU                    5104
+#define IDC_RETRIEVEMTUFROMSOCKET       5105
+#define IDC_ANTILEECHERFINCAN_CHECK     5106
 #define IDS_EMULE_CTRL_DATA             5107
 #define IDS_NETWORK_ADAPTER             5108
-#define IDA_ENTER                       32771
 #define IDC_CLIENTDETAIL_KAD2           5109
 #define IDC_CLIENTDETAIL_KADCON2        5110
 #define IDC_USE_IPV6                    5111
 #define IDC_CLIENT_IPV6                 5112
 #define IDC_STATIC133x2                 5113
+#define IDA_ENTER                       32771
 
 // Next default values for new objects
 // 
