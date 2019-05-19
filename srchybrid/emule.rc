@@ -114,6 +114,7 @@ BEGIN
     CONTROL         "",IDC_SERVMSG,"Static",SS_BLACKFRAME | NOT WS_VISIBLE,9,207,348,75
     CONTROL         "",IDC_LOGBOX,"Static",SS_BLACKFRAME | NOT WS_VISIBLE,9,207,348,75
     CONTROL         "",IDC_DEBUG_LOG,"Static",SS_BLACKFRAME | NOT WS_VISIBLE,9,207,348,75
+    CONTROL         "",IDC_LEECHERLOG,"Static",SS_BLACKFRAME | NOT WS_VISIBLE,9,207,348,75
 END
 
 IDD_SEARCH DIALOGEX 0, 0, 284, 136
@@ -940,6 +941,7 @@ BEGIN
     LTEXT           "Use IPv6:",IDC_STATIC133x2,17,68,62,8,0,WS_EX_RIGHT
     RTEXT           "Client IPv6:",IDC_CLIENTDETAIL_KAD2,18,80,61,8
     CONTROL         "Static",IDC_CLIENT_IPV6,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,83,80,227,8
+    CONTROL         "Static",IDC_LEECHERINFO,"Static",SS_LEFTNOWORDWRAP | SS_NOPREFIX | WS_GROUP,206,191,105,20
 END
 
 IDD_META_DATA DIALOGEX 0, 0, 327, 130
@@ -3727,6 +3729,247 @@ BEGIN
     IDS_DONOTASKAGAIN       "Don't ask me again"
     IDS_POPULARITY          "Popularity Rank"
     IDS_SHOWWIN7TASKBARGOODIES "Enable Windows 7 taskbar effects"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_DROPNONEEDEDSRCS    "Drop NNS"
+    IDS_DROPQUEUEFULLSRCS   "Drop FullQ"
+    IDS_DROPQUEUETOOMANY    "Drop Too Many"
+    IDS_DROPQUEUEUNKNOWN    "Drop Unknown"
+    IDS_DROP_ASKING         "Drop Asking"
+    IDS_DROPCONNECTING      "Drop Connecting"
+    IDS_STOP_CLIENT         "Stop this client"
+    IDS_SubMenu_Drop        "&Drop"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_13RATIO             "Use amount based 1:3 ratio if upload < 11"
+    IDS_PPG_MAELLA_MTU_STATIC "MTU (500..1500, default 1340)"
+    IDS_PPG_MAELLA_NAFC_CHECK02 "NAFC Full Control U/D Limits"
+    IDS_OPENMORESLOTS       "Open more slots if needed (recommended)"
+    IDS_AVG_DATARATE_TIME   "Show Average Datarate over seconds: %u"
+    IDS_XTREMESETTINGS      "Xtreme"
+    IDS_ZOOMSTATIC          "Zoom: %u"
+    IDS_AVGQR               "AvgQR"
+    IDS_USEDOUBLESENDSIZE   "Use Double Sendsize"
+    IDS_LOGDROP             "Log Drop actions"
+    IDS_ANTILEECHER_GROUP   "Anti-Leecher"
+    IDS_ANTILEECHER_CHECK   "Enable Anti-Leecher-Protection"
+    IDS_ANTILEECHERNAME_CHECK "Detect Leecher by UserName"
+    IDS_POWERRELEASE        "PowerRelease"
+    IDS_DONTREMOVESTATICSERVER "Don't remove static server"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_LISTREQUESTED       "list requested files"
+    IDS_HIGHPRIOPROCESS     "High"
+    IDS_ABOVENORMALPROCESS  "Above Normal"
+    IDS_NORMALPROCESS       "Normal"
+    IDS_PROCESSGROUP        "Process Priority"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_COUNTRYNAME_SHORT   "Display 2 letters"
+    IDS_COUNTRYNAME_MID     "Display 3 letters"
+    IDS_COUNTRYNAME_LONG    "Display full name"
+    IDS_COUNTRYNAME_SHOWFLAG "ShowFlag"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_IP2COUNTRY_MSG1     "IP2Country uses the IP-to-Country Database provided by WebHosting.Info"
+    IDS_IP2COUNTRY_MSG2     "(http://www.webhosting.info), available from http://ip-to-country.webhosting.info"
+    IDS_IP2COUNTRY_LOADED   "IP2Country loaded"
+    IDS_IP2COUNTRY_UNLOADED "IP2Country unloaded"
+    IDS_IP2COUNTRY_ERROR1   "error line number : %i"
+    IDS_IP2COUNTRY_ERROR3   "Failed to load in"
+    IDS_IP2COUNTRY_ERROR4   "CountryFlag Disabled, failed to load"
+    IDS_IP2COUNTRY_ERROR5   "Invalid resID, maybe you need to upgrade your flag icon Dll,"
+    IDS_IP2COUNTRY_INFO     "Parsed lines:%u  Found IPCountry ranges:%u  Duplicate:%u  Merged:%u"
+    IDS_IP2COUNTRY_FLAGLOAD "Country Flags have been loaded"
+    IDS_IP2COUNTRY_FILELOAD "IP2Countryfile has been unloaded"
+    IDS_IP2COUNTRY_FLAGUNLD "Country Flags have been unloaded"
+    IDS_IP2COUNTRY_NALONG   "Not Applicable"
+    IDS_IP2COUNTRY_NASHORT  "N/A"
+    IDS_IP2COUNTRY_LOADED2  "Loaded IP2Country from ""%s"" in %ums"
+    IDS_ACCURATEGRAPH       "accurate"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_SMOOTHGRAPH         "smooth"
+    IDS_MULTIQUEUE          "One queue per file (Multiqueue)"
+    IDS_RETRYCONNECTIONATTEMPTS "Retry failed TCP connection attempts"
+    IDS_ANTIGHOST           "Detect Ghost-Mods"
+    IDS_REMEMBERAICH        "Remember unused AICH-Hashes (known2.met)"
+    IDS_MARKCANCELLED       "Mark as Cancelled"
+    IDS_DOWNHISTORY_CHECK1  "eMule has found a file already downloaded with the same file ID:\n"
+    IDS_DOWNHISTORY_CHECK2  "eMule has found %i files already downloaded with the same file name (%s):\n"
+    IDS_DOWNHISTORY_CHECK3  "Do you want to download the file anyway?"
+    IDS_DOWNHISTORY_CHECK4  "eMule has found a file already cancelled with the same file ID:\n"
+    IDS_DOWNHISTORY         "Downloaded history"
+    IDS_DOWNHISTORY_REMOVE  "Remove from history"
+    IDS_DOWNHISTORY_REMOVE_QUESTION 
+                            "Do you really want to remove ""%s"" from downloaded history?"
+    IDS_DOWNHISTORY_REMOVE_QUESTION_MULTIPLE 
+                            "Do you really want to remove selected files from downloaded history?"
+    IDS_DOWNHISTORY_SHARED  "Shared"
+    IDS_DOWNHISTORY_CLEAR   "Clear downloaded history"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_DOWNHISTORY_SHOWSHARED "Show shared files"
+    IDS_DOWNHISTORY_ACTIONS "Actions"
+    IDS_DOWNHISTORY_CLEAR_QUESTION 
+                            "Are you sure you want to clear download history?"
+    IDS_SENDBUFFER          "Sendbuffer"
+    IDS_LEERCHERLOGTITLE    "Leecher-Messages"
+    IDS_ALL_A4AF_TO_THIS    "Swap All Sources To This File Now"
+    IDS_ALL_A4AF_TO_OTHER   "Swap All Sources To Any Other File Now"
+    IDS_SWAP_A4AF_TO_THIS   "Swap (A4AF) Sources To This File Now"
+    IDS_SWAP_A4AF_TO_OTHER  "Swap (A4AF) Sources To Any Other File Now"
+    IDS_ALL_A4AF_AUTO       "Automatically Swap All (A4AF) Sources To This File"
+    IDS_LEECHER_ACTION_BAN  "Ban"
+    IDS_LEECHER_ACTION_REDUCE "Reduce score"
+    IDS_ANTILEECHERBADHELLO_CHECK "Detect wrong Hello-Tag"
+    IDS_ANTILEECHERSNAFU_CHECK "Detect bad Tags"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_ANTILEECHERMOD_CHECK "Detect Leecher by Modstring"
+    IDS_ANTILEECHERTHIEF_CHECK "Detect Nick- / Modthiefs"
+    IDS_ANTILEECHERSPAMMER_CHECK "Detect Spammers"
+    IDS_ANTILEECHERXSEXPLOITER_CHECK "Detect XS-Exploiter"
+    IDS_STATIC_LEECHERCOMMUNITY "Community Mods"
+    IDS_STATIC_LEECHERGHOST "Ghost-Mods"
+    IDS_STATIC_LEECHERTHIEF "Nick- / Modthiefs"
+    IDS_NEWXTREMEVERSION    "New Xtreme-Version available"
+    IDS_NEWXTREMEVERSIONDOWNLOAD 
+                            "New Xtreme-Version available \n Do you want it to download ?"
+    IDS_NEWDLP              "New antiLeech.dll (DLP) available"
+    IDS_NEWDLPDOWNLOAD      "New antiLeech.dll (DLP) available \n Do you want it to download ?"
+    IDS_DROPLEECHER         "Drop Leecher"
+    IDS_ACTIVEDOWNLOADSBOLD "Show active downloads bold"
+    IDS_UPDOWNUPLOADLIST    "Up / Down"
+    IDS_MAXGLOBALSOURCES    "global sourcelimit:"
+    IDS_ACCEPTSOURCES       "Accept global sourcelimit"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_ACCEPTRATIO         "Accept 1:3 session ratio if found sources > sourcelimit"
+    IDS_SHOWADDITIONALGRAPH "Show additional graph-lines"
+    IDS_CHECK4UPDATEMOD     "Check for new Xtreme version on startup"
+    IDS_ANTILEECHEREMCRYPT_CHECK "Detect emcrypt"
+    IDS_UPLOADMANAGEMENT_FRAME "Upload Management"
+    IDS_UPLOADSLOTSPEED_LABEL "Upload Slot Speed"
+    IDS_USENARROWFONT       "Use narrow font in transfer window"
+    IDS_SHOWBLOCKINGRATIO   "Show socket blocking ratio"
+    IDS_FUNNYNICK           "Display Funny Nick"
+    IDS_AUTOUPDATEIPFILTER  "Auto-update IPFilter.dat"
+    IDS_DROPBLOCKINGSOCKETS "Drop too frequently blocking sockets"
+    IDS_LOGPARTMISMATCH     "Log size-mismatch of requested files"
+    IDS_CN_UPNPTRYRANDOM    "Try to use random port on UPnP gateway"
+    IDS_CN_UPNPNAT          "Enable UPnP support"
+    IDS_CHUNKCHOOSER        "Chunk choosing method"
+    IDS_UPLOADINSTABLE      "Warning: your upload settings seem to be too high. Please review your settings! \n look at the uploadgraph, the white or the yellow(with NAFC) line should be straight \n this message is only generated once"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_CLIENTPERCENTAGE    "Show client percentage"
+    IDS_ONERELEASESLOT      "Always one release-slot"
+    IDS_A_UPPRIO            "Use advanced auto-uploadpriority"
+    IDS_SHAREFACTOR         "Sharefactor"
+    IDS_MASSRENAME1         "Filename mask (changes here will be done to all filenames below):"
+    IDS_FILENAMELEFT        "Filenames left-justified"
+    IDS_FILENAMERIGHT       "Filenames right-justified"
+    IDS_RESETFILENAMES      "&Reset"
+    IDS_SIMPLECLEANUP       "&Simple cleanup"
+    IDS_INSERTTEXTCOLUMN    "&Insert text column from clipboard"
+    IDS_MASSRENAME2         "Original filenames:"
+    IDS_MASSRENAME3         "New filenames:"
+    IDS_NOTENOUGHFILENAMES  "Not enough filenames in the list of new filenames. Rename not possible."
+    IDS_IDENTICALFILENAMES  "Two or more equal filenames within the same directory are not allowed (Line %d). Rename not possible."
+    IDS_MR                  "Mass Rename..."
+    IDS_MASSRENAME_TITLE    "Mass-Rename"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_STATIC_DOWNINFO     "Download 0 = unlimited"
+    IDS_ANTILEECHERUSERHASH_CHECK "Detect bad userhashes"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_UPNPSTATUS          "UPnP Status:"
+    IDS_UPNPSTATUS_OK       "OK"
+    IDS_UPNPSTATUS_NOTINLAN "You aren't behind a Hardware Firewall or Router"
+    IDS_UPNPSTATUS_ERROR    "Can not find a UPnP Router"
+    IDS_UPNPSTATUS_PORTINUSE "External NAT port in use"
+    IDS_UPNPSTATUS_PORTINUSE2 "External NAT port in use: Too many retries"
+    IDS_UPNP_REBINDTEXT     "Rebind UPnP On IP-Change"
+    IDS_IMPORTPARTS         "Import parts to file..."
+    IDS_IMPORTPARTS_STOP    "Stop Import parts to file"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_SR13_IMPORTPARTS_ERR_ALREADYCOMPLETE 
+                            "Import aborted: Can't import to a complete file."
+    IDS_SR13_IMPORTPARTS_ERR_HASHSETINCOMPLETE 
+                            "Import aborted: hashset incomplete for %s (%i hashes for %i parts)."
+    IDS_SR13_IMPORTPARTS_ERR_CANTOPENFILE "Import aborted: Couldn't open %s."
+    IDS_SR13_IMPORTPARTS_IMPORTSTART "Importing %i parts to %s."
+    IDS_SR13_IMPORTPARTS_PARTIMPORTEDGOOD "Part %i: imported."
+    IDS_SR13_IMPORTPARTS_PARTIMPORTEDBAD "Part %i: imported for ICH handling."
+    IDS_SR13_IMPORTPARTS_PARTSKIPPEDDONTMATCH 
+                            "Part %i: skipped, doesn't match partially completed block."
+    IDS_SR13_IMPORTPARTS_BADPARTSREHASH 
+                            "%i bad parts were imported for A/ICH. Initiating rehash."
+    IDS_SR13_IMPORTPARTS_ERR_FILETOOSMALL 
+                            "File is smaller than minimal recovery block for AICH - there's no use in importing data to it."
+    IDS_SR13_IMPORTPARTS_IMPORTFINISH 
+                            "Import finished. %i parts were imported to %s."
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_SMALL               "Small"
+    IDS_PUSH_SMALL_FILE_SIZE "Small file size limit in KB [1-2048]"
+    IDS_PUSH_SMALL          "Push small files"
+    IDS_TRUSTEVERYHASH      "Trust Every AICHHash (current session, not saved, not recommended)"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_OBFUSCATION_PADDING_LENGTH "Obfuscation-Padding-Length [10-254]"
+    IDS_GETFRIENDED2KLINK   "Copy friend link to clipboard"
+    IDS_GETHTMLFRIENDED2KLINK "Copy friend link to clipboard (HTML)"
+    IDS_DOWNLOADEMFRIENDSMET "Download emfriends.met"
+    IDS_EMFRIENDSMETURL     "Please enter the URL of emfriends.met:"
+    IDS_ERR_FAILEDDOWNLOADEMFRIENDS "Failed to download the friendlist from %s"
+    IDS_GETMYFRIENDED2KLINK "Copy my friend link to clipboard"
+    IDS_GETMYHTMLFRIENDED2KLINK "Copy my friend link to clipboard (HTML)"
+    IDS_FRIENDLINKMENUTITLE "FriendLinks"
+    IDS_USER_ALREADY_FRIEND "User ""%s"" is already in your friend list"
+    IDS_PROGRESSHASHDONE    "Hashing done: %s"
+    IDS_USEACATUPNPNEXTSTART1 "Keep using ACAT UPnP lib after restart eMule"
+    IDS_USEACATUPNPNEXTSTART2 "Switch to ACAT UPnP lib after restart eMule"
+    IDS_RETRIEVEMTUFROMSOCKET "Try to Retrieve MTU from System"
+    IDS_ENABLEKNOWN2BUFFER  "Enable AICHHashset buffer (reduce diskio while hashing tons of files)"
+    IDS_ANTILEECHERFINCAN_CHECK 
+                            "Detect Fincan Community Hash (CPU intensive!)"
+    IDS_ENABLEKNOWN2SPLIT   "Split Known2_64.met, let unshared AICHHashsets in a single file"
+    IDS_EMULE_CTRL_DATA     "eMule control + data"
+    IDS_NETWORK_ADAPTER     "Network Adapter"
 END
 
 #endif    // Ó¢Óï(ÃÀ¹ú) resources

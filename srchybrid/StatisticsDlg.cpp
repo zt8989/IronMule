@@ -2861,6 +2861,10 @@ void CStatisticsDlg::ShowStatistics(bool forceUpdate)
 		
 		cbuffer.Format(GetResString(IDS_STATS_FILTEREDCLIENTS), theStats.filteredclients);
 		stattree.SetItemText(cligen[2], cbuffer);
+		//Xman Anti-Leecher
+		cbuffer.Format(_T("Leecher-Hits: %u"), theStats.leecherclients);
+		stattree.SetItemText(cligen[6], cbuffer);
+		//Xman end
 	} // - END CLIENTS SECTION
 
 
@@ -3342,6 +3346,7 @@ void CStatisticsDlg::CreateMyTree()
 	cligen[3] = stattree.InsertItem(GetResString(IDS_FSTAT_WAITING), h_clients);
 	for(int i = 0; i<3; i++)
 		cligen[i] = stattree.InsertItem(GetResString(IDS_FSTAT_WAITING), h_clients);
+	cligen[6] = stattree.InsertItem(GetResString(IDS_FSTAT_WAITING), h_clients); //Xman Anti-Leecher
 	h_servers = stattree.InsertItem(GetResString(IDS_FSTAT_SERVERS),4,4);					// Servers section
 	for(int i = 0; i<6; i++)
 		srv[i] = stattree.InsertItem(GetResString(IDS_FSTAT_WAITING), h_servers);		// Servers Items

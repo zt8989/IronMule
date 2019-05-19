@@ -76,6 +76,7 @@
 
 #define WORKING_BUFFER_SIZE 15000
 #define MAX_TRIES 3
+#include "DLP.h" //Xman DLP
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -694,6 +695,7 @@ BOOL CemuleApp::InitInstance()
     uploadBandwidthThrottler = new UploadBandwidthThrottler();
 	// ZZ:UploadSpeedSense <--
 
+	dlp = new CDLP(thePrefs.GetMuleDirectory(EMULE_EXECUTEABLEDIR),thePrefs.GetMuleDirectory(EMULE_CONFIGDIR)); //Xman DLP  
 	clientlist = new CClientList();
 	friendlist = new CFriendList();
 	searchlist = new CSearchList();

@@ -637,6 +637,14 @@ bool CClientReqSocket::ProcessPacket(const BYTE* packet, uint32 size, UINT opcod
 						Debug(_T("  Start2=%u  End2=%u  Size=%u\n"), auStartOffsets[1], auEndOffsets[1], auEndOffsets[1] - auStartOffsets[1]);
 						Debug(_T("  Start3=%u  End3=%u  Size=%u\n"), auStartOffsets[2], auEndOffsets[2], auEndOffsets[2] - auStartOffsets[2]);
 					}
+					//Xman Anti-Leecher
+					if(client->GetUploadState()==US_BANNED) //just to be sure
+					{
+						theApp.uploadqueue->RemoveFromUploadQueue(client,_T("banned client detected during upload")); 
+						client->SetUploadFileID(NULL); 
+						AddLeecherLogLine(false,_T("banned client was in upload: %s"),client->DbgGetClientInfo());
+					}
+					//Xman end
 
 					for (int i = 0; i < ARRSIZE(auStartOffsets); i++)
 					{
@@ -2028,6 +2036,14 @@ bool CClientReqSocket::ProcessExtPacket(const BYTE* packet, uint32 size, UINT op
 						Debug(_T("  Start2=%I64u  End2=%I64u  Size=%I64u\n"), auStartOffsets[1], auEndOffsets[1], auEndOffsets[1] - auStartOffsets[1]);
 						Debug(_T("  Start3=%I64u  End3=%I64u  Size=%I64u\n"), auStartOffsets[2], auEndOffsets[2], auEndOffsets[2] - auStartOffsets[2]);
 					}
+					//Xman Anti-Leecher
+					if(client->GetUploadState()==US_BANNED) //just to be sure
+					{
+						theApp.uploadqueue->RemoveFromUploadQueue(client,_T("banned client detected during upload")); 
+						client->SetUploadFileID(NULL); 
+						AddLeecherLogLine(false,_T("banned client was in upload: %s"),client->DbgGetClientInfo());
+					}
+					//Xman end
 
 					for (int i = 0; i < ARRSIZE(auStartOffsets); i++)
 					{

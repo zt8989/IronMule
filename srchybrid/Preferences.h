@@ -692,6 +692,55 @@ public:
 	static	void	SaveCompletedDownloadsStat();
 	static	bool	LoadStats(int loadBackUp = 0);
 	static	void	ResetCumulativeStatistics();
+	//Xman Anti-Leecher
+	static bool m_antileecher;
+	static bool m_antileechername;
+	static bool	m_antighost;
+	static bool	m_antileecherbadhello;
+	static bool	m_antileechersnafu;
+	static bool	m_antileechermod;
+	static bool	m_antileecherthief;
+	static bool	m_antileecherspammer;
+	static bool	m_antileecherxsexploiter;
+	static bool m_antileecheremcrypt;
+	static bool m_antileecheruserhash;
+	static bool	m_antileechercommunity_action;
+	static bool	m_antileecherghost_action;
+	static bool	m_antileecherthief_action;
+	static bool GetAntiLeecher() {return m_antileecher;}
+	static bool GetAntiLeecherName() {return m_antileecher && m_antileechername;}
+	static bool GetAntiGhost() {return m_antileecher && m_antighost;}
+	static bool GetAntiLeecherBadHello() {return m_antileecher && m_antileecherbadhello;}
+	static bool GetAntiLeecherSnafu() {return m_antileecher && m_antileechersnafu;}
+	static bool GetAntiLeecherMod() {return m_antileecher && m_antileechermod;}
+	static bool GetAntiLeecherThief() {return m_antileecher && m_antileecherthief;}
+	static bool GetAntiLeecherspammer() {return m_antileecher && m_antileecherspammer;}
+	static bool GetAntiLeecherXSExploiter() {return m_antileecher && m_antileecherxsexploiter;}
+	static bool GetAntiLeecheremcrypt() {return m_antileecher && m_antileecheremcrypt;}
+	static bool GeTAntiLeecheruserhash(){return m_antileecher && m_antileecheruserhash;}
+	static bool GetAntiLeecherCommunity_Action() {return m_antileechercommunity_action;}
+	static bool GetAntiLeecherGhost_Action() {return m_antileecherghost_action;}
+	static bool GetAntiLeecherThief_Action() {return m_antileecherthief_action;}
+	static void SetAntiLeecher(bool in)  {m_antileecher=in;}
+	static void SetAntiLeecherName(bool in) {m_antileechername=in;}
+	static void SetAntiGhost(bool in) {m_antighost=in;}
+	static void SetAntiLeecherBadHello(bool in) {m_antileecherbadhello=in;}
+	static void SetAntiLeecherSnafu(bool in) {m_antileechersnafu=in;}
+	static void SetAntiLeecherMod(bool in) {m_antileechermod=in;}
+	static void SetAntiLeecherThief(bool in) {m_antileecherthief=in;}
+	static void SetAntiLeecherSpammer(bool in) {m_antileecherspammer=in;}
+	static void SetAntiLeecherXSExploiter(bool in) {m_antileecherxsexploiter=in;}
+	static void SetAntiLeecheremcrypt(bool in) {m_antileecheremcrypt=in;}
+	static void SetAntiLeecheruserhash(bool in) {m_antileecheruserhash=in;}
+	static void SetAntiLeecherCommunity_Action(bool in) {m_antileechercommunity_action=in;}
+	static void SetAntiLeecherGhost_Action(bool in) {m_antileecherghost_action=in;}
+	static void SetAntiLeecherThief_Action(bool in) {m_antileecherthief_action=in;}
+	//X-Ray :: Fincan Hash Detection :: Start
+	static bool m_antileecherFincan;
+	static bool GetAntiLeecherFincan() {return m_antileecher && m_antileecherFincan;}
+	static CString m_antileecherFincanURL;
+	//X-Ray :: Fincan Hash Detection :: End
+	//Xman end
 
 	static	void	Add2DownCompletedFiles()			{cumDownCompletedFiles++;}
 	static	void	SetConnMaxAvgDownRate(float in)		{cumConnMaxAvgDownRate = in;}

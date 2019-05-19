@@ -53,13 +53,15 @@ public:
 	{
 		PaneServerInfo	= 0, // those are CTabCtrl item indices
 		PaneLog			= 1,
-		PaneVerboseLog	= 2
+		PaneVerboseLog	= 2,
+		PaneLeecherLog	= 3	 //Xman Anti-Leecher-Log
 	};
 
 	CServerListCtrl serverlistctrl;
 	CHTRichEditCtrl* servermsgbox;
 	CHTRichEditCtrl* logbox;
 	CHTRichEditCtrl* debuglog;
+	CHTRichEditCtrl* leecherlog; //Xman Anti-Leecher-Log
 	CClosableTabCtrl StatusSelector;
 	CSplitterControl m_wndSplitter;
 

@@ -611,14 +611,24 @@ void CUploadQueue::AddClientToQueue(CUpDownClient* client, bool bIgnoreTimelimit
 			{
 				//cur_client has a valid secure hash, don't remove him
 				if (thePrefs.GetVerbose())
+					//Xman
+					/*
 					AddDebugLogLine(false, GetResString(IDS_SAMEUSERHASH), client->GetUserName(), cur_client->GetUserName(), client->GetUserName());
+					*/
+					AddLeecherLogLine(false, GetResString(IDS_SAMEUSERHASH), client->GetUserName(), cur_client->GetUserName(), client->GetUserName());
+					//Xman end
 				return;
 			}
 			if (client->credits != NULL && client->credits->GetCurrentIdentState(client->GetIP()) == IS_IDENTIFIED)
 			{
 				//client has a valid secure hash, add him remove other one
 				if (thePrefs.GetVerbose())
+					//Xman
+					/*
 					AddDebugLogLine(false, GetResString(IDS_SAMEUSERHASH), client->GetUserName(), cur_client->GetUserName(), cur_client->GetUserName());
+					*/
+					AddLeecherLogLine(false, GetResString(IDS_SAMEUSERHASH), client->GetUserName(), cur_client->GetUserName(), cur_client->GetUserName());
+					//Xman end
 				RemoveFromWaitingQueue(pos2,true);
 				if (!cur_client->socket)
 				{
@@ -630,7 +640,12 @@ void CUploadQueue::AddClientToQueue(CUpDownClient* client, bool bIgnoreTimelimit
 			{
 				// remove both since we do not know who the bad one is
 				if (thePrefs.GetVerbose())
+					//Xman
+					/*
 					AddDebugLogLine(false, GetResString(IDS_SAMEUSERHASH), client->GetUserName() ,cur_client->GetUserName(), _T("Both"));
+					*/
+					AddLeecherLogLine(false, GetResString(IDS_SAMEUSERHASH), client->GetUserName(), cur_client->GetUserName(), _T("Both"));
+					//Xman end
 				RemoveFromWaitingQueue(pos2,true);	
 				if (!cur_client->socket)
 				{

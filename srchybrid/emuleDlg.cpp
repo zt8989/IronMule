@@ -910,6 +910,13 @@ void CemuleDlg::ResetDebugLog(){
 	serverwnd->debuglog->Reset();
 }
 
+//Xman Anti-Leecher-Log
+void CemuleDlg::ResetLeecherLog()
+{
+	serverwnd->leecherlog->Reset();
+}
+//Xman end
+
 void CemuleDlg::AddLogText(UINT uFlags, LPCTSTR pszText)
 {
 	if (GetCurrentThreadId() != g_uMainThreadId)
@@ -935,11 +942,20 @@ void CemuleDlg::AddLogText(UINT uFlags, LPCTSTR pszText)
 	if ((uFlags & LOG_DEBUG) && !thePrefs.GetVerbose())
 		return;
 
+	//Xman Anti-Leecher-Log
+	if ((uFlags & LOG_LEECHER) && !thePrefs.GetVerbose())
+		return;
+
 	TCHAR temp[1060];
 	int iLen = _sntprintf(temp, _countof(temp), _T("%s: %s\r\n"), CTime::GetCurrentTime().Format(thePrefs.GetDateTimeFormat4Log()), pszText);
 	if (iLen >= 0)
 	{
+		//Xman Anti-Leecher-Log
+		/*
 		if (!(uFlags & LOG_DEBUG))
+		*/
+		if (!(uFlags & LOG_DEBUG) && !(uFlags & LOG_LEECHER))
+		//Xman end
 		{
 			serverwnd->logbox->AddTyped(temp, iLen, uFlags & LOGMSGTYPEMASK);
 			if (IsWindow(serverwnd->StatusSelector) && serverwnd->StatusSelector.GetCurSel() != CServerWnd::PaneLog)
@@ -949,7 +965,19 @@ void CemuleDlg::AddLogText(UINT uFlags, LPCTSTR pszText)
 			if (thePrefs.GetLog2Disk())
 				theLog.Log(temp, iLen);
 		}
+		//Xman Anti-Leecher-Log
+		else
+		if (thePrefs.GetVerbose() && (uFlags & LOG_LEECHER) )
+		{
+			serverwnd->leecherlog->AddTyped(temp, iLen, uFlags & LOGMSGTYPEMASK);
+			if (IsWindow(serverwnd->StatusSelector) && serverwnd->StatusSelector.GetCurSel() != CServerWnd::PaneLeecherLog)
+				serverwnd->StatusSelector.HighlightItem(CServerWnd::PaneLeecherLog, TRUE);
 
+			if (thePrefs.GetDebug2Disk())
+				theVerboseLog.Log(temp, iLen);
+		}
+		else
+		//Xman end
 		if (thePrefs.GetVerbose() && ((uFlags & LOG_DEBUG) || thePrefs.GetFullVerbose()))
 		{
 			serverwnd->debuglog->AddTyped(temp, iLen, uFlags & LOGMSGTYPEMASK);
@@ -2828,6 +2856,7 @@ void CemuleDlg::ApplyLogFont(LPLOGFONT plf)
 		thePrefs.SetLogFont(plf);
 		serverwnd->logbox->SetFont(&theApp.m_fontLog);
 		serverwnd->debuglog->SetFont(&theApp.m_fontLog);
+		serverwnd->leecherlog->SetFont(&theApp.m_fontLog); //Xman Anti-Leecher-Log
 	}
 }
 

@@ -73,7 +73,12 @@ private:
 	HTREEITEM	h_connection, h_conn_session, h_conn_total; // Connection Section Headers
 	HTREEITEM	hconn_sg, conn_sg[5], hconn_su, conn_su[4], hconn_sd, conn_sd[4]; // Connection Session Section Headers and Items
 	HTREEITEM	hconn_tg, conn_tg[4], hconn_tu, conn_tu[3], hconn_td, conn_td[3]; // Connection Total Section Headers and Items
+	//Xman
+	/*
 	HTREEITEM	h_clients, cligen[6], hclisoft, clisoft[8];
+	*/
+	HTREEITEM	h_clients, cligen[9/*6*Official+1*Leecher+1*Mods+1*Country*/], hclisoft, clisoft[8]; //Xman Anti-Leecher //Xman extended stats
+	//Xman end
 	HTREEITEM	cli_versions[MAX_CLIENTS_WITH_SUB_VERSION*MAX_SUB_CLIENT_VERSIONS];
 	HTREEITEM	cli_other[MAX_SUB_CLIENT_VERSIONS/2];
 	HTREEITEM	hclinet, clinet[4]; // Clients Section

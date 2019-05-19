@@ -63,6 +63,7 @@
 #include "Log.h"
 #include "CaptchaGenerator.h"
 
+#include "DLP.h" //Xman DLP
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -299,6 +300,21 @@ void CUpDownClient::Init()
 	m_fDirectUDPCallback = 0;
 	m_cCaptchasSent = 0;
 	m_fSupportsFileIdent = 0;
+	//Xman Anti-Leecher
+	m_bLeecher = 0;
+	old_m_pszUsername.Empty();
+	m_strBanMessage.Empty();
+	strBanReason_permament.Empty(); 
+	uhashsize=16;
+	//Xman Anti-Nick-Changer
+	m_uNickchanges=0;
+	m_ulastNickChage=0; //no need to initalize
+	//Xman end
+
+	//>>> Anti-XS-Exploit (Xman)
+	m_uiXSReqs = 0;
+	m_uiXSAnswer = 0;
+	//<<< Anti-XS-Exploit
 }
 
 CUpDownClient::~CUpDownClient(){
@@ -436,6 +452,17 @@ bool CUpDownClient::ProcessHelloTypePacket(CSafeMemFile* data)
 	if (bDbgInfo)
 		m_strHelloInfo.AppendFormat(_T("  Port=%u"), nUserPort);
 	
+	CString strBanReason; //Xman Anti-Leecher
+	bool nonofficialopcodes = false; //Xman Anti-Leecher
+	CString unknownopcode; //Xman Anti-Leecher
+	bool wronghello = false; //Xman Anti-Leecher
+	uint32 hellotagorder = 1; //Xman Anti-Leecher
+	bool foundmd4string = false; //Xman Anti-Leecher
+	//zz_fly :: Fake Shareaza Detection
+	bool bWasUDPPortSent = false;
+	bool bIsFakeShareaza = false;
+	//zz_fly :: Fake Shareaza Detection end
+
 	DWORD dwEmuleTags = 0;
 	bool bPrTag = false;
 	uint32 tagcount = data->ReadUInt32();
@@ -781,7 +808,7 @@ bool CUpDownClient::ProcessHelloTypePacket(CSafeMemFile* data)
 		if (!theApp.clientlist->ComparePriorUserhash(m_dwUserIP, m_nUserPort, pFoundCredits)){
 #endif
 			if (thePrefs.GetLogBannedClients())
-				AddDebugLogLine(false, _T("Clients: %s (%s), Banreason: Userhash changed (Found in TrackedClientsList)"), GetUserName(), ipstr(GetConnectIP()));
+				AddLeecherLogLine(false, _T("Clients: %s (%s), Banreason: Userhash changed (Found in TrackedClientsList)"), GetUserName(), ipstr(GetConnectIP()));
 			Ban();
 		}	
 	}
@@ -789,7 +816,7 @@ bool CUpDownClient::ProcessHelloTypePacket(CSafeMemFile* data)
 		// userhash change ok, however two hours "waittime" before it can be used
 		credits = pFoundCredits;
 		if (thePrefs.GetLogBannedClients())
-			AddDebugLogLine(false, _T("Clients: %s (%s), Banreason: Userhash changed"), GetUserName(), ipstr(GetConnectIP()));
+			AddLeecherLogLine(false, _T("Clients: %s (%s), Banreason: Userhash changed"), GetUserName(), ipstr(GetConnectIP()));
 		Ban();
 	}
 
@@ -848,6 +875,150 @@ bool CUpDownClient::ProcessHelloTypePacket(CSafeMemFile* data)
 
 	if (thePrefs.GetVerbose() && GetServerIP() == INADDR_NONE)
 		AddDebugLogLine(false, _T("Received invalid server IP %s from %s"), ipstr(GetServerIP()), DbgGetClientInfo());
+	//Xman Anti-Leecher
+	if(thePrefs.GetAntiLeecher())
+	{
+		if (theApp.GetID()!=m_nUserIDHybrid && memcmp(m_achUserHash, thePrefs.GetUserHash(), 16)==0)
+		{
+			strBanReason = _T("Anti Credit Hack");
+			BanLeecher(strBanReason,9);
+			return bIsMule;
+		}
+		if(strBanReason.IsEmpty()==false && thePrefs.GetAntiLeecherSnafu())
+		{
+			BanLeecher(strBanReason,2); //snafu = old leecher = hard ban
+			return bIsMule;
+		}
+		if(foundmd4string && thePrefs.GetAntiLeecherSnafu())
+		{
+			strBanReason = _T("md4-string in opcode");
+			BanLeecher(strBanReason, 15);
+			return bIsMule;
+		}
+
+		//zz_fly :: Fake Shareaza Detection
+		//note: clients based on Shareaza send UDPPort tag AFTER Misc Options tag
+		if(bIsFakeShareaza && m_clientSoft==SO_EMULE)
+		{
+			strBanReason = _T("Fake emuleVersion");
+			BanLeecher(strBanReason,9);  
+			return bIsMule;
+		}
+		//zz_fly :: Fake Shareaza Detection end
+
+		if(thePrefs.GetAntiLeecherBadHello() && (m_clientSoft==SO_EMULE || (m_clientSoft==SO_XMULE && m_byCompatibleClient!=SO_XMULE)))
+		{
+			if(wronghello)
+			{
+				strBanReason= _T("wrong hello order");
+				BanLeecher(strBanReason,1); //these are Leechers of a big german Leechercommunity
+				return bIsMule;
+			}
+			if(data->GetPosition() < data->GetLength())
+			{
+				strBanReason= _T("extra bytes");
+				BanLeecher(strBanReason,13); // darkmule (or buggy)
+				return bIsMule;
+			}
+			if(uhashsize!=16)
+			{
+				strBanReason= _T("wrong Hashsize");
+				BanLeecher(strBanReason,14); //new united community
+				return bIsMule;
+			}
+			if(m_fSupportsAICH > 1  && m_clientSoft == SO_EMULE && m_nClientVersion <= MAKE_CLIENT_VERSION(CemuleApp::m_nVersionMjr, CemuleApp::m_nVersionMin, CemuleApp::m_nVersionUpd))
+			{
+				strBanReason= _T("Applejuice");
+				BanLeecher(strBanReason,17); //Applejuice 
+				return bIsMule;
+			}
+		}
+
+		//if it is now a good mod, remove the reducing of score but do a second test
+		if(IsLeecher()==1 || IsLeecher()==15) //category 2 is snafu and always a hard ban, need only to check 1
+		{
+			m_bLeecher=0; //it's a good mod now
+			m_strBanMessage.Format(_T("unban - Client %s"),DbgGetClientInfo());
+			old_m_strClientSoftwareFULL.Empty();	//force recheck
+			old_m_pszUsername.Empty();
+		}
+
+		//if(IsLeecher()==14 && isHelloPacket) //check if it is a Hello-Packet
+		//{
+		//	m_bLeecher=0; //it's a good mod now
+		//	m_strBanMessage.Format(_T("unban - Client %s"),DbgGetClientInfo());
+		//	old_m_strClientSoftwareFULL.Empty();	//force recheck
+		//	old_m_pszUsername.Empty();
+		//}
+
+		if(IsLeecher()==17)
+		{
+			m_bLeecher=0; //it's a good mod now
+			m_strBanMessage.Format(_T("unban - Client %s"),DbgGetClientInfo());
+			old_m_strClientSoftwareFULL.Empty();	//force recheck
+			old_m_pszUsername.Empty();
+		}
+
+		TestLeecher(); //test for modstring, nick and thiefs
+
+		if(thePrefs.GetAntiLeecheremcrypt())
+		{
+			//Xman remark: I only check for 0.44d. 
+			if(m_nClientVersion == MAKE_CLIENT_VERSION(0,44,3) && m_strModVersion.IsEmpty() && m_byCompatibleClient==0 && m_bUnicodeSupport==false && bIsMule)
+			{
+				if(IsLeecher()==0)
+				{
+					strBanReason = _T("emcrypt");
+					BanLeecher(strBanReason,12); // emcrypt = no unicode for unicode version
+				}
+			}
+			else if(IsLeecher()==12)
+			{
+				m_strBanMessage.Format(_T("unban - Client %s"),DbgGetClientInfo());
+				m_bLeecher=0; //unban, it isn't any longer a emcrypt
+			}
+		}
+		else if(IsLeecher()==12) 
+		{
+			m_strBanMessage.Format(_T("unban - Client %s"),DbgGetClientInfo());
+			m_bLeecher=0; //unban, user doesn't want to ban it anymore
+		}
+
+		if(thePrefs.GetAntiGhost() )
+		{
+			if(m_strModVersion.IsEmpty() &&
+				((nonofficialopcodes==true	&&	GetClientSoft()!=SO_LPHANT)
+				|| ((unknownopcode.IsEmpty()==false || m_byAcceptCommentVer > 1) && m_clientSoft == SO_EMULE && m_nClientVersion <= MAKE_CLIENT_VERSION(CemuleApp::m_nVersionMjr, CemuleApp::m_nVersionMin, CemuleApp::m_nVersionUpd)))
+				)
+			{
+				if(IsLeecher()==0)
+				{
+					strBanReason = _T("GhostMod");
+					if(unknownopcode.IsEmpty()==false)
+						strBanReason += _T(" ") + unknownopcode;
+					BanLeecher(strBanReason,3); // ghost mod = webcache tag without modstring
+				}
+			}
+			else if(IsLeecher()==3) 
+			{
+				m_strBanMessage.Format(_T("unban - Client %s"),DbgGetClientInfo());
+				m_bLeecher=0; //unban, it isn't any longer a ghost mod
+			}
+
+		}
+		else if(IsLeecher()==3)
+		{
+			m_strBanMessage.Format(_T("unban - Client %s"),DbgGetClientInfo());
+			m_bLeecher=0; //unban, user doesn't want to ban it anymore
+		}
+
+	}
+	else if(IsLeecher()>0)
+	{
+		m_strBanMessage.Format(_T("unban - Client %s"),DbgGetClientInfo());
+		m_bLeecher=0; //unban, user doesn't want to ban it anymore
+	}
+	//Xman end
 
 	return bIsMule;
 }
@@ -1179,9 +1350,30 @@ void CUpDownClient::SendHelloTypePacket(CSafeMemFile* data)
 	// eD2K Name
 
 	// TODO implement multi language website which informs users of the effects of bad mods
+	//Xman Anti-Leecher
+	/*
+	CTag tagName(CT_NAME, (!m_bGPLEvildoer) ? thePrefs.GetUserNick() : _T("Please use a GPL-conform version of eMule") );
+	tagName.WriteTagToFile(data, utf8strRaw);
+	*/
+	if(IsLeecher()==12)
+	{
+		//emcrypt
+		CTag tagName(CT_NAME, _T("You are using a spyware infected emule version") );
+		tagName.WriteTagToFile(data, utf8strRaw);
+	}
+	//Xman send Nickaddon only to non Leechers or NickThiefs/ModThiefs
+	else if(IsLeecher()==0 || IsLeecher()==11 || IsLeecher()==6) 
+	{
 		CTag tagName(CT_NAME, (!m_bGPLEvildoer) ? thePrefs.GetUserNick() + _T(' ') + str_ANTAddOn + MOD_NICK_ADD : _T("Please use a GPL-conform version of eMule") ); //Xman Anti-Leecher: simple Anti-Thief
 		tagName.WriteTagToFile(data, utf8strRaw);
-
+	}
+	//else send the standard-nick
+	else
+	{
+		CTag tagName(CT_NAME, (!m_bGPLEvildoer) ? thePrefs.GetUserNick()  : _T("Please use a GPL-conform version of eMule") ); //Xman Anti-Leecher: simple Anti-Thief
+		tagName.WriteTagToFile(data, utf8strRaw);
+	}
+	//Xman end
 
 	// eD2K Version
 	CTag tagVersion(CT_VERSION,EDONKEYVERSION);
@@ -3464,7 +3656,12 @@ void CUpDownClient::ProcessChatMessage(CSafeMemFile* data, uint32 nLength)
 		{
 			if (IsSpammer()){
 				if (thePrefs.GetVerbose())
+					//Xman
+					/*
 					AddDebugLogLine(false, _T("'%s' has been marked as spammer"), GetUserName());
+					*/
+					AddLeecherLogLine(false, _T("'%s' has been marked as spammer"), GetUserName());
+					//Xman end
 			}
 			SetSpammer(true);
 			theApp.emuledlg->chatwnd->chatselector.EndSession(this);
@@ -3704,3 +3901,224 @@ void CUpDownClient::SendSharedDirectories()
 	theStats.AddUpDataOverheadOther(replypacket->size);
 	VERIFY( SendPacket(replypacket, true, true) );
 }
+//Xman Anti-Leecher
+//Xman DLP (no more extra tags inside this function)
+void CUpDownClient::TestLeecher(){
+
+	//Xman DLP
+	if(theApp.dlp->IsDLPavailable()==false)
+		return;
+	//Xman end
+
+	if (thePrefs.GetAntiLeecherMod())
+	{
+		if(old_m_strClientSoftwareFULL.IsEmpty() || old_m_strClientSoftwareFULL!= DbgGetFullClientSoftVer() )
+		{
+		
+			old_m_strClientSoftwareFULL = DbgGetFullClientSoftVer();
+			LPCTSTR reason=theApp.dlp->DLPCheckModstring_Hard(m_strModVersion,m_strClientSoftware);
+			if(reason)
+			{		
+				BanLeecher(reason,5); //hard ban
+				return;
+			}
+			reason=theApp.dlp->DLPCheckModstring_Soft(m_strModVersion,m_strClientSoftware);
+			if(reason)
+			{
+				BanLeecher(reason,4); //soft ban
+				return;
+			}
+			else if(IsLeecher()==4)
+			{
+				m_bLeecher=0;	//unban, because it is now a good mod
+				m_strBanMessage.Format(_T("unban - Client %s"),DbgGetClientInfo());
+				old_m_pszUsername.Empty(); //force recheck
+			}
+
+		}
+	}
+	else if(IsLeecher()==4)
+	{
+		m_bLeecher=0;	//unban, because user doesn't want to check it anymore
+		m_strBanMessage.Format(_T("unban - Client %s"),DbgGetClientInfo());
+		old_m_pszUsername.Empty(); //force recheck
+		old_m_strClientSoftwareFULL.Empty(); //force recheck if user re enable function
+	}
+
+
+	if(thePrefs.GeTAntiLeecheruserhash() && HasValidHash())
+	{
+		PBYTE uhash=(PBYTE)GetUserHash();
+		LPCTSTR reason=theApp.dlp->DLPCheckUserhash(uhash);
+		if(reason)
+		{
+			BanLeecher(_T("*AJ*"),18);
+			return;
+		}
+	}
+
+	if (thePrefs.GetAntiLeecherName())
+	{
+
+		//Xman Anti-Nick-Changer
+		if(m_pszUsername!=NULL && old_m_pszUsername.IsEmpty()==false)
+		{
+			if(old_m_pszUsername!=m_pszUsername)
+			{
+				if(IsLeecher()==0 && m_strModVersion.IsEmpty() //check only if it isn't a known leecher and doesn't send modversion
+					&& ::GetTickCount() - m_ulastNickChage < HR2MS(3)) //last nickchane was in less than 3 hours
+				{
+					m_uNickchanges++;
+					if(m_uNickchanges >=3)
+					{
+						BanLeecher(_T("Nick-Changer"),5); //hard ban
+						return;
+					}
+				}
+			}
+			else
+			{
+				//decrease the value if it's the same nick
+				if(m_uNickchanges>0)
+					m_uNickchanges--;
+			}
+		}
+		//Xman end Anti-Nick-Changer
+		
+		if(m_bLeecher!=4 && m_pszUsername!=NULL && (old_m_pszUsername.IsEmpty() || old_m_pszUsername!=m_pszUsername)) //remark: because old_m_pszUsername is CString and there operator != is defined, it isn't a pointer comparison 
+		{
+			old_m_pszUsername = m_pszUsername;
+			m_ulastNickChage=::GetTickCount(); //Xman Anti-Nick-Changer
+
+			//find gamer snake 
+			if (HasValidHash())
+			{
+				CString struserhash=md4str(GetUserHash());
+				LPCTSTR reason=theApp.dlp->DLPCheckNameAndHashAndMod(m_pszUsername,struserhash,m_strModVersion);
+				if(reason)
+				{
+					BanLeecher(reason,10); //soft ban
+					return;
+				}
+			}
+
+			LPCTSTR reason=theApp.dlp->DLPCheckUsername_Soft(m_pszUsername);
+			if(reason)
+			{
+				BanLeecher(reason,10); //soft ban
+				return;
+			}
+
+			reason=theApp.dlp->DLPCheckUsername_Hard(m_pszUsername);
+			if(reason)
+			{
+				BanLeecher(reason,5); //hard ban
+				return;
+			}
+
+			if(IsLeecher()==10 && reason==NULL)
+			{
+				m_bLeecher=0; //unban it is a good mod now
+				m_strBanMessage.Format(_T("unban - Client %s"),DbgGetClientInfo());
+			}
+		}
+	}
+	else if(IsLeecher()==10)
+	{
+		m_bLeecher=0;	//unban, because user doesn't want to check it anymore
+		m_strBanMessage.Format(_T("unban - Client %s"),DbgGetClientInfo());
+		old_m_pszUsername.Empty(); //force recheck if user re enable function
+	}
+
+	//X-Ray :: Fincan Hash Detection :: Start	
+	if(thePrefs.GetAntiLeecherFincan()){
+		if(HasValidHash() && theApp.dlp->CheckForFincanHash(md4str(GetUserHash()))){
+			BanLeecher(_T("Fincan Community"),20);
+			return;
+		}
+	}
+	else if(IsLeecher()==20){
+		m_bLeecher=0;	//unban, because user doesn't want to check it anymore
+		m_strBanMessage.Format(_T("unban - Client %s"),DbgGetClientInfo());
+	}
+	//X-Ray :: Fincan Hash Detection :: End
+
+	if (m_nClientVersion > MAKE_CLIENT_VERSION(0, 30, 0) && m_byEmuleVersion > 0 && m_byEmuleVersion != 0x99 && m_clientSoft == SO_EMULE)
+	{
+		BanLeecher(_T("Fake emuleVersion"),9);
+		return;
+	} else
+	//Xman Anti-Leecher: simple Anti-Thief
+	if(m_bLeecher==0 || m_bLeecher==6 || m_bLeecher==11 ) //only check if not banned by other criterion
+	{
+		//zz_fly :: Better Xtreme Faker Check :: moved down
+		/*
+		static 	const float MOD_FLOAT_VERSION= (float)_tstof(CString(MOD_VERSION).Mid(7)) ;
+		const float xtremeversion=GetXtremeVersion(m_strModVersion);
+		*/
+		//zz_fly end
+		if(thePrefs.GetAntiLeecherThief())
+		{
+			//zz_fly :: Better Xtreme Faker Check :: Start
+			if(m_strModVersion && (m_strModVersion.GetLength() > 7) &&
+				(m_strModVersion.Left(7).CompareNoCase(_T("Xtreme ")) == 0) && _istdigit(m_strModVersion.GetAt(7)) ) 
+			{
+				if(m_strModVersion.GetLength()<10) //min length "Xtreme #.#" =10
+				{
+					BanLeecher(_T("Mod-ID Faker"),6);
+					return;
+				}
+				else if(m_strModVersion.GetLength()<=13) //max length "Xtreme ##.#.#" =13
+				{
+					static const float MOD_FLOAT_VERSION= (float)_tstof(CString(MOD_VERSION).Mid(7)) ;
+					const float xtremeversion=(float)_tstof(m_strModVersion.Mid(7));
+			//zz_fly end
+					if(xtremeversion==MOD_FLOAT_VERSION && !StrStrI(m_strClientSoftware,MOD_MAJOR_VERSION))
+					{
+						BanLeecher(_T("Mod-ID Faker"),6);
+						return;
+					}
+					if(xtremeversion>=4.4f && CString(m_pszUsername).Right(m_strModVersion.GetLength()+1)!=m_strModVersion + _T("»"))
+					{
+						BanLeecher(_T("MOD-ID Faker(advanced)"),6);
+						return;
+					}
+			//zz_fly :: Better Xtreme Faker Check :: Start
+				}
+			}
+			//zz_fly end
+			if(IsLeecher()==6)
+			{
+				m_strBanMessage.Format(_T("unban - Client %s"),DbgGetClientInfo());
+				m_bLeecher=0; //unban it isn't anymore a mod faker
+			}
+		}
+		else if(IsLeecher()==6)
+		{
+			m_strBanMessage.Format(_T("unban - Client %s"),DbgGetClientInfo());
+			m_bLeecher=0; //unban, user doesn't want to ban it anymore
+		}
+		
+		//Xman new Anti-Nick-Thief
+		if(thePrefs.GetAntiLeecherThief() )
+		{
+			if(StrStrI(m_pszUsername, str_ANTAddOn)) 
+			{
+				BanLeecher(_T("Nick Thief"),11);
+				return;
+			}
+			if(IsLeecher()==11)
+			{
+				m_strBanMessage.Format(_T("unban - Client %s"),DbgGetClientInfo());
+				m_bLeecher=0; //unban, it isn't a nickthief anymore
+			}
+		}
+		else if(IsLeecher()==11)
+		{
+			m_strBanMessage.Format(_T("unban - Client %s"),DbgGetClientInfo());
+			m_bLeecher=0; //unban, user doesn't want to ban it anymore
+		}
+	}
+	//Xman end simple Anti-Thief
+}
+//Xman end

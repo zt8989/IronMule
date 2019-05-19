@@ -1720,6 +1720,7 @@
 #define IDC_UPLOADING                   2254
 #define IDC_DRATING                     2255
 #define IDC_DSCORE                      2256
+#define IDC_DSCORE2                     2257
 #define IDC_FD_XI1                      2259
 #define IDC_FD_XI2                      2261
 #define IDC_POPBAR                      2262
@@ -1817,7 +1818,6 @@
 #define IDC_FD_X15                      2400
 #define IDC_STATIC38                    2402
 #define IDC_FD_LASTCHANGE               2403
-#define IDC_STATIC39                    2403
 #define IDC_STATIC40                    2404
 #define IDC_FD_X16                      2405
 #define IDC_STATIC41                    2406

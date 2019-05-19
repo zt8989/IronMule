@@ -54,6 +54,7 @@ class CFirewallOpener;
 class CUPnPImplWrapper;
 
 struct SLogItem;
+class CDLP;	//Xman DLP
 
 enum AppState{
 	APP_STATE_RUNNING = 0,
@@ -91,6 +92,7 @@ public:
 	CFirewallOpener*	m_pFirewallOpener;
 	CUPnPImplWrapper*	m_pUPnPFinder;
 
+	CDLP*				dlp; // Xman DLP
 	HANDLE				m_hMutexOneInstance;
 	int					m_iDfltImageListColorFlags;
 	CFont				m_fontHyperText;

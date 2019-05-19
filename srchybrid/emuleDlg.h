@@ -99,6 +99,7 @@ public:
 	void ResetLog();
 	void ResetDebugLog();
 	void ResetServerInfo();
+	void ResetLeecherLog();		//Xman Anti-Leecher-Log
 	CString GetLastLogEntry();
 	CString	GetLastDebugLogEntry();
 	CString	GetAllLogEntries();
