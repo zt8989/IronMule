@@ -22,6 +22,7 @@ public:
 	bool			FromString(const std::string Str);
 	bool			FromString(const CString Str);
 	std::string		ToString() const;
+	CString			ToCString() const;
 	std::wstring	ToStringW() const {std::string s = ToString(); return std::wstring(s.begin(),s.end());}
 	uint32			ToIPv4() const; // must be same as with Qt, must be in host order
 

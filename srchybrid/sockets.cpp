@@ -194,7 +194,7 @@ void CServerConnect::ConnectionEstablished(CServerSocket* sender)
 		data.WriteUInt32(GetClientID());
 		data.WriteUInt16(thePrefs.GetPort());
 
-		UINT tagcount = 4;
+		UINT tagcount = 4 + 1; //ipv6
 		data.WriteUInt32(tagcount);
 
 		CTag tagName(CT_NAME, thePrefs.GetUserNick());
@@ -222,6 +222,9 @@ void CServerConnect::ConnectionEstablished(CServerSocket* sender)
 							(CemuleApp::m_nVersionMin	<< 10) |
 							(CemuleApp::m_nVersionUpd	<<  7) );
 		tagMuleVersion.WriteTagToFile(&data);
+		
+		CTag ipv6(CT_IPV6, theApp.GetPublicIPv6().ToCString());
+		ipv6.WriteTagToFile(&data);
 
 		Packet* packet = new Packet(&data);
 		packet->opcode = OP_LOGINREQUEST;

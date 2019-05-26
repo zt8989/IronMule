@@ -75,6 +75,11 @@ std::string CAddress::ToString() const
 	return Dest;
 }
 
+CString CAddress::ToCString() const{
+	std::string ipv6 = ToString();
+	return CString(ipv6.c_str());
+}
+
 bool CAddress::FromString(const std::string Str)
 {
 	if(Str.find(".") != std::string::npos)

@@ -2925,6 +2925,46 @@ void CPartFile::AddSources(CSafeMemFile* sources, uint32 serverip, uint16 server
 			continue;
 		}
 	}
+
+	if(sources->GetLength() > sources->GetPosition()){
+		UINT countv6 = sources->ReadUInt16();
+		for (UINT i = 0; i < countv6; i++)
+		{
+			uchar ipv6[16];
+			sources->ReadHash16(ipv6);
+			CAddress ip(ipv6);
+			uint16 port = sources->ReadUInt16();
+			uint8 byCryptOptions = 0;
+
+			// since we may received multiple search source UDP results we have to "consume" all data of that packet
+			if (stopped || bSkip)
+				continue;
+
+			if(ip == theApp.GetPublicIPv6() && port == thePrefs.GetPort()){
+				continue;
+			}
+
+			if( GetMaxSources() > this->GetSourceCount() )
+			{
+				debug_possiblesources++;
+				CUpDownClient* newsource = new CUpDownClient(this,port,ip,serverip,serverport);
+				newsource->SetConnectOptions(byCryptOptions, true, false);
+
+				if ((byCryptOptions & 0x80) != 0)
+					newsource->SetUserHash(achUserHash);
+				theApp.downloadqueue->CheckAndAddSource(this,newsource);
+			}
+			else
+			{
+				// since we may received multiple search source UDP results we have to "consume" all data of that packet
+				bSkip = true;
+				if(GetKadFileSearchID())
+					Kademlia::CSearchManager::StopSearch(GetKadFileSearchID(), false);
+				continue;
+			}
+		}
+	}
+
 	if (thePrefs.GetDebugSourceExchange())
 		AddDebugLogLine(false, _T("SXRecv: Server source response; Count=%u, Dropped=%u, PossibleSources=%u, File=\"%s\""), count, debug_lowiddropped, debug_possiblesources, GetFileName());
 }
