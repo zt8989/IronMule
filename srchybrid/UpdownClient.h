@@ -33,6 +33,7 @@ class CSafeMemFile;
 class CEMSocket;
 class CAICHHash;
 enum EUTF8str : uint8;
+class CSourceExchangeNAT;
 
 struct Pending_Block_Struct
 {
@@ -66,6 +67,7 @@ class CUpDownClient : public CObject
 {
 	DECLARE_DYNAMIC(CUpDownClient)
 	friend class CUploadQueue;
+	friend class CSourceExchangeNAT;
 	void	Init();
 
 public:
@@ -118,6 +120,22 @@ public:
 	uint32			GetBuddyIP() const								{ return m_nBuddyIP; }
 	void			SetBuddyPort(uint16 val)						{ m_nBuddyPort = val; }
 	uint16			GetBuddyPort() const							{ return m_nBuddyPort; }
+	bool			IsLowToLowClient() const						{ return HasLowID(); }
+	bool			IsSupportTraverse() const						{ return HasLowID() && SupportsUDP(); }
+	const CUpDownClient* GetSourceExchangeClient() const			{ return m_pSourceExchangeClient; }
+	void			SetSourceExchangeClient(CUpDownClient *pClient)	{ m_pSourceExchangeClient = pClient; }
+	void			SetRegisterTime()
+					{
+						m_dwRegisterTime = time(NULL);
+						m_dwReceiveKeepALiveTime = time(NULL);
+					}
+	void			SetReceiveALiveTime()
+					{
+						if (m_nUDPState != 1)
+							m_nUDPState = 1;
+						m_dwReceiveKeepALiveTime = time(NULL);
+					}
+	void			ResetIP2Country()								{}
 	EClientSoftware	GetClientSoft() const							{ return m_clientSoft; }
 	const CString&	GetClientSoftVer() const						{ return m_strClientSoftware; }
 	const CString&	GetClientModVer() const							{ return m_strModVersion; }
@@ -490,8 +508,13 @@ protected:
 	DWORD	m_dwLastSourceRequest;
 	DWORD	m_dwLastSourceAnswer;
 	DWORD	m_dwLastAskedForSources;
+	DWORD	m_dwRegisterTime;
+	DWORD	m_dwReceiveKeepALiveTime;
+	DWORD	m_dwSendKeepALiveTime;
 	uint32	m_uSearchID;
 	int		m_iFileListRequested;
+	CUpDownClient *m_pSourceExchangeClient;
+	int		m_nUDPState;
 
 	CString m_strClientSoftware;
 	CString m_strModVersion;

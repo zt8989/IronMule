@@ -50,6 +50,8 @@ enum EUserWndMessages
 
 	// UPnP
 	, UM_UPNP_RESULT //+30
+	, UM_NAT_CHECK_STRATEGIES
+	, UM_REMOVEFROMALLQ_IN_THROTTLER
 
 	// TreeOptionsCtrl
 	, WM_TOC_SETFOCUS_TO_CHILD //+31

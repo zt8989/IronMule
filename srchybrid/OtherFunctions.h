@@ -470,6 +470,14 @@ inline bool IsLowID(uint32 id)
 {
 	return id < 16777216u; //0x01000000u or 2^25
 }
+
+inline uint32 ExpoBackoff(uint32 uBase, uint32 uCount)
+{
+	if (uCount > 31)
+		uCount = 31;
+	return uBase << uCount;
+}
+
 CString ipstr(uint32 nIP);
 CString ipstr(uint32 nIP, uint16 nPort);
 CString ipstr(LPCTSTR pszAddress, uint16 nPort);

@@ -29,6 +29,7 @@
 #include "ListenSocket.h"
 #include "ServerConnect.h"
 #include "otherfunctions.h"
+#include <cassert>
 
 #ifdef _DEBUG_NAT
 	extern void T_TRACE(char* fmt, ...);
@@ -171,7 +172,7 @@ int CTraverseBySourceExchange::SendPingPacket()
 	m_nPassivePing++;
 	m_SendPingTime = time(NULL);
 
-	_AddDebugLogLine(false, _T("send ping packet for %02X%02X%02X%02X. ConnAck=%08x\n"), m_UserHash[0],m_UserHash[1],m_UserHash[2],m_UserHash[3],
+	AddDebugLogLine(false, _T("send ping packet for %02X%02X%02X%02X. ConnAck=%08x\n"), m_UserHash[0],m_UserHash[1],m_UserHash[2],m_UserHash[3],
 		m_dwConnAskNumber);
 
 	if(m_dwClientIp && m_wClientPort)
@@ -225,7 +226,7 @@ bool CTraverseBySourceExchange::ProcessPacket(const uchar * data, int len, DWORD
 
 void CTraverseBySourceExchange::OnRecvSync(const uchar * data, int /*len*/, DWORD /*ip*/, WORD /*port*/)
 {
-	_AddDebugLogLine(false, _T("Receive NAT Sync Request From Source Exchange!\n"));
+	AddDebugLogLine(false, _T("Receive NAT Sync Request From Source Exchange!\n"));
 
 	//UINT realsize=len-1;// VC-linhai[2007-08-06]:warning C4189: “realsize” : 局部变量已初始化但不引用
 	const uchar * realdata=data+1;
@@ -242,11 +243,11 @@ void CTraverseBySourceExchange::OnRecvSync(const uchar * data, int /*len*/, DWOR
 	DWORD ConnAck = 0;
 	memcpy(&ConnAck, id+16, 4);
 
-	_AddDebugLogLine(false, _T("recv sync, ConnAck=%08x\n"), ConnAck);
+	AddDebugLogLine(false, _T("recv sync, ConnAck=%08x\n"), ConnAck);
 #ifdef _DEBUG
 	in_addr addr;
 	addr.s_addr = cip;
-	_AddDebugLogLine(false, _T("peer addr of %02X%02X%02X%02X = %s:%d\n"), id[0], id[1], id[2],id[3],
+	AddDebugLogLine(false, _T("peer addr of %02X%02X%02X%02X = %s:%d\n"), id[0], id[1], id[2],id[3],
 		inet_ntoa(addr), ntohs(cport));
 #endif
 	uchar myid[16];
@@ -285,7 +286,7 @@ void CTraverseBySourceExchange::OnRecvSync(const uchar * data, int /*len*/, DWOR
 	}
 	else
 	{
-		_AddDebugLogLine(false, _T("\n->%s: Accept a incoming sock for %02X%02X%02X%02X\n"), __FUNCTION__,
+		AddDebugLogLine(false, _T("\n->%s: Accept a incoming sock for %02X%02X%02X%02X\n"), __FUNCTION__,
 			id[0],id[1],id[2],id[3]);
 
 		pASock = theApp.natthread->GetTempASock(id);
@@ -303,12 +304,12 @@ void CTraverseBySourceExchange::OnRecvPing(const uchar * data, int /*len*/, DWOR
 	if( NULL==theApp.natthread )
 		return;
 
-	_AddDebugLogLine(false, _T("\nReceive Ping From Source Exchange!\n"));
+	AddDebugLogLine(false, _T("\nReceive Ping From Source Exchange!\n"));
 
 	// For the strict design Process
 	if (!(m_dwState & NAT_S_SYNC))
 	{
-		_AddDebugLogLine(false, _T("\nReceive Ping before Sync!\n"));
+		AddDebugLogLine(false, _T("\nReceive Ping before Sync!\n"));
 		return;
 	}
 
@@ -319,7 +320,7 @@ void CTraverseBySourceExchange::OnRecvPing(const uchar * data, int /*len*/, DWOR
 
 	DWORD ConnAck=0;
 	memcpy(&ConnAck, hash+16, 4);
-	_AddDebugLogLine(false, _T("recv ping 3. %02X%02X%02X%02X, ConnAck=%d\n"), hash[0], hash[1], hash[2], hash[3],
+	AddDebugLogLine(false, _T("recv ping 3. %02X%02X%02X%02X, ConnAck=%d\n"), hash[0], hash[1], hash[2], hash[3],
 		ConnAck);
 	CAsyncSocketEx * pASock=NULL;
 
@@ -330,7 +331,7 @@ void CTraverseBySourceExchange::OnRecvPing(const uchar * data, int /*len*/, DWOR
 	ASSERT(pASock);
 	if(!pASock)
 	{
-		_AddDebugLogLine(false, _T("no AsyncsocketEx for unconnect sk\n"));
+		AddDebugLogLine(false, _T("no AsyncsocketEx for unconnect sk\n"));
 		Failed();
 		return;
 	}
@@ -369,5 +370,6 @@ void CTraverseBySourceExchange::OnRecvPing(const uchar * data, int /*len*/, DWOR
 
 	Finish();
 }
+
 
 

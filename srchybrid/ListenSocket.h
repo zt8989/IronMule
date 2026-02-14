@@ -49,6 +49,7 @@ public:
 	virtual void SendPacket(Packet *packet, bool controlpacket = true, uint32 actualPayloadSize = 0, bool bForceImmediateSend = false);
 	virtual SocketSentBytes SendControlData(uint32 maxNumberOfBytesToSend, uint32 overchargeMaxBytesToSend);
 	virtual SocketSentBytes SendFileAndControlData(uint32 maxNumberOfBytesToSend, uint32 overchargeMaxBytesToSend);
+	bool	IsDeleteThis() const								{ return deletethis; }
 
 	void		 OnClose(int nErrorCode);
 	virtual void OnConnect(int nErrorCode);
@@ -87,6 +88,7 @@ class CListenSocket : public CAsyncSocketEx
 public:
 	CListenSocket();
 	virtual	~CListenSocket();
+	CAsyncSocketEx* OnAcceptEx(int nErrorCode);
 
 	bool	StartListening();
 	void	StopListening();

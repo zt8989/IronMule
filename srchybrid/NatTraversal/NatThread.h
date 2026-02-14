@@ -222,13 +222,6 @@ inline CString UserHashToString(const uchar * hash)
 }
 extern void GetMyUserHash(uchar * id);
 
-//#if defined(_DEBUG) || defined(_BETA) || defined(_VCALPHA)
-#if defined(_DEBUG) || defined(_BETA)
-	extern void _AddDebugLogLine(bool bAddToStatusBar, LPCTSTR pszLine, ...);
-#else
-	#define _AddDebugLogLine
-#endif
-
 #ifdef _DEBUG
 	extern void _AddLogLine(bool bAddToStatusBar, LPCTSTR pszLine, ...);
 #else

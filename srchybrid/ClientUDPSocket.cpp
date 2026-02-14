@@ -31,6 +31,7 @@
 #include "Listensocket.h"
 #include "Log.h"
 #include "SafeFile.h"
+#include "NatTraversal/NatThread.h"
 #include "kademlia/kademlia/Kademlia.h"
 #include "kademlia/io/IOException.h"
 #include "kademlia/kademlia/prefs.h"
@@ -75,6 +76,11 @@ void CClientUDPSocket::OnReceive(int nErrorCode)
 	int nRealLen = ReceiveFrom(buffer, sizeof buffer, (LPSOCKADDR)&sockAddr, &iSockAddrLen);
 	if (theApp.ipfilter->IsFiltered(sockAddr.sin_addr.s_addr) || theApp.clientlist->IsBannedClient(sockAddr.sin_addr.s_addr) || !sockAddr.sin_port)
 		return;
+	if (nRealLen > 1 && buffer[0] == OP_VC_NAT_HEADER) {
+		if (theApp.natthread != NULL)
+			theApp.natthread->ProcessPacket(buffer + 1, nRealLen - 1, sockAddr.sin_addr.s_addr, sockAddr.sin_port);
+		return;
+	}
 
 	BYTE *pBuffer;
 	uint32 nReceiverVerifyKey;
@@ -134,6 +140,12 @@ void CClientUDPSocket::OnReceive(int nErrorCode)
 					Kademlia::CKademlia::ProcessPacket(pBuffer, nPacketLen, ntohl(sockAddr.sin_addr.s_addr), ntohs(sockAddr.sin_port)
 						, (Kademlia::CPrefs::GetUDPVerifyKey(sockAddr.sin_addr.s_addr) == nReceiverVerifyKey)
 						, Kademlia::CKadUDPKey(nSenderVerifyKey, theApp.GetPublicIP()));
+				break;
+			case OP_VC_NAT_HEADER:
+				if (nPacketLen < 5)
+					strError = _T("NAT packet too short");
+				else if (theApp.natthread != NULL)
+					theApp.natthread->ProcessPacket(pBuffer + 1, nPacketLen - 1, sockAddr.sin_addr.s_addr, sockAddr.sin_port);
 				break;
 			default:
 				strError.Format(_T("Unknown protocol 0x%02x"), pBuffer[0]);

@@ -29,6 +29,7 @@
 #include "ListenSocket.h"
 #include "ServerConnect.h"
 #include "otherfunctions.h"
+#include <cassert>
 
 #ifdef _DEBUG_NAT
 	extern void T_TRACE(char* fmt, ...);
@@ -157,7 +158,7 @@ void CTraverseBySvr::SendPacket()
 	}
 	catch(...)
 	{
-		_AddDebugLogLine(false, _T("Exception: %s\n"), __FUNCTION__);
+		AddDebugLogLine(false, _T("Exception: %s\n"), __FUNCTION__);
 		//  the CAsyncSocketEx maybe is deleted
 		Failed();
 	}
@@ -176,7 +177,7 @@ int CTraverseBySvr::SendConnectReq()
 	memcpy(pack+16, &m_dwConnAskNumber, 4);
 	memcpy(pack+20, m_UserHash, 16);
 
-	//_AddDebugLogLine(false, _T("send conn request for %s\n"),UserHashToString(m_UserHash));
+	//AddDebugLogLine(false, _T("send conn request for %s\n"),UserHashToString(m_UserHash));
 
 	return CNatSocket::SendPacket(m_dwTraverseIp, m_wTraversePort, OP_NAT_SYNC2, pack, 16*2+4);
 }
@@ -248,7 +249,7 @@ bool CTraverseBySvr::ProcessPacket(const uchar * data, int len, DWORD ip, WORD p
 		{
 			m_dwState |= NAT_E_NOPEER;
 #ifdef _DEBUG_NAT
-			_AddDebugLogLine(false, _T("*** Server tell no Registered Peer about %s\n"), UserHashToString(m_UserHash));
+			AddDebugLogLine(false, _T("*** Server tell no Registered Peer about %s\n"), UserHashToString(m_UserHash));
 #endif
 			Failed();
 			//StopTraverse();
@@ -414,5 +415,6 @@ void CTraverseBySvr::OnRecvPing(const uchar * data, int /*len*/, DWORD ip, WORD 
 	T_TRACE("*********** notify connect sock=%08x, client=%08x\n", pASock, pClientSock->client);
 	Finish();
 }
+
 
 

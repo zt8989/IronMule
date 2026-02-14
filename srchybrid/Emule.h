@@ -50,6 +50,7 @@ class CFirewallOpener;
 class CUPnPImplWrapper;
 class CUploadDiskIOThread;
 class CPartFileWriteThread;
+class CNatThread;
 
 struct SLogItem;
 
@@ -94,6 +95,7 @@ public:
 	CUPnPImplWrapper	*m_pUPnPFinder;
 	CUploadDiskIOThread	*m_pUploadDiskIOThread;
 	CPartFileWriteThread *m_pPartFileWriteThread;
+	CNatThread			*natthread;
 
 
 	static const UINT	m_nVersionMjr;

@@ -63,22 +63,6 @@ inline void T_TRACE(char* fmt, ...)
 #endif
 
 //#if defined(_DEBUG) || defined(_BETA) || defined(_VCALPHA)
-#if defined(_DEBUG) || defined(_BETA)
-void _AddDebugLogLine(bool bAddToStatusBar, LPCTSTR pszLine, ...)
-{
-	ASSERT(pszLine != NULL);
-
-	va_list argptr;
-	va_start(argptr, pszLine);
-	//AddLogTextV(LOG_DEBUG | (bAddToStatusBar ? LOG_STATUSBAR : 0), DLP_DEFAULT, pszLine, argptr);
-	if(CNatThread::m_pHelper)
-	{
-		CNatThread::m_pHelper->AddLogTextV(LOG_DEBUG | (bAddToStatusBar ? LOG_STATUSBAR : 0), DLP_DEFAULT, pszLine, argptr);
-	}
-	va_end(argptr);	
-}
-#endif
-
 #if defined(_DEBUG) 
 void _AddLogLine(bool bAddToStatusBar, LPCTSTR pszLine, ...)
 {
@@ -131,7 +115,7 @@ CNatThread::~CNatThread()
 	theApp.natthread = NULL;
 	CSingleLock locker(&m_Mutex, TRUE);
 	//MODIFIED by VC-fengwen on 2007/09/04 <end> : 减少crash的机率，虽然这样还是有可能crash。
-	_AddDebugLogLine(false, _T("exit nat thread\n"));
+	AddDebugLogLine(false, _T("exit nat thread\n"));
 
 	try
 	{
@@ -183,7 +167,7 @@ BOOL CNatThread::InitInstance()
 #ifdef  _DEBUG
 //	AfxBeginThread(RUNTIME_CLASS(CTestThread));
 #endif
-	_AddDebugLogLine(false, _T("*** nat thread is %08x,  %d\n"), GetCurrentThreadId(), GetCurrentThreadId());
+	AddDebugLogLine(false, _T("*** nat thread is %08x,  %d\n"), GetCurrentThreadId(), GetCurrentThreadId());
 	return TRUE;
 }
 
@@ -237,11 +221,25 @@ BOOL CNatThread::Run()
 	bool bBeginWork = false;
 	DWORD tmBeginWork= time(NULL);
 	DWORD tmCheckKad = tmBeginWork;
+	uint32 dwLastClientId = 0;
+	bool bLastLowID = false;
+	DWORD tmLastHeartbeat = 0;
+	AddDebugLogLine(false, _T("[NAT-RUN] thread loop started"));
 	//while (theApp.emuledlg != NULL && theApp.emuledlg->IsRunning())
 	while(theApp.IsRunning())
 	{
 		uint32 cid=0;
 		if(theApp.serverconnect) cid=theApp.serverconnect->GetClientID();
+		bool bLowID = (cid != 0 && ::IsLowID(cid));
+		if (cid != dwLastClientId || bLowID != bLastLowID) {
+			AddDebugLogLine(false, _T("[NAT-RUN] clientid changed: id=%u lowid=%u"), cid, bLowID ? 1 : 0);
+			dwLastClientId = cid;
+			bLastLowID = bLowID;
+		}
+		if (time(NULL) - tmLastHeartbeat >= 30) {
+			AddDebugLogLine(false, _T("[NAT-RUN] heartbeat: id=%u lowid=%u registered=%u svr=%s:%u"), cid, bLowID ? 1 : 0, m_bRegister ? 1 : 0, ipstr(m_dwSvrIp), ntohs(m_wSvrPort));
+			tmLastHeartbeat = time(NULL);
+		}
 		//  If the ID is not LowId do nothing
 		if(cid==0 || !::IsLowID(cid))
 		{
@@ -301,7 +299,7 @@ BOOL CNatThread::Run()
 			}
 			catch(...)
 			{
-				_AddDebugLogLine(false, _T("Exception: %s\n"), __FUNCTION__);
+				AddDebugLogLine(false, _T("Exception: %s\n"), __FUNCTION__);
 			}
 		}
 
@@ -337,6 +335,7 @@ BOOL CNatThread::Run()
 
 		Sleep(100);
 	}
+	AddDebugLogLine(false, _T("[NAT-RUN] thread loop exit"));
 	return false;
 
 }
@@ -384,7 +383,7 @@ void CNatThread::SendConnBuffer(bool /*bByBuddy*/)
 	//m_UnconnectBuffer.RemoveAll();
 	//if(bByBuddy) return;
 
-	//_AddDebugLogLine(false, _T("send conn request for %d peers\n"), tmplist.GetCount());
+	//AddDebugLogLine(false, _T("send conn request for %d peers\n"), tmplist.GetCount());
 	//int packlen=16+4 + tmplist.GetCount()*16;
 	//uchar *pack = new uchar[packlen];
 	//GetMyUserHash((uchar*)pack+16);
@@ -435,7 +434,7 @@ bool CNatThread::SwitchNextStrategy(const USERHASH & UsrHash)
 			if(client && client->socket)
 			{
 				//client->socket->OnFailConnect(1);
-				client->socket->TriggerEvent(FD_FAILED, 1);
+				client->socket->TriggerEvent(FD_FAILED);
 				//client->socket->m_bUseNat = false;
 			}
 
@@ -506,7 +505,7 @@ void CNatThread::CheckConnection()
 							if(usock->m_Sock)
 							{
 								//usock->m_Sock->OnFailConnect(1);
-								usock->m_Sock->TriggerEvent(FD_FAILED, 1);
+								usock->m_Sock->TriggerEvent(FD_FAILED);
 								//usock->m_Sock->m_bUseNat = false;
 							}
 
@@ -516,7 +515,7 @@ void CNatThread::CheckConnection()
 							//catch(...)
 							//{
 							//	//  the CAsyncSocketEx maybe is deleted
-							//	_AddDebugLogLine(false, _T("Exception: %s\n"), __FUNCTION__);
+							//	AddDebugLogLine(false, _T("Exception: %s\n"), __FUNCTION__);
 							//}
 							////ADDED by VC-fengwen on 2007/09/26 <end> : delete usock 但没有在m_UnConnectSocket删除它
 						//COMMENTED by VC-fengwen on 2007/10/15 <end> : 这里的m_Sock不应该有问题，如果有问题的话，应该让它出错，要不然的话错会出在其他地方很难找到其根源。
@@ -541,7 +540,7 @@ void CNatThread::CheckConnection()
 			//	//  the CAsyncSocketEx maybe is deleted
 			//	delete usock;
 
-			//	_AddDebugLogLine(false, _T("Exception: %s\n"), __FUNCTION__);
+			//	AddDebugLogLine(false, _T("Exception: %s\n"), __FUNCTION__);
 			//}
 			//COMMENTED by VC-fengwen on 2007/09/26 <end> : delete usock 但没有在m_UnConnectSocket删除它
 		}
@@ -614,7 +613,7 @@ void CNatThread::CheckConnection()
 		//	}
 		//	catch(...)
 		//	{
-		//		_AddDebugLogLine(false, _T("Exception: CheckConnection\n"));
+		//		AddDebugLogLine(false, _T("Exception: CheckConnection\n"));
 		//	}
 		//}
 	if (NULL != theApp.emuledlg)
@@ -643,7 +642,7 @@ void CNatThread::Connect(CAsyncSocketEx * sock, const uchar * clientid, CTravers
 			}
 			catch(...)
 			{
-				_AddDebugLogLine(false, _T("Exception: %s\n"), __FUNCTION__);
+				AddDebugLogLine(false, _T("Exception: %s\n"), __FUNCTION__);
 				return;
 			}
 			//sock->OnConnect(0);
@@ -662,7 +661,7 @@ void CNatThread::Connect(CAsyncSocketEx * sock, const uchar * clientid, CTravers
 	}
 	catch(...)
 	{
-		_AddDebugLogLine(false, _T("Exception: %s\n"), __FUNCTION__);
+		AddDebugLogLine(false, _T("Exception: %s\n"), __FUNCTION__);
 	}
 }
 
@@ -676,7 +675,7 @@ void CNatThread::Connect(CAsyncSocketEx * sock, const uchar * clientid, CTravers
 
 	if(IsSocketConnected(sock))
 	{
-		_AddDebugLogLine(false, _T("asyncsock try to connect. asyncsock=%08x\n"), sock);
+		AddDebugLogLine(false, _T("asyncsock try to connect. asyncsock=%08x\n"), sock);
 		try
 		{
 			CClientReqSocket * pClientSock = DYNAMIC_DOWNCAST(CClientReqSocket, sock);
@@ -689,7 +688,7 @@ void CNatThread::Connect(CAsyncSocketEx * sock, const uchar * clientid, CTravers
 		}
 		catch(...)
 		{
-			_AddDebugLogLine(false, _T("Exception: %s\n"), __FUNCTION__);
+			AddDebugLogLine(false, _T("Exception: %s\n"), __FUNCTION__);
 			return;
 		}
 		sock->OnConnect(0);
@@ -738,7 +737,7 @@ int CNatThread::Send(CAsyncSocketEx * sock, const void * data, int len)
 	else
 	{
 		WSASetLastError(WSAEWOULDBLOCK);
-		_AddDebugLogLine(false, _T("->%s:  but no peer to send\n"),__FUNCTION__);
+		AddDebugLogLine(false, _T("->%s:  but no peer to send\n"),__FUNCTION__);
 	}
 
 	return nRet;
@@ -876,7 +875,7 @@ void CNatThread::OnSync(DWORD ip, WORD port, const uchar * pData, int nDataSize)
 	CUnconnSocket * usock=FindUnconnectSocket(id);// FindUnconnectSocketByIP(cip, cport);
 	if(! usock)
 	{
-		_AddDebugLogLine(false, _T("create unconnsock for recv sync. asyncsock=%08x\n"), pASock);
+		AddDebugLogLine(false, _T("create unconnsock for recv sync. asyncsock=%08x\n"), pASock);
 
 		usock = new CUnconnSocket(ip, port, pASock, id);
 		usock->m_dwConnAskNumber = 0;
@@ -884,7 +883,7 @@ void CNatThread::OnSync(DWORD ip, WORD port, const uchar * pData, int nDataSize)
 		usock->m_wClientPort =cport;
 		m_UnConnectSocket.AddTail(usock);
 
-		_AddDebugLogLine(false, _T("CNatThread::ProcessPacket Create CUnconnSocket Successful!\n"));
+		AddDebugLogLine(false, _T("CNatThread::ProcessPacket Create CUnconnSocket Successful!\n"));
 	}
 	else
 	{
@@ -976,7 +975,7 @@ bool CNatThread::ProcessPacket(const BYTE* packet, UINT size, uint32 ip, uint16 
 
 				for(int i=0; i<n; i++)
 				{
-					_AddDebugLogLine(false, _T("failed conn request for %s\n"),UserHashToString(realdata));
+					AddDebugLogLine(false, _T("failed conn request for %s\n"),UserHashToString(realdata));
 					CUnconnSocket * us= FindUnconnectSocket(realdata);
 					if(us) us->m_dwState |= NAT_E_NOPEER;
 					realdata+=16;
@@ -1009,7 +1008,7 @@ bool CNatThread::ProcessPacket(const BYTE* packet, UINT size, uint32 ip, uint16 
 			if( source == NULL )
 			{
 #ifdef _DEBUG_NAT
-				_AddDebugLogLine(false, _T("\n*** no nat sock to recv NAT_DATA. connack=%08x\n"), ConnAck);
+				AddDebugLogLine(false, _T("\n*** no nat sock to recv NAT_DATA. connack=%08x\n"), ConnAck);
 #endif
 				uint32 uSequenceNr = PeekUInt32(realdata);
 				if(uSequenceNr==1)
@@ -1028,7 +1027,7 @@ bool CNatThread::ProcessPacket(const BYTE* packet, UINT size, uint32 ip, uint16 
 
 			if(source->ProcessDataPacket(realdata, realsize))
 			{
-				//_AddDebugLogLine(false, _T("source->ProcessDataPacket is OK. tag=%08x. Asyncsock=%08x\n"), tag,source->GetParent());
+				//AddDebugLogLine(false, _T("source->ProcessDataPacket is OK. tag=%08x. Asyncsock=%08x\n"), tag,source->GetParent());
 				//source->OnReceive(0);
 				source->m_Parent->TriggerEvent(FD_READ);
 				return true;
@@ -1049,7 +1048,7 @@ bool CNatThread::ProcessPacket(const BYTE* packet, UINT size, uint32 ip, uint16 
 			if( source == NULL )
 			{
 #ifdef _DEBUG_NAT
-				_AddDebugLogLine(false, _T("\nsend RST for no nat sock to do NAT_ACK\n"));
+				AddDebugLogLine(false, _T("\nsend RST for no nat sock to do NAT_ACK\n"));
 #endif
 				CNatSocket::SendPacket(ip, port, OP_NAT_RST,0,0);
 				break;
@@ -1062,12 +1061,12 @@ bool CNatThread::ProcessPacket(const BYTE* packet, UINT size, uint32 ip, uint16 
 			break;
 		}
 	default:
-		_AddDebugLogLine(false, _T("Unknown command\n"));
+		AddDebugLogLine(false, _T("Unknown command\n"));
 		break;
 	}
 	}catch(...)
 		{
-			_AddDebugLogLine(false, _T("Exception: %s\n"), __FUNCTION__);
+			AddDebugLogLine(false, _T("Exception: %s\n"), __FUNCTION__);
 		}
 
 	return true;
@@ -1094,7 +1093,7 @@ int CUnconnSocket::SendPingPacket()
 	//		//usock->m_Sock->m_bUseNat = false;
 	//		m_dwClientIp = pClientSock->client->GetIP();
 	//		m_wClientPort = htons(pClientSock->client->GetKadPort());
-	//		_AddDebugLogLine(false, _T("******* ping dest addr (buddy traverse): %s. (%d)\n"), ipstr(m_dwClientIp, ntohs(m_wClientPort)), m_wClientPort);
+	//		AddDebugLogLine(false, _T("******* ping dest addr (buddy traverse): %s. (%d)\n"), ipstr(m_dwClientIp, ntohs(m_wClientPort)), m_wClientPort);
 	//	}
 	//	else return 1;
 	//}
@@ -1106,7 +1105,7 @@ int CUnconnSocket::SendPingPacket()
 		GetMyUserHash(pack);
 		memcpy(pack+16, &m_dwConnAskNumber, 4);
 		
-		//_AddDebugLogLine(false, _T("\nCUnconnSocket::SendPingPacket Send Ping Successful! IP : %d Port %d\n"), m_dwClientIp, m_wClientPort);
+		//AddDebugLogLine(false, _T("\nCUnconnSocket::SendPingPacket Send Ping Successful! IP : %d Port %d\n"), m_dwClientIp, m_wClientPort);
 
 		return CNatSocket::SendPacket(m_dwClientIp, m_wClientPort, OP_NAT_PING, pack, 20);
 	}
@@ -1126,7 +1125,7 @@ void CNatThread::RegisterMe(DWORD sip, WORD sport)
 {
 	if(!theApp.clientudp) return;
 	
-	_AddDebugLogLine(false, _T("CNatThread::RegisterMe"));
+	AddDebugLogLine(false, _T("CNatThread::RegisterMe"));
 
 	m_dwSvrKeepalive = m_RegisterTime = time(NULL);
 
@@ -1211,7 +1210,7 @@ void CNatThread::SendKeepAlive()
 		CNatSocket::SendPacket(m_dwSvrIp, m_wSvrPort, pack, 1);
 		m_dwSvrKeepalive = time(NULL);
 #ifdef _DEBUG_NAT
-		_AddDebugLogLine(false, _T("send keepalive to svr\n"));
+		AddDebugLogLine(false, _T("send keepalive to svr\n"));
 #endif
 	}
 
@@ -1378,7 +1377,7 @@ DWORD CNatThread::GetUsedTime(CAsyncSocketEx * sock)
 	}
 	catch(...)
 	{
-		_AddDebugLogLine(false, _T("Exception: %s\n"), __FUNCTION__);
+		AddDebugLogLine(false, _T("Exception: %s\n"), __FUNCTION__);
 	}
 
 	return 0;
@@ -1689,7 +1688,7 @@ CUnconnSocket::CUnconnSocket(DWORD sip, WORD sport, CAsyncSocketEx * s, const uc
 //	#ifdef _DEBUG
 //		in_addr addr;
 //		addr.s_addr = cip;
-//		_AddDebugLogLine(false, _T("peer addr of %02X%02X%02X%02X = %s:%d\n"), id[0], id[1], id[2],id[3],
+//		AddDebugLogLine(false, _T("peer addr of %02X%02X%02X%02X = %s:%d\n"), id[0], id[1], id[2],id[3],
 //			inet_ntoa(addr), ntohs(cport));
 //	#endif
 //		uchar myid[16];
@@ -1774,7 +1773,7 @@ CUnconnSocket::CUnconnSocket(DWORD sip, WORD sport, CAsyncSocketEx * s, const uc
 //		{
 //			if(! m_TempASock.Lookup(id, pASock))
 //			{
-//				_AddDebugLogLine(false, _T("\n->%s: Accept a incoming sock for %02X%02X%02X%02X\n"), __FUNCTION__,
+//				AddDebugLogLine(false, _T("\n->%s: Accept a incoming sock for %02X%02X%02X%02X\n"), __FUNCTION__,
 //					id[0],id[1],id[2],id[3]);
 //				pASock = theApp.listensocket->OnAcceptEx(0);
 //				m_TempASock.SetAt(id, pASock);
@@ -1785,7 +1784,7 @@ CUnconnSocket::CUnconnSocket(DWORD sip, WORD sport, CAsyncSocketEx * s, const uc
 //		CUnconnSocket * usock=FindUnconnectSocket(id);// FindUnconnectSocketByIP(cip, cport);
 //		if(! usock)
 //		{
-//			_AddDebugLogLine(false, _T("create unconnsock for recv sync. asyncsock=%08x\n"), pASock);
+//			AddDebugLogLine(false, _T("create unconnsock for recv sync. asyncsock=%08x\n"), pASock);
 //			//				ASSERT(pASock->m_MyVSock==tag);
 //			usock = new CUnconnSocket(ip, port, pASock, id);
 //			usock->m_dwConnAskNumber = 0;
@@ -1828,7 +1827,7 @@ void CNatThread::OnPing(DWORD ip, WORD port, const uchar * pData, int nDataSize)
 			{
 #ifdef _DEBUG_NAT
 				const uchar * id=nsock->GetUserHash();
-				_AddDebugLogLine(false, _T("recv keepalive from %02X%02X%02X%02X \n"), id[0],id[1],id[2],id[3]);
+				AddDebugLogLine(false, _T("recv keepalive from %02X%02X%02X%02X \n"), id[0],id[1],id[2],id[3]);
 #endif
 				nsock->m_dwRecvKeepalive = time(NULL);
 			}
@@ -1842,7 +1841,7 @@ void CNatThread::OnPing(DWORD ip, WORD port, const uchar * pData, int nDataSize)
 			{
 #ifdef _DEBUG_NAT
 				const uchar * id=nsock->GetUserHash();
-				_AddDebugLogLine(false, _T("recv keepalive(sock pool) from %02X%02X%02X%02X \n"), id[0],id[1],id[2],id[3]);
+				AddDebugLogLine(false, _T("recv keepalive(sock pool) from %02X%02X%02X%02X \n"), id[0],id[1],id[2],id[3]);
 #endif
 				nsock->m_dwRecvKeepalive = time(NULL);
 			}
@@ -1860,7 +1859,7 @@ void CNatThread::OnPing(DWORD ip, WORD port, const uchar * pData, int nDataSize)
 
 	DWORD ConnAck=0;
 	memcpy(&ConnAck, hash+16, 4);
-	_AddDebugLogLine(false, _T("recv ping 1. %02X%02X%02X%02X, ConnAck=%d\n"), hash[0], hash[1], hash[2], hash[3],
+	AddDebugLogLine(false, _T("recv ping 1. %02X%02X%02X%02X, ConnAck=%d\n"), hash[0], hash[1], hash[2], hash[3],
 		ConnAck);
 
 	CAsyncSocketEx * pASock=NULL;
@@ -1877,7 +1876,7 @@ void CNatThread::OnPing(DWORD ip, WORD port, const uchar * pData, int nDataSize)
 		{
 			//未发现此用户套接字
 
-			_AddDebugLogLine(false, _T("no AsyncsocketEx for unconnect sk\n"));
+			AddDebugLogLine(false, _T("no AsyncsocketEx for unconnect sk\n"));
 			POSITION pos = m_UnConnectSocket.GetHeadPosition(), curPos;
 
 			while(pos)
@@ -1886,7 +1885,7 @@ void CNatThread::OnPing(DWORD ip, WORD port, const uchar * pData, int nDataSize)
 				CUnconnSocket * us= m_UnConnectSocket.GetNext(pos);
 				if(us && memcmp(us->m_ClientId, hash, 16)==0)
 				{
-					_AddDebugLogLine(false, _T("remove invalid unconnected sk\n"));
+					AddDebugLogLine(false, _T("remove invalid unconnected sk\n"));
 					//MODIFIED by VC-fengwen on 2007/10/26 <begin> : 必须同时删除temp中的item
 						//m_UnConnectSocket.RemoveAt(curPos);
 						//delete us;
@@ -1912,7 +1911,7 @@ void CNatThread::OnPing(DWORD ip, WORD port, const uchar * pData, int nDataSize)
 			nsock =WakeupNatSocketFromPool(hash);
 			if(! nsock)
 			{
-				_AddDebugLogLine(false, _T("*** recv a invalid ping.  %02X%02X%02X%02X\n"), hash[0], hash[1], hash[2], hash[3]);
+				AddDebugLogLine(false, _T("*** recv a invalid ping.  %02X%02X%02X%02X\n"), hash[0], hash[1], hash[2], hash[3]);
 				return;
 			}
 			if(ConnAck) nsock->m_dwConnAskNumber = ConnAck;
@@ -1932,7 +1931,7 @@ void CNatThread::OnPing(DWORD ip, WORD port, const uchar * pData, int nDataSize)
 		memcpy(pack+16, &ConnAck, 4);
 
 		nsock->SendPacket(OP_NAT_PING, pack, 21);
-		_AddDebugLogLine(false, _T("I am connected, echo a ping for connecting.  %02X%02X%02X%02X\n"), hash[0], hash[1], hash[2], hash[3]);
+		AddDebugLogLine(false, _T("I am connected, echo a ping for connecting.  %02X%02X%02X%02X\n"), hash[0], hash[1], hash[2], hash[3]);
 
 		//nsock->GetParent()->TriggerEvent(FD_CONNECT);
 		return;
@@ -1991,7 +1990,7 @@ bool CNatThread::ProcessStrategyPacket(USERHASH uh, DWORD ip, WORD port, const u
 		}
 		catch(...)
 		{
-			_AddDebugLogLine(false, _T("Exception in %s\n"), __FUNCTION__);
+			AddDebugLogLine(false, _T("Exception in %s\n"), __FUNCTION__);
 		}
 
 		SwitchNextStrategy(uh);
@@ -2156,7 +2155,7 @@ void CNatThread::CheckStrategies()
 		}
 		catch(...)
 		{
-			_AddDebugLogLine(false, _T("Exception: CheckConnection\n"));
+			AddDebugLogLine(false, _T("Exception: CheckConnection\n"));
 		}
 	}
 }
@@ -2228,4 +2227,5 @@ void CNatThread::RemoveStrategy( const uchar * pUserhash )
 			delete strategy;
 	}
 }
+
 

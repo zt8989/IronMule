@@ -131,6 +131,7 @@
 
 // you shouldn't change anything here if you are not really sure, or probably emule will not work
 #define UDP_KAD_MAXFRAGMENT		1420		// based on a 1500 Ethernet MTU, use a conservative value to leave enough room for IP/UDP headers, tunnel headers, Kad headers(16) and misconfigs
+#define MAXFRAGSIZE				1300
 #define EMBLOCKSIZE				184320u
 #define OP_EDONKEYHEADER		0xE3
 #define OP_KADEMLIAHEADER		0xE4
@@ -294,6 +295,16 @@
 #define OP_REASKCALLBACKUDP		0x94
 #define OP_DIRECTCALLBACKREQ	0x95	// <TCPPort 2><Userhash 16><ConnectionOptions 1>
 #define OP_PORTTEST				0xFE	// Connection Test
+#define OP_UDPKEEPALIVE         0xF4    // (NULL)
+#define OP_UDPREGISTER	        0xF5    // <HASH 16>
+#define OP_UDPTOUDPSENATACK     0xF6    // <HASH 16><uint32><uint16>
+#define OP_UDPTOUDPSENATREQ     0xF7    // <HASH 16><uint32><uint16>
+#define OP_SECALLBACK           0xF8	// <HASH 16><uint32><uint16>
+#define OP_TCPSECALLBACKREQ     0xF9	// <HASH 16>
+#define OP_TCPSENATACK          0xFA    // <HASH 16><uint32><uint16>
+#define OP_TCPSENATREQ          0xFB    // <HASH 16><uint32><uint16>
+#define OP_UDPSENATACK          0xFC    // <HASH 16><HASH 16>
+#define OP_UDPSENATREQ          0xFD    // <HASH 16><HASH 16>
 
 // server.met
 #define ST_SERVERNAME			0x01	// <string>

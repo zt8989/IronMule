@@ -29,6 +29,7 @@
 #include "ListenSocket.h"
 #include "ServerConnect.h"
 #include "kademlia\kademlia\kademlia.h"
+#include <cassert>
 
 #ifdef _DEBUG_NAT
 	extern void T_TRACE(char* fmt, ...);
@@ -91,7 +92,7 @@ void CTraverseByBuddy::SendPacket()
 	catch(...)
 	{
 		//  the CAsyncSocketEx maybe is deleted
-		_AddDebugLogLine(false, _T("Exception: %s\n"), __FUNCTION__);
+		AddDebugLogLine(false, _T("Exception: %s\n"), __FUNCTION__);
 		Failed();
 	}
 }
@@ -110,7 +111,7 @@ int CTraverseByBuddy::SendConnectReq()
 	}
 	catch(...)
 	{
-		_AddDebugLogLine(false, _T("Exception: %s\n"), __FUNCTION__);
+		AddDebugLogLine(false, _T("Exception: %s\n"), __FUNCTION__);
 		Failed();
 		return 1;
 	}
@@ -131,16 +132,16 @@ int CTraverseByBuddy::SendConnectReq()
 	}
 
 	Kademlia::CUInt128 uBuddyID(true);
-	uBuddyID.Xor(pClientSock->client->GetBuddyID());
+	uBuddyID.XorBE(pClientSock->client->GetBuddyID());
 	byte cID[16];
 	uBuddyID.ToByteArray(cID);
 
 #ifdef _DEBUG_NAT
 	const uchar *uh=m_UserHash;
-	_AddDebugLogLine(false, _T("send sync to connect %02X%02X%02X%02X by buddy. kad id=%s\n"), uh[0],uh[1],uh[2],uh[3],
+	AddDebugLogLine(false, _T("send sync to connect %02X%02X%02X%02X by buddy. kad id=%s\n"), uh[0],uh[1],uh[2],uh[3],
 		UserHashToString(cID));
 	CString str=ipstr(m_dwTraverseIp, ntohs(m_wTraversePort));
-	_AddDebugLogLine(false, _T("\n\n******* buddy dest addr:   %s\n"), (LPCTSTR)str);
+	AddDebugLogLine(false, _T("\n\n******* buddy dest addr:   %s\n"), (LPCTSTR)str);
 #endif
 	//  header + opcode + kadid&reserve + vc_header + sync + myaddr + myid + connack
 	uchar Buf[2+32+1+4+1+6+16+4];
@@ -359,7 +360,7 @@ void CTraverseByBuddy::OnRecvPing(const uchar * data, int /*len*/, DWORD ip, WOR
 	}
 	catch(...)
 	{
-		_AddDebugLogLine(false, _T("Exception: %s\n"), __FUNCTION__);
+		AddDebugLogLine(false, _T("Exception: %s\n"), __FUNCTION__);
 		Failed();
 		return ;
 	}
@@ -373,5 +374,6 @@ void CTraverseByBuddy::OnRecvPing(const uchar * data, int /*len*/, DWORD ip, WOR
 
 	Finish();
 }
+
 
 

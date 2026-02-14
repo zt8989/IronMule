@@ -151,8 +151,13 @@ void CUpDownClient::Init()
 	m_dwLastSourceRequest = 0;
 	m_dwLastSourceAnswer = 0;
 	m_dwLastAskedForSources = 0;
+	m_dwRegisterTime = 0;
+	m_dwReceiveKeepALiveTime = 0;
+	m_dwSendKeepALiveTime = 0;
 	m_uSearchID = 0;
 	m_iFileListRequested = 0;
+	m_pSourceExchangeClient = NULL;
+	m_nUDPState = 0;
 
 	m_uFileRating = 0;
 	m_cMessagesReceived = 0;

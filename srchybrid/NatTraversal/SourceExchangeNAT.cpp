@@ -83,11 +83,11 @@ bool CSourceExchangeNAT::ProcessUDPPacket(const BYTE* packet, UINT size, uint8 o
 							data_out.WriteHash16(userhash);
 							data_out.WriteUInt32(con);
 
-							Packet* natreq = new Packet(&data_out, OP_EMULEPROT, OP_TCPSENATREQ);
+							Packet* natreq = new Packet(data_out, OP_EMULEPROT, OP_TCPSENATREQ);
 
 							T_TRACE("\nThe Client is Exist and Send TCP SourceExchange NAT Request!\n");
 
-							pClient->socket->SendPacket(natreq, true, true, 0, true);
+							pClient->socket->SendPacket(natreq, true, 0, true);
 						}
 						else
 						{
@@ -140,11 +140,11 @@ bool CSourceExchangeNAT::ProcessUDPPacket(const BYTE* packet, UINT size, uint8 o
 							data_out.WriteHash16(userhash);
 							data_out.WriteUInt32(con);
 
-							Packet* natack = new Packet(&data_out, OP_EMULEPROT, OP_TCPSENATACK);
+							Packet* natack = new Packet(data_out, OP_EMULEPROT, OP_TCPSENATACK);
 
 							T_TRACE("\nThe Client is Exist and Send TCP SourceExchange NAT Response!\n");
 
-							pClient->socket->SendPacket(natack, true, true, 0, true);
+							pClient->socket->SendPacket(natack, true, 0, true);
 						}
 						else 
 						{
@@ -438,9 +438,9 @@ bool CSourceExchangeNAT::ProcessTCPPacket(const BYTE* packet, uint32 size, UINT 
 						fileIO.WriteUInt32(socket->client->GetIP());
 						fileIO.WriteUInt16(socket->client->GetUserPort());
 
-						Packet* pPacket = new Packet(&fileIO, OP_EMULEPROT, OP_SECALLBACK);
+						Packet* pPacket = new Packet(fileIO, OP_EMULEPROT, OP_SECALLBACK);
 
-						pClient->socket->SendPacket(pPacket, true, true, 0, true);
+						pClient->socket->SendPacket(pPacket, true, 0, true);
 					}
 					else
 					{

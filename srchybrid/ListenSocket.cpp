@@ -2241,3 +2241,8 @@ float CListenSocket::GetMaxConperFiveModifier()
 
 	return (SpikeSize > SpikeTolerance) ? 0.0f : 1.0f - SpikeSize / SpikeTolerance;
 }
+
+CAsyncSocketEx* CListenSocket::OnAcceptEx(int /*nErrorCode*/)
+{
+	return new CClientReqSocket();
+}

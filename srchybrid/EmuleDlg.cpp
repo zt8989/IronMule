@@ -98,6 +98,7 @@
 #include "ImportParts.h"
 #include "ClientCredits.h"
 #include "FirewallOpener.h"
+#include "NatTraversal/NatThread.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -719,6 +720,16 @@ void CALLBACK CemuleDlg::StartupTimer(HWND /*hwnd*/, UINT /*uiMsg*/, UINT_PTR /*
 					AddLogLine(true, GetResString(IDS_MAIN_READY), (LPCTSTR)theApp.m_strCurVersionLong);
 
 				theApp.m_app_state = APP_STATE_RUNNING; //initialization completed
+				if (theApp.natthread == NULL) {
+					CWinThread *pNatThread = AfxBeginThread(RUNTIME_CLASS(CNatThread));
+					if (pNatThread != NULL) {
+						pNatThread->m_bAutoDelete = FALSE;
+						theApp.natthread = static_cast<CNatThread*>(pNatThread);
+						AddDebugLogLine(false, _T("[NAT] traversal thread started (tid=%u)"), pNatThread->m_nThreadID);
+					} else {
+						AddLogLine(false, _T("[NAT] failed to start traversal thread"));
+					}
+				}
 				theApp.emuledlg->toolbar->EnableButton(TBBTN_CONNECT, TRUE);
 				theApp.emuledlg->m_SysMenuOptions.EnableMenuItem(MP_CONNECT, MF_ENABLED);
 				theApp.emuledlg->serverwnd->GetDlgItem(IDC_ED2KCONNECT)->EnableWindow();
@@ -1674,6 +1685,19 @@ void CemuleDlg::OnClose()
 	}
 
 	Kademlia::CKademlia::Stop();	// couple of data files are written
+	if (theApp.natthread != NULL) {
+		HANDLE hNatThread = theApp.natthread->m_hThread;
+		DWORD dwWaitResult = (hNatThread != NULL) ? WaitForSingleObject(hNatThread, SEC2MS(3)) : WAIT_FAILED;
+		if (dwWaitResult == WAIT_OBJECT_0) {
+			delete theApp.natthread;
+			theApp.natthread = NULL;
+			AddDebugLogLine(false, _T("[NAT] traversal thread stopped"));
+		} else if (dwWaitResult == WAIT_TIMEOUT) {
+			AddLogLine(false, _T("[NAT] traversal thread stop timeout"));
+		} else {
+			AddLogLine(false, _T("[NAT] traversal thread stop failed (err=%u)"), GetLastError());
+		}
+	}
 
 	// try to wait until the hashing thread notices that we are shutting down
 	CSingleLock sLock1(&theApp.hashing_mut); // only one file hash at a time

@@ -24,6 +24,7 @@
 #include "UploadQueue.h"
 #include "NatThread.h"
 #include "..\UserMsgs.h"
+#include "..\emuleDlg.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -132,7 +133,7 @@ CNatSocket::CNatSocket(CAsyncSocketEx* Parent) : m_Parent(Parent)
 */
 CNatSocket::~CNatSocket() 
 {
-	_AddDebugLogLine(false, _T("->%s: Destroy NAT Socket of %02X%02X%02X%02X\n"), __FUNCTION__, m_UserHash[0],m_UserHash[1],m_UserHash[2],m_UserHash[3]);
+	AddDebugLogLine(false, _T("->%s: Destroy NAT Socket of %02X%02X%02X%02X\n"), __FUNCTION__, m_UserHash[0],m_UserHash[1],m_UserHash[2],m_UserHash[3]);
 
 	// remove socket from nat socket list
 //	theApp.clientudp->RemoveNatSocket(this);
@@ -440,7 +441,7 @@ void CNatSocket::ProcessAckPacket(const BYTE* packet, UINT size)
 			m_dwTimeToCheck = max(MIN_RTO, m_dwTimeToCheck);
 			//VC-fengwen on 2008/01/04 <end> : 按tcp方式计算rto
 
-			//_AddDebugLogLine(false, _T("new CHECK_TIME = %d\n"), m_dwTimeToCheck);
+			//AddDebugLogLine(false, _T("new CHECK_TIME = %d\n"), m_dwTimeToCheck);
 
 			//VC-fengwen on 2008/01/04 <begin> : 快速重传及快速恢复算法
 			if (m_snd.una == uSequenceNr)
@@ -610,7 +611,7 @@ bool CNatSocket::ProcessDataPacket(const BYTE* packet, UINT size)
 
 	if(m_ShutDown & 0x01)
 	{
-		_AddDebugLogLine(false, _T("->%s: the sock is closed\n"),__FUNCTION__);
+		AddDebugLogLine(false, _T("->%s: the sock is closed\n"),__FUNCTION__);
 		return false; // shocket is shuting down
 	}
 
@@ -654,7 +655,7 @@ bool CNatSocket::ProcessDataPacket(const BYTE* packet, UINT size)
 	// its a ping to get a new window size
 	else if(3*MAX_BUF_SIZE <= m_uDownloadBufferSize) // answre only when the window size is not longer 0
 	{
-		//_AddDebugLogLine(false, _T("->%s: ping for get new window size\n"),__FUNCTION__);
+		//AddDebugLogLine(false, _T("->%s: ping for get new window size\n"),__FUNCTION__);
 		return false; // windows ist still full just return
 	}
 
@@ -797,13 +798,13 @@ void CNatSocket::RenewNatSock()
 		if(CNatThread::m_pHelper)
 		{
 			//CNatThread::m_pHelper->Disconnect(pClientSock);
-			UINotify(WM_NAT_DISCONNECTED, 0, (LPARAM)pClientSock);
+			PostMessage(theApp.emuledlg->GetSafeHwnd(), WM_NAT_DISCONNECTED, 0, (LPARAM)pClientSock);
 		}
 	
 		if(client)
 		{
 			//client->Disconnected(_T(""),true);
-			UINotify(WM_NAT_DISCONNECTED, 1, (LPARAM)client);
+			PostMessage(theApp.emuledlg->GetSafeHwnd(), WM_NAT_DISCONNECTED, 1, (LPARAM)client);
 		}
 		//MODIFIED by VC-fengwen on 2007/09/28 <begin> : 解决Deadlock问题
 			//theApp.uploadBandwidthThrottler->RemoveFromAllQueues(pClientSock);
@@ -929,5 +930,6 @@ int	CNatSocket::GetFirstUna()
 	}
 	return iRet;
 }
+
 
 
