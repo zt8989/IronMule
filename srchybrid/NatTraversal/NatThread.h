@@ -111,6 +111,8 @@ protected:
 	DWORD m_dwSvrRetTime, m_dwSendConnTime;
 	DWORD m_dwTraverseBySvr;
 	DWORD m_dwSvrIp;
+	DWORD m_dwRegisterSendCount;
+	DWORD m_dwNatUdpRecvCount;
 	WORD m_wSvrPort;
 	CList<CUnconnSocket*, CUnconnSocket*> m_UnConnectSocket;
 	CList<USERHASH,USERHASH&> m_UnconnectBuffer;
@@ -120,6 +122,7 @@ protected:
 	CRBMap<USERHASH, CTraverseStrategy *> m_TraverseStrategy;
 	CMutex m_Mutex;
 	bool m_bRegister;
+	bool m_bRegisterFailed;
 	DWORD m_RegisterTime, m_dwSvrKeepalive;
 	//VC-fengwen on 2007/12/28 <begin> : 对服务器的注册重试改为指数退避。
 	enum {INIT_ATTEMPT_INTERVAL = 4};
@@ -180,6 +183,7 @@ public:
 	CAsyncSocketEx * GetTempASock(const uchar * pUserhash);
 	void RemoveTempASock(const uchar * id);
 	bool IsServerRegistered(){return m_bRegister;}
+	bool IsRegisterFailed(){return m_bRegisterFailed;}
 
 	uint16 GetUDPPort(CAsyncSocketEx * sock); // VC-SearchDream[2007-04-13]: For Low2Low2Low
 

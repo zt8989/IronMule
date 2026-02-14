@@ -308,6 +308,8 @@ protected:
 	afx_msg LRESULT OnConsoleThreadEvent(WPARAM wParam, LPARAM lParam);
 	// UPnP
 	afx_msg LRESULT OnUPnPResult(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnNatServerRegistered(WPARAM, LPARAM);
+	afx_msg LRESULT OnNatCheckStrategies(WPARAM, LPARAM);
 };
 
 #ifdef _DEBUG

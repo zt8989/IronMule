@@ -589,6 +589,13 @@
     <ClInclude Include="MuleStatusBarCtrl.h" />
     <ClInclude Include="MuleSystrayDlg.h" />
     <ClInclude Include="MuleToolBarCtrl.h" />
+    <ClInclude Include="NatTraversal\NatSocket.h" />
+    <ClInclude Include="NatTraversal\NatThread.h" />
+    <ClInclude Include="NatTraversal\SourceExchangeNAT.h" />
+    <ClInclude Include="NatTraversal\TraverseByBuddy.h" />
+    <ClInclude Include="NatTraversal\TraverseBySourceExchange.h" />
+    <ClInclude Include="NatTraversal\TraverseBySvr.h" />
+    <ClInclude Include="NatTraversal\TraverseStrategy.h" />
     <ClInclude Include="NetworkInfoDlg.h" />
     <ClInclude Include="Opcodes.h" />
     <ClInclude Include="OScopeCtrl.h" />
@@ -703,6 +710,15 @@
     <ClInclude Include="WebSocket.h" />
     <ClInclude Include="Wizard.h" />
     <ClInclude Include="ZIPFile.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="NatTraversal\NatSocket.cpp" />
+    <ClCompile Include="NatTraversal\NatThread.cpp" />
+    <ClCompile Include="NatTraversal\SourceExchangeNAT.cpp" />
+    <ClCompile Include="NatTraversal\TraverseByBuddy.cpp" />
+    <ClCompile Include="NatTraversal\TraverseBySourceExchange.cpp" />
+    <ClCompile Include="NatTraversal\TraverseBySvr.cpp" />
+    <ClCompile Include="NatTraversal\TraverseStrategy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\all.ico" />

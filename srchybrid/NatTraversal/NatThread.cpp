@@ -40,6 +40,28 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 CNatTravHelper * CNatThread::m_pHelper = NULL;
+
+static CString NatDumpHex(const BYTE* data, UINT size, UINT maxBytes = 48)
+{
+	CString s;
+	if (data == NULL || size == 0)
+		return _T("");
+	const UINT n = min(size, maxBytes);
+	for (UINT i = 0; i < n; ++i) {
+		CString one;
+		one.Format(_T("%02X"), data[i]);
+		if (!s.IsEmpty())
+			s += _T(" ");
+		s += one;
+	}
+	if (size > n) {
+		CString tail;
+		tail.Format(_T(" ...(+%u)"), size - n);
+		s += tail;
+	}
+	return s;
+}
+
 #ifdef _DEBUG_NAT
 
 inline void T_TRACE(char* fmt, ...)
@@ -90,6 +112,7 @@ IMPLEMENT_DYNCREATE(CNatThread, CWinThread)
 CNatThread::CNatThread()
 {
 	m_bRegister = false;
+	m_bRegisterFailed = false;
 	m_dwSendConnTime = m_RegisterTime = m_dwSendStaticsTime = time(NULL);
 	m_dwSvrRetTime = m_RegisterTime;
 
@@ -102,6 +125,8 @@ CNatThread::CNatThread()
 	m_wTraverseBySvr = 0;
 	m_wTraverseBySE  = 0;
 	m_tmNextRefreshSvr =0;
+	m_dwRegisterSendCount = 0;
+	m_dwNatUdpRecvCount = 0;
 
 	m_dwRegAttemptTimes = 0;
 	m_dwRegNextAttempInterval = INIT_ATTEMPT_INTERVAL;
@@ -237,7 +262,8 @@ BOOL CNatThread::Run()
 			bLastLowID = bLowID;
 		}
 		if (time(NULL) - tmLastHeartbeat >= 30) {
-			AddDebugLogLine(false, _T("[NAT-RUN] heartbeat: id=%u lowid=%u registered=%u svr=%s:%u"), cid, bLowID ? 1 : 0, m_bRegister ? 1 : 0, ipstr(m_dwSvrIp), ntohs(m_wSvrPort));
+			AddDebugLogLine(false, _T("[NAT-RUN] heartbeat: id=%u lowid=%u registered=%u regSend=%u udpRecv=%u svr=%s:%u"),
+				cid, bLowID ? 1 : 0, m_bRegister ? 1 : 0, m_dwRegisterSendCount, m_dwNatUdpRecvCount, ipstr(m_dwSvrIp), ntohs(m_wSvrPort));
 			tmLastHeartbeat = time(NULL);
 		}
 		//  If the ID is not LowId do nothing
@@ -793,6 +819,8 @@ void CNatThread::OnSync(DWORD ip, WORD port, const uchar * pData, int nDataSize)
 	const uchar * id=pData+6;
 	DWORD ConnAck = 0;
 	memcpy(&ConnAck, id+16, 4);
+	AddDebugLogLine(false, _T("[NAT-SYNC] OnSync from %s:%u peer=%s:%u ask=%08x user=%s"),
+		ipstr(ip), ntohs(port), ipstr(cip), ntohs(cport), ConnAck, UserHashToString(id));
 
 	CNatSocket * nsock=FindNatSocket(id);
 
@@ -898,9 +926,15 @@ void CNatThread::OnSync(DWORD ip, WORD port, const uchar * pData, int nDataSize)
 
 bool CNatThread::ProcessPacket(const BYTE* packet, UINT size, uint32 ip, uint16 port)
 {
+	if (packet == NULL || size < 5)
+		return false;
+
 	uint8 opcode=packet[4];
 	const uchar * realdata=packet+5;
 	UINT realsize=size-5;
+	++m_dwNatUdpRecvCount;
+	AddDebugLogLine(false, _T("[NAT-UDP] recv #%u from %s:%u op=0x%02x size=%u data=%s"),
+		m_dwNatUdpRecvCount, ipstr(ip), ntohs(port), opcode, size, NatDumpHex(packet, size));
 	
 	CSingleLock locker(&m_Mutex, TRUE);
 	
@@ -949,11 +983,14 @@ bool CNatThread::ProcessPacket(const BYTE* packet, UINT size, uint32 ip, uint16 
 		if(!m_bRegister)
 		{
 			m_bRegister=true;
+			m_bRegisterFailed = false;
 			m_dwSvrKeepalive = time(NULL);
 			m_dwRegAttemptTimes = 0;
 			m_dwRegNextAttempInterval = INIT_ATTEMPT_INTERVAL;
 			T_TRACE("reset svr time in register");
 			AddLogLine(false, _T("Register to NAT traversal server\n"));
+			if (theApp.emuledlg != NULL)
+				PostMessage(theApp.emuledlg->GetSafeHwnd(), UM_NAT_SERVER_REGISTERED, 0, 0);
 		}
 
 		break;
@@ -962,6 +999,8 @@ bool CNatThread::ProcessPacket(const BYTE* packet, UINT size, uint32 ip, uint16 
 			if(realdata[0]==2)
 			{
 				m_bRegister = false;
+				m_bRegisterFailed = true;
+				AddDebugLogLine(false, _T("[NAT-REG] register failed by server, lowid traversal disabled"));
 				break;
 			}
 			else if(realdata[0]==1)
@@ -988,8 +1027,10 @@ bool CNatThread::ProcessPacket(const BYTE* packet, UINT size, uint32 ip, uint16 
 		//	break;
 		//OnSync2(ip, port, realdata, realsize);
 		//break;
-	case OP_NAT_SYNC2:
-	case OP_NAT_SYNC:
+case OP_NAT_SYNC2:
+case OP_NAT_SYNC:
+		AddDebugLogLine(false, _T("[NAT-SYNC] thread dispatch opcode=0x%02x from %s:%u size=%u"),
+			opcode, ipstr(ip), ntohs(port), realsize);
 		OnSync(ip, port, realdata, realsize);
 		break;
 	case OP_NAT_PING:
@@ -1124,8 +1165,10 @@ BOOL CNatThread::IsSocketConnected(CAsyncSocketEx * sk)
 void CNatThread::RegisterMe(DWORD sip, WORD sport)
 {
 	if(!theApp.clientudp) return;
-	
-	AddDebugLogLine(false, _T("CNatThread::RegisterMe"));
+
+	++m_dwRegisterSendCount;
+	AddDebugLogLine(false, _T("[NAT-REG] RegisterMe #%u to %s:%u (registered=%u nextRetry=%u sec)"),
+		m_dwRegisterSendCount, ipstr(sip), ntohs(sport), m_bRegister ? 1 : 0, m_dwRegNextAttempInterval);
 
 	m_dwSvrKeepalive = m_RegisterTime = time(NULL);
 

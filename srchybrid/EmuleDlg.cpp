@@ -185,6 +185,8 @@ BEGIN_MESSAGE_MAP(CemuleDlg, CTrayDialog)
 
 	// UPnP
 	ON_MESSAGE(UM_UPNP_RESULT, OnUPnPResult)
+	ON_MESSAGE(UM_NAT_CHECK_STRATEGIES, OnNatCheckStrategies)
+	ON_MESSAGE(UM_NAT_SERVER_REGISTERED, OnNatServerRegistered)
 
 	///////////////////////////////////////////////////////////////////////////
 	// WM_APP messages
@@ -3435,6 +3437,20 @@ LRESULT CemuleDlg::OnUPnPResult(WPARAM wParam, LPARAM lParam)
 			StartConnection();
 
 		return 0;
+}
+
+LRESULT CemuleDlg::OnNatServerRegistered(WPARAM, LPARAM)
+{
+	if (theApp.downloadqueue != NULL)
+		theApp.downloadqueue->OnNatServerRegistered();
+	return 0;
+}
+
+LRESULT CemuleDlg::OnNatCheckStrategies(WPARAM, LPARAM)
+{
+	if (theApp.natthread != NULL)
+		theApp.natthread->CheckStrategies();
+	return 0;
 }
 
 LRESULT CemuleDlg::OnPowerBroadcast(WPARAM wParam, LPARAM lParam)

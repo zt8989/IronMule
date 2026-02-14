@@ -145,6 +145,7 @@ public:
 
 	void	ExportPartMetFilesOverview() const;
 	void	OnConnectionState(bool bConnected);
+	void	OnNatServerRegistered();
 
 	void	AddToResolved(const CPartFile *pFile, SUnresolvedHostname *pUH);
 

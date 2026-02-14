@@ -1,4 +1,4 @@
-//this file is part of eMule
+﻿//this file is part of eMule
 //Copyright (C)2002-2026 Merkur ( strEmail.Format("%s@%s", "devteam", "emule-project.net") / https://www.emule-project.net )
 //
 //This program is free software; you can redistribute it and/or
@@ -57,6 +57,8 @@
 #include "shahashset.h"
 #include "Log.h"
 #include "CaptchaGenerator.h"
+#include "NatTraversal/NatThread.h"
+#include "NatTraversal/TraverseStrategy.h"
 #include <atlimage.h>
 
 #ifdef _DEBUG
@@ -1346,15 +1348,28 @@ bool CUpDownClient::TryToConnect(bool bIgnoreMaxCon, bool bNoCallbacks, CRuntime
 
 	if (HasLowID() && GetKadState() != KS_CONNECTING_FWCHECK) {
 		ASSERT(pClassSocket == NULL);
+		const bool bNatThreadReady = theApp.IsFirewalled() && HasValidHash() && theApp.natthread != NULL;
+		const bool bNatRegisterFailed = bNatThreadReady && theApp.natthread->IsRegisterFailed();
+		const bool bCanUseNatTraversal = bNatThreadReady && theApp.natthread->IsServerRegistered();
+		const bool bNatRegisterPending = bNatThreadReady && !bNatRegisterFailed && !bCanUseNatTraversal;
 		if (!theApp.CanDoCallback(this)) { // lowid2lowid check used for the whole function, don't remove
-			// We cannot reach this client, so we hard fail to connect, if this client should be kept,
-			// for example, because we might want to wait a bit and hope we get a high ID,
-			// this check has to be done before calling this function
-			if (Disconnected(_T("LowID->LowID"))) {
-				delete this;
-				return false;
+			if (bNatRegisterPending) {
+				AddDebugLogLine(false, _T("[NAT-L2L] keep source and wait NAT register before connect: %s"), (LPCTSTR)DbgGetClientInfo());
+				// keep source for later retry after NAT register succeeds
+				m_eConnectingState = CCS_NONE;
+				return true;
 			}
-			return true;
+			if (!bCanUseNatTraversal) {
+				// We cannot reach this client, so we hard fail to connect, if this client should be kept,
+				// for example, because we might want to wait a bit and hope we get a high ID,
+				// this check has to be done before calling this function
+				if (Disconnected(_T("LowID->LowID"))) {
+					delete this;
+					return false;
+				}
+				return true;
+			}
+			AddDebugLogLine(false, _T("[NAT-L2L] callback unavailable, fallback to NAT traversal for %s"), (LPCTSTR)DbgGetClientInfo());
 		}
 
 		// are callbacks disallowed?
@@ -1370,7 +1385,8 @@ bool CUpDownClient::TryToConnect(bool bIgnoreMaxCon, bool bNoCallbacks, CRuntime
 		// Is any callback available?
 		if (!((SupportsDirectUDPCallback() && thePrefs.GetUDPPort() != 0 && GetConnectIP() != 0) // Direct Callback
 			|| (HasValidBuddyID() && Kademlia::CKademlia::IsConnected() && ((GetBuddyIP() && GetBuddyPort()) || m_reqfile != NULL)) // Kad Callback
-			|| theApp.serverconnect->IsLocalServer(GetServerIP(), GetServerPort()))) // Server Callback
+			|| theApp.serverconnect->IsLocalServer(GetServerIP(), GetServerPort())
+			|| bCanUseNatTraversal)) // Server Callback / NAT Traversal
 		{
 			// Nope
 			if (Disconnected(_T("LowID: No Callback Option available"))) {
@@ -1401,6 +1417,28 @@ bool CUpDownClient::TryToConnect(bool bIgnoreMaxCon, bool bNoCallbacks, CRuntime
 		} else
 			Connect();
 		return true;
+	}
+	////////////////////////////////////////////////////////////
+	// NAT traversal (LowID <-> LowID)
+	if (HasLowID() && theApp.IsFirewalled() && HasValidHash() && theApp.natthread != NULL && theApp.natthread->IsServerRegistered()) {
+		if (socket == NULL) {
+			if (pClassSocket == NULL)
+				pClassSocket = RUNTIME_CLASS(CClientReqSocket);
+			socket = static_cast<CClientReqSocket*>(pClassSocket->CreateObject());
+			socket->SetClient(this);
+			if (!socket->Create()) {
+				socket->Safe_Delete();
+				socket = NULL;
+				DebugLogError(_T("TryToConnect: Failed to create socket for NAT traversal, %s"), (LPCTSTR)DbgGetClientInfo());
+			}
+		}
+		if (socket != NULL) {
+			static CTraverseBySvrFac s_traverseBySvrFac;
+			m_eConnectingState = CCS_DIRECTCALLBACK;
+			AddDebugLogLine(false, _T("[NAT-L2L] trigger nat connect via server strategy for %s"), (LPCTSTR)DbgGetClientInfo());
+			theApp.natthread->Connect(socket, GetUserHash(), &s_traverseBySvrFac);
+			return true;
+		}
 	}
 	////////////////////////////////////////////////////////////
 	// 4) Direct Callback Connections
@@ -2957,3 +2995,4 @@ void CUpDownClient::SendSharedDirectories()
 	theStats.AddUpDataOverheadOther(replypacket->size);
 	VERIFY(SendPacket(replypacket, true));
 }
+

@@ -1673,6 +1673,42 @@ void CDownloadQueue::OnConnectionState(bool bConnected)
 	}
 }
 
+void CDownloadQueue::OnNatServerRegistered()
+{
+	UINT nCandidates = 0;
+	UINT nTriggered = 0;
+
+	for (POSITION posFile = filelist.GetHeadPosition(); posFile != NULL;) {
+		CPartFile *pPartFile = filelist.GetNext(posFile);
+		for (POSITION posSrc = pPartFile->srclist.GetHeadPosition(); posSrc != NULL;) {
+			CUpDownClient *pClient = pPartFile->srclist.GetNext(posSrc);
+			if (pClient == NULL)
+				continue;
+			if (!pClient->HasLowID() || !pClient->HasValidHash() || theApp.CanDoCallback(pClient))
+				continue;
+
+			switch (pClient->GetDownloadState())
+			{
+			case DS_NONE:
+			case DS_CONNECTING:
+			case DS_WAITCALLBACK:
+			case DS_WAITCALLBACKKAD:
+			case DS_ONQUEUE:
+			case DS_LOWTOLOWIP:
+				break;
+			default:
+				continue;
+			}
+
+			++nCandidates;
+			if (pClient->TryToConnect(true))
+				++nTriggered;
+		}
+	}
+
+	AddDebugLogLine(false, _T("[NAT-REG] notify downloads to retry lowid sources: candidates=%u triggered=%u"), nCandidates, nTriggered);
+}
+
 CString CDownloadQueue::GetOptimalTempDir(UINT nCat, EMFileSize nFileSize)
 {
 	const INT_PTR iTempDirCnt = thePrefs.GetTempDirCount();
