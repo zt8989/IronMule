@@ -69,6 +69,28 @@ static char THIS_FILE[] = __FILE__;
 
 #define URLINDICATOR	_T("http:|www.|.de |.net |.com |.org |.to |.tk |.cc |.fr |ftp:|ed2k:|https:|ftp.|.info|.biz|.uk|.eu|.es|.tv|.cn|.tw|.ws|.nu|.jp")
 
+static CString NatHexDump(const BYTE *data, UINT size, UINT maxBytes = 128)
+{
+	CString out;
+	if (data == NULL || size == 0)
+		return _T("<empty>");
+
+	const UINT limit = min(size, maxBytes);
+	for (UINT i = 0; i < limit; ++i) {
+		CString tmp;
+		tmp.Format(_T("%02X"), data[i]);
+		out += tmp;
+		if (i + 1 < limit)
+			out += _T(" ");
+	}
+	if (size > limit) {
+		CString tail;
+		tail.Format(_T(" ...(+%u bytes)"), size - limit);
+		out += tail;
+	}
+	return out;
+}
+
 IMPLEMENT_DYNAMIC(CClientException, CException)
 IMPLEMENT_DYNAMIC(CUpDownClient, CObject)
 
@@ -688,12 +710,16 @@ void CUpDownClient::SendHelloPacket()
 		ASSERT(0);
 		return;
 	}
+	AddDebugLogLine(false, _T("[NAT-L4] queue OP_HELLO useNat=%u sock=%Iu state=%u client=%s"),
+		socket->m_bUseNat ? 1 : 0, (size_t)socket->GetSocketHandle(), (UINT)socket->GetConState(), (LPCTSTR)DbgGetClientInfo());
 
 	CSafeMemFile data(128);
 	data.WriteUInt8(16); // size of userhash
 	SendHelloTypePacket(data);
 	Packet *packet = new Packet(data);
 	packet->opcode = OP_HELLO;
+	AddDebugLogLine(false, _T("[NAT-L4] OP_HELLO tcp frame size=%u hex=%s"),
+		packet->GetRealPacketSize(), NatHexDump((const BYTE*)packet->GetPacket(), packet->GetRealPacketSize()));
 	if (thePrefs.GetDebugClientTCPLevel() > 0)
 		DebugSend("OP_Hello", this);
 	theStats.AddUpDataOverheadOther(packet->size);
@@ -1433,6 +1459,17 @@ bool CUpDownClient::TryToConnect(bool bIgnoreMaxCon, bool bNoCallbacks, CRuntime
 			}
 		}
 		if (socket != NULL) {
+			// Keep NAT traversal transparent for CUpDownClient:
+			// apply the same pre-connect settings as direct TCP connect.
+			if (HasValidHash() && SupportsCryptLayer() && thePrefs.IsCryptLayerEnabled()
+				&& (RequestsCryptLayer() || thePrefs.IsCryptLayerPreferred())) {
+				socket->SetConnectionEncryption(true, GetUserHash(), false);
+			}
+			else {
+				socket->SetConnectionEncryption(false, NULL, false);
+			}
+			socket->WaitForOnConnect();
+
 			static CTraverseBySvrFac s_traverseBySvrFac;
 			m_eConnectingState = CCS_DIRECTCALLBACK;
 			AddDebugLogLine(false, _T("[NAT-L2L] trigger nat connect via server strategy for %s"), (LPCTSTR)DbgGetClientInfo());
@@ -1554,6 +1591,8 @@ void CUpDownClient::ConnectionEstablished()
 */
 	m_eConnectingState = CCS_NONE;
 	theApp.clientlist->RemoveConnectingClient(this);
+	AddDebugLogLine(false, _T("[NAT-L2L] ConnectionEstablished: useNat=%u client=%s"),
+		(socket != NULL && socket->m_bUseNat) ? 1 : 0, (LPCTSTR)DbgGetClientInfo());
 
 /*	// check if we should use this client to retrieve our public IP
 	if (theApp.GetPublicIP() == 0 && theApp.IsConnected() && m_fPeerCache)
@@ -2528,7 +2567,11 @@ CString CUpDownClient::GetDownloadStateDisplayString() const
 	default:
 		return CString();
 	}
-	return GetResString(uid);
+	CString strState = GetResString(uid);
+	if (uid == IDS_TRANSFERRING && socket != NULL && socket->m_bUseNat && HasLowID()) {
+		strState = GetResString(IDS_LOWTOLOW_TRANSFERRING);
+	}
+	return strState;
 }
 
 CString CUpDownClient::GetUploadStateDisplayString() const
@@ -2562,7 +2605,11 @@ CString CUpDownClient::GetUploadStateDisplayString() const
 	default:
 		return CString();
 	}
-	return GetResString(uid);
+	CString strState = GetResString(uid);
+	if (uid == IDS_TRANSFERRING && socket != NULL && socket->m_bUseNat && HasLowID()) {
+		strState = GetResString(IDS_LOWTOLOW_TRANSFERRING);
+	}
+	return strState;
 }
 
 void CUpDownClient::SendPublicIPRequest()

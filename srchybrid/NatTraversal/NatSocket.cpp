@@ -56,26 +56,91 @@ inline void T_TRACE(char* fmt, ...)
 #define T_TRACE
 #endif
 
+static LPCTSTR NatOpcodeToString(uint8 opcode)
+{
+	switch (opcode) {
+	case OP_NAT_SYNC: return _T("OP_NAT_SYNC");
+	case OP_NAT_PING: return _T("OP_NAT_PING");
+	case OP_NAT_REGISTER: return _T("OP_NAT_REGISTER");
+	case OP_NAT_FAILED: return _T("OP_NAT_FAILED");
+	case OP_NAT_REPING: return _T("OP_NAT_REPING");
+	case OP_NAT_SYNC2: return _T("OP_NAT_SYNC2");
+	case OP_NAT_DATA: return _T("OP_NAT_DATA");
+	case OP_NAT_ACK: return _T("OP_NAT_ACK");
+	case OP_NAT_RST: return _T("OP_NAT_RST");
+	default: return _T("OP_NAT_UNKNOWN");
+	}
+}
+
+static CString NatHexDump(const BYTE* data, UINT size, UINT maxBytes = 128)
+{
+	CString out;
+	if (data == NULL || size == 0)
+		return _T("<empty>");
+
+	const UINT limit = min(size, maxBytes);
+	for (UINT i = 0; i < limit; ++i) {
+		CString tmp;
+		tmp.Format(_T("%02X"), data[i]);
+		out += tmp;
+		if (i + 1 < limit)
+			out += _T(" ");
+	}
+	if (size > limit) {
+		CString tail;
+		tail.Format(_T(" ...(+%u bytes)"), size - limit);
+		out += tail;
+	}
+	return out;
+}
+
 int CNatSocket::SendPacket(DWORD ip, WORD port, const uchar * data, int len)
 {
 	SOCKADDR_IN addr;
 	addr.sin_addr.s_addr=ip;
 	addr.sin_family=AF_INET;
 	addr.sin_port = port;
-	return sendto(theApp.clientudp->m_hSocket, (const char*)data, len, 0, (SOCKADDR*)&addr, sizeof(addr));
+	int ret = sendto(theApp.clientudp->m_hSocket, (const char*)data, len, 0, (SOCKADDR*)&addr, sizeof(addr));
+	if (ret == SOCKET_ERROR) {
+		const int nErr = WSAGetLastError();
+		AddDebugLogLine(false, _T("[NAT-UDP] send raw failed err=%d sock=%Iu to %s:%u len=%d"),
+			nErr, (size_t)theApp.clientudp->m_hSocket, ipstr(ip), ntohs(port), len);
+	} else {
+		AddDebugLogLine(false, _T("[NAT-UDP] send raw ok sock=%Iu to %s:%u len=%d"),
+			(size_t)theApp.clientudp->m_hSocket, ipstr(ip), ntohs(port), len);
+	}
+	return ret;
 }
 
 int CNatSocket::SendPacket(DWORD ip, WORD port, uchar opcode, const uchar * data, int len)
 {
 	Packet pack(opcode, len, OP_VC_NAT_HEADER,false);
 	if(len>0 && data) memcpy(pack.pBuffer, data, len);
+	char* pRealPacket = pack.GetPacket();
+	const UINT uRealSize = pack.GetRealPacketSize();
 
 	SOCKADDR_IN addr;
 	addr.sin_addr.s_addr=ip;
 	addr.sin_family=AF_INET;
 	addr.sin_port = port;
-	return sendto(theApp.clientudp->m_hSocket,pack.GetPacket(), pack.GetRealPacketSize(),
+	int ret = sendto(theApp.clientudp->m_hSocket,pRealPacket, uRealSize,
 		0, (SOCKADDR*)&addr, sizeof(addr));
+	const bool bNatDataOrAck = (opcode == OP_NAT_DATA || opcode == OP_NAT_ACK);
+	if (ret == SOCKET_ERROR) {
+		const int nErr = WSAGetLastError();
+		if (!bNatDataOrAck) {
+			AddDebugLogLine(false, _T("[NAT-UDP] send op=%s(0x%02x) failed err=%d sock=%Iu to %s:%u payload=%d real=%u"),
+				NatOpcodeToString(opcode), opcode, nErr, (size_t)theApp.clientudp->m_hSocket, ipstr(ip), ntohs(port), len, uRealSize);
+		}
+	} else if (!bNatDataOrAck) {
+		AddDebugLogLine(false, _T("[NAT-UDP] send op=%s(0x%02x) ok sock=%Iu to %s:%u payload=%d real=%u"),
+			NatOpcodeToString(opcode), opcode, (size_t)theApp.clientudp->m_hSocket, ipstr(ip), ntohs(port), len, uRealSize);
+	}
+	if (opcode == OP_NAT_PING) {
+		AddDebugLogLine(false, _T("[NAT-UDP] framed packet op=%s hex=%s"),
+			NatOpcodeToString(opcode), NatHexDump((const BYTE*)pRealPacket, uRealSize));
+	}
+	return ret;
 }
 
 CNatSocket::CNatSocket(CAsyncSocketEx* Parent) : m_Parent(Parent)
@@ -392,7 +457,6 @@ void CNatSocket::ProcessAckPacket(const BYTE* packet, UINT size)
 
 	// read the actual Advertised Window size (Incoming window)
 	m_snd.wnd = PeekUInt32(packet+4);
-
 //	T_TRACE("%s: uSequenceNr=%u",__FUNCTION__, uSequenceNr);
 
 	sTransferBufferEntry* BufferEntry;
@@ -616,7 +680,6 @@ bool CNatSocket::ProcessDataPacket(const BYTE* packet, UINT size)
 	}
 
 	uint32 uSequenceNr = PeekUInt32(packet);
-
 	if(uSequenceNr)
 	{
 		//-------------------
@@ -677,7 +740,6 @@ bool CNatSocket::ProcessDataPacket(const BYTE* packet, UINT size)
 			return false;
 		}
 	}
-
 	return true;
 }
 

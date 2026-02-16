@@ -1551,6 +1551,7 @@
 #define IDS_IMPORTPARTS_IMPORTSTART     1607
 #define IDS_IMPORTPARTS                 1608
 #define IDS_IMPORTPARTS_STOP            1609
+#define IDS_LOWTOLOW_TRANSFERRING       1610
 #define IDC_ANIMATE1                    2000
 #define IDC_STATUS                      2001
 #define IDC_FILESTATUS                  2002

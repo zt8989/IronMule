@@ -63,8 +63,10 @@ to tim.kosse@filezilla-project.org
 
 #include "stdafx.h"
 #include "AsyncSocketEx.h"
+#include "emule.h"
 
 #include "AsyncSocketExLayer.h"
+#include "NatTraversal/NatThread.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -268,8 +270,17 @@ public:
 						if (nErrorCode)
 							pSocket->SetState(aborted);
 #endif //NOSOCKETSTATES
-						if (pSocket->m_lEvent & FD_READ)
-							pSocket->OnReceive(nErrorCode);
+						if (pSocket->m_lEvent & FD_READ) {
+							if (pSocket->m_bUseNat || nEvent == FD_FORCEREAD) {
+								pSocket->OnReceive(nErrorCode);
+							} else {
+								DWORD nBytes = 0;
+								if (!pSocket->IOCtl(FIONREAD, &nBytes))
+									nErrorCode = WSAGetLastError();
+								if (nBytes > 0 || nErrorCode != 0)
+									pSocket->OnReceive(nErrorCode);
+							}
+						}
 						break;
 					case FD_WRITE:
 #ifndef NOSOCKETSTATES
@@ -284,6 +295,10 @@ public:
 						if (nErrorCode)
 							pSocket->SetState(aborted);
 #endif //NOSOCKETSTATES
+						if (pSocket->m_bUseNat) {
+							AddDebugLogLine(false, _T("[NAT-EVT] dispatch FD_WRITE err=%d sock=%Iu state=%u"),
+								nErrorCode, (size_t)pSocket->GetSocketHandle(), (UINT)pSocket->GetState());
+						}
 						if (pSocket->m_lEvent & FD_WRITE)
 							pSocket->OnSend(nErrorCode);
 						break;
@@ -296,7 +311,13 @@ public:
 							pSocket->SetState(connected);
 						} else if (pSocket->GetState() == attached && !nErrorCode)
 							pSocket->SetState(connected);
+						else if (pSocket->m_bUseNat && pSocket->GetState() == unconnected && !nErrorCode)
+							pSocket->SetState(connected);
 #endif //NOSOCKETSTATES
+						if (pSocket->m_bUseNat) {
+							AddDebugLogLine(false, _T("[NAT-EVT] dispatch FD_CONNECT err=%d sock=%Iu state=%u"),
+								nErrorCode, (size_t)pSocket->GetSocketHandle(), (UINT)pSocket->GetState());
+						}
 						if (pSocket->m_lEvent & FD_CONNECT)
 							pSocket->OnConnect(nErrorCode);
 
@@ -422,6 +443,10 @@ public:
 						if (nErrorCode)
 							pSocket->SetState(aborted);
 #endif //NOSOCKETSTATES
+						if (pSocket->m_bUseNat) {
+							AddDebugLogLine(false, _T("[NAT-EVT] dispatch(trigger) FD_WRITE err=%d sock=%Iu state=%u"),
+								nErrorCode, (size_t)pSocket->GetSocketHandle(), (UINT)pSocket->GetState());
+						}
 						if (pSocket->m_lEvent & FD_WRITE)
 							pSocket->OnSend(nErrorCode);
 						break;
@@ -431,7 +456,13 @@ public:
 							pSocket->SetState(connected);
 						else if (pSocket->GetState() == attached && !nErrorCode)
 							pSocket->SetState(connected);
+						else if (pSocket->m_bUseNat && pSocket->GetState() == unconnected && !nErrorCode)
+							pSocket->SetState(connected);
 #endif //NOSOCKETSTATES
+						if (pSocket->m_bUseNat) {
+							AddDebugLogLine(false, _T("[NAT-EVT] dispatch(trigger) FD_CONNECT err=%d sock=%Iu state=%u"),
+								nErrorCode, (size_t)pSocket->GetSocketHandle(), (UINT)pSocket->GetState());
+						}
 						if (pSocket->m_lEvent & FD_CONNECT)
 							pSocket->OnConnect(nErrorCode);
 
@@ -597,6 +628,7 @@ CAsyncSocketEx::CAsyncSocketEx()
 	, m_pFirstLayer()
 	, m_pLastLayer()
 	, m_nSocketPort()
+	, m_bUseNat(false)
 	, m_lEvent()
 {
 	m_SocketData.addrInfo = NULL;
@@ -609,6 +641,9 @@ CAsyncSocketEx::CAsyncSocketEx()
 
 CAsyncSocketEx::~CAsyncSocketEx()
 {
+	if (m_bUseNat && theApp.natthread)
+		theApp.natthread->RemoveSocket(this);
+
 	CAsyncSocketEx::Close();
 	FreeAsyncSocketExInstance();
 }
@@ -760,7 +795,7 @@ bool CAsyncSocketEx::Bind(UINT nSocketPort, const CString &sSocketAddress)
 
 BOOL CAsyncSocketEx::Bind(const LPSOCKADDR lpSockAddr, int nSockAddrLen)
 {
-	return !bind(m_SocketData.hSocket, lpSockAddr, nSockAddrLen);
+	return !::bind(m_SocketData.hSocket, lpSockAddr, nSockAddrLen);
 }
 
 void CAsyncSocketEx::AttachHandle(/*SOCKET hSocket*/)
@@ -865,6 +900,9 @@ void CAsyncSocketEx::FreeAsyncSocketExInstance()
 
 int CAsyncSocketEx::Receive(void *lpBuf, int nBufLen, int nFlags /*=0*/)
 {
+	if (m_bUseNat)
+		return theApp.natthread ? theApp.natthread->Receive(this, lpBuf, nBufLen) : -1;
+
 	if (m_pFirstLayer)
 		return m_pFirstLayer->Receive(lpBuf, nBufLen, nFlags);
 	return recv(m_SocketData.hSocket, (LPSTR)lpBuf, nBufLen, nFlags);
@@ -872,6 +910,9 @@ int CAsyncSocketEx::Receive(void *lpBuf, int nBufLen, int nFlags /*=0*/)
 
 int CAsyncSocketEx::Send(const void *lpBuf, int nBufLen, int nFlags /*=0*/)
 {
+	if (m_bUseNat)
+		return theApp.natthread ? theApp.natthread->Send(this, lpBuf, nBufLen) : -1;
+
 	if (m_pFirstLayer)
 		return m_pFirstLayer->Send(lpBuf, nBufLen, nFlags);
 	return send(m_SocketData.hSocket, (LPSTR)lpBuf, nBufLen, nFlags);
@@ -973,7 +1014,7 @@ BOOL CAsyncSocketEx::Connect(const LPSOCKADDR lpSockAddr, int nSockAddrLen)
 	if (m_pFirstLayer)
 		res = m_pFirstLayer->Connect(lpSockAddr, nSockAddrLen);
 	else
-		res = !connect(m_SocketData.hSocket, lpSockAddr, nSockAddrLen);
+		res = !::connect(m_SocketData.hSocket, lpSockAddr, nSockAddrLen);
 
 #ifndef NOSOCKETSTATES
 	if (res || GetLastError() == WSAEWOULDBLOCK)

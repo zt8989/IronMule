@@ -238,6 +238,9 @@ public:
 	//Returns the handle of the socket.
 	SOCKET GetSocketHandle() const					{ return m_SocketData.hSocket; }
 
+	// NAT traversal mode: socket payload is bridged via CNatThread::Send/Receive.
+	bool m_bUseNat;
+
 	//Triggers an event on the socket
 	// Any combination of FD_READ, FD_WRITE, FD_CLOSE, FD_ACCEPT, FD_CONNECT and FD_FORCEREAD is valid for lEvent.
 	BOOL TriggerEvent(long lEvent);

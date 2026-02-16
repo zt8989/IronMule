@@ -62,6 +62,22 @@ static CString NatDumpHex(const BYTE* data, UINT size, UINT maxBytes = 48)
 	return s;
 }
 
+static LPCTSTR NatOpcodeToString(uint8 opcode)
+{
+	switch (opcode) {
+	case OP_NAT_SYNC: return _T("OP_NAT_SYNC");
+	case OP_NAT_PING: return _T("OP_NAT_PING");
+	case OP_NAT_REGISTER: return _T("OP_NAT_REGISTER");
+	case OP_NAT_FAILED: return _T("OP_NAT_FAILED");
+	case OP_NAT_REPING: return _T("OP_NAT_REPING");
+	case OP_NAT_SYNC2: return _T("OP_NAT_SYNC2");
+	case OP_NAT_DATA: return _T("OP_NAT_DATA");
+	case OP_NAT_ACK: return _T("OP_NAT_ACK");
+	case OP_NAT_RST: return _T("OP_NAT_RST");
+	default: return _T("OP_NAT_UNKNOWN");
+	}
+}
+
 #ifdef _DEBUG_NAT
 
 inline void T_TRACE(char* fmt, ...)
@@ -320,7 +336,8 @@ BOOL CNatThread::Run()
 			try
 			{
 				CheckConnection();
-				SendKeepAlive();
+				if (m_bRegister)
+					SendKeepAlive();
 				SendConnBuffer(! m_bRegister);
 			}
 			catch(...)
@@ -652,6 +669,8 @@ void CNatThread::Connect(CAsyncSocketEx * sock, const uchar * clientid, CTravers
 	CSingleLock locker(&m_Mutex, TRUE);
 	ASSERT(pFac);
 	if(! pFac) return;
+	if (sock)
+		sock->m_bUseNat = true;
 
 	try
 	{
@@ -759,6 +778,8 @@ int CNatThread::Send(CAsyncSocketEx * sock, const void * data, int len)
 			uh[0],uh[1],uh[2],uh[3]);
 #endif
 		nRet = nsock->Send(data, len);
+		AddDebugLogLine(false, _T("[NAT-L4] CNatThread::Send len=%d ret=%d ask=%08x sock=%Iu user=%s"),
+			len, nRet, nsock->m_dwConnAskNumber, (size_t)sock->GetSocketHandle(), UserHashToString(nsock->GetUserHash()));
 	}
 	else
 	{
@@ -906,7 +927,7 @@ void CNatThread::OnSync(DWORD ip, WORD port, const uchar * pData, int nDataSize)
 		AddDebugLogLine(false, _T("create unconnsock for recv sync. asyncsock=%08x\n"), pASock);
 
 		usock = new CUnconnSocket(ip, port, pASock, id);
-		usock->m_dwConnAskNumber = 0;
+		usock->m_dwConnAskNumber = ConnAck;
 		usock->m_dwClientIp = cip;
 		usock->m_wClientPort =cport;
 		m_UnConnectSocket.AddTail(usock);
@@ -933,8 +954,10 @@ bool CNatThread::ProcessPacket(const BYTE* packet, UINT size, uint32 ip, uint16 
 	const uchar * realdata=packet+5;
 	UINT realsize=size-5;
 	++m_dwNatUdpRecvCount;
-	AddDebugLogLine(false, _T("[NAT-UDP] recv #%u from %s:%u op=0x%02x size=%u data=%s"),
-		m_dwNatUdpRecvCount, ipstr(ip), ntohs(port), opcode, size, NatDumpHex(packet, size));
+	if (opcode != OP_NAT_DATA && opcode != OP_NAT_ACK) {
+		AddDebugLogLine(false, _T("[NAT-UDP] recv #%u from %s:%u op=%s(0x%02x) size=%u data=%s"),
+			m_dwNatUdpRecvCount, ipstr(ip), ntohs(port), NatOpcodeToString(opcode), opcode, size, NatDumpHex(packet, size));
+	}
 	
 	CSingleLock locker(&m_Mutex, TRUE);
 	
@@ -1038,7 +1061,7 @@ case OP_NAT_SYNC:
 		break;
 	case OP_NAT_DATA:
 		{
-			if(size < 4) // ACK (+ DATA)
+			if(realsize < 8) // ConnAck(4) + Sequence(4) at minimum
 				break;
 
 			DWORD ConnAck = 0;
@@ -1081,10 +1104,17 @@ case OP_NAT_SYNC:
 		}
 	case OP_NAT_ACK:
 		{
+			if (realsize < 12) // ConnAck(4) + Ack(4) + Window(4)
+				break;
+
 			DWORD ConnAck = 0;
 			memcpy(&ConnAck, realdata, 4);
 			realdata+=4;
 			realsize-=4;
+
+			if (realsize != 8)
+				break;
+
 			CNatSocket* source = FindNatSocket(ip, port, ConnAck);
 			if( source == NULL )
 			{
@@ -1242,6 +1272,9 @@ void CNatThread::RegisterMe(DWORD sip, WORD sport)
 
 void CNatThread::SendKeepAlive()
 {
+	if (!m_bRegister)
+		return;
+
 	//  for server
 	if(m_bRegister && m_dwSvrKeepalive && time(NULL) - m_dwSvrKeepalive > TM_KEEPALIVE)
 	{
@@ -1365,6 +1398,9 @@ void CNatThread::RemoveSocket(CAsyncSocketEx * sock,bool bDisconnectAll/*=false*
 		RemoveStrategy( pUserHash );
 		RemoveNatSocket( pUserHash );
 	}
+
+	if (sock)
+		sock->m_bUseNat = false;
 }
 
 int CNatThread::Receive(CAsyncSocketEx * sock, void * data, int len)
@@ -1893,12 +1929,23 @@ void CNatThread::OnPing(DWORD ip, WORD port, const uchar * pData, int nDataSize)
 		return;
 	}
 
+	if (nDataSize != 20)
+	{
+		AddDebugLogLine(false, _T("[NAT-SYNC] drop invalid OP_NAT_PING payload size=%d from %s:%u"),
+			nDataSize, ipstr(ip), ntohs(port));
+		return;
+	}
+
 	//数据区长度非0，数据区为user hash, Connack
 	const uchar * hash=pData;
 
 	
 	if(ProcessStrategyPacket(hash, ip, port, pData-1, nDataSize+1))  //  Include opcode
+	{
+		AddDebugLogLine(false, _T("[NAT-SYNC] ping handled by strategy from %s:%u user=%s"),
+			ipstr(ip), ntohs(port), UserHashToString(hash));
 		return;//必然不返回
+	}
 
 	DWORD ConnAck=0;
 	memcpy(&ConnAck, hash+16, 4);
@@ -1913,6 +1960,15 @@ void CNatThread::OnPing(DWORD ip, WORD port, const uchar * pData, int nDataSize)
 
 		if(ConnAck && !usock->m_dwConnAskNumber)
 			usock->m_dwConnAskNumber = ConnAck;
+		else if (ConnAck == 0 && usock->m_dwConnAskNumber != 0)
+		{
+			uchar pack[20];
+			GetMyUserHash(pack);
+			memcpy(pack + 16, &usock->m_dwConnAskNumber, 4);
+			CNatSocket::SendPacket(ip, port, OP_NAT_PING, pack, 20);
+			AddDebugLogLine(false, _T("[NAT-SYNC] recv ping ack=0 on unconn socket, reply with ask=%08x user=%s to %s:%u"),
+				usock->m_dwConnAskNumber, UserHashToString(hash), ipstr(ip), ntohs(port));
+		}
 		pASock = usock->m_Sock;
 
 		if(!pASock)
@@ -1944,9 +2000,8 @@ void CNatThread::OnPing(DWORD ip, WORD port, const uchar * pData, int nDataSize)
 	{
 		//未发现此未连接用户
 
-		if(nDataSize>20) return;
-
 		CNatSocket * nsock = FindNatSocket(hash);
+		bool bWakeupFromPool = false;
 
 		if(! nsock)
 		{
@@ -1957,11 +2012,23 @@ void CNatThread::OnPing(DWORD ip, WORD port, const uchar * pData, int nDataSize)
 				AddDebugLogLine(false, _T("*** recv a invalid ping.  %02X%02X%02X%02X\n"), hash[0], hash[1], hash[2], hash[3]);
 				return;
 			}
+			bWakeupFromPool = true;
 			if(ConnAck) nsock->m_dwConnAskNumber = ConnAck;
 		}
 
 		if(nsock->m_dwConnAskNumber!=ConnAck)
 		{
+			// The peer may start with hash + ack=0. Reply with our current ConnAck.
+			if (ConnAck == 0 && nsock->m_dwConnAskNumber != 0)
+			{
+				uchar pack[20];
+				GetMyUserHash(pack);
+				memcpy(pack + 16, &nsock->m_dwConnAskNumber, 4);
+				nsock->SendPacket(OP_NAT_PING, pack, 20);
+				AddDebugLogLine(false, _T("[NAT-SYNC] recv ping ack=0, reply with ask=%08x user=%s to %s:%u"),
+					nsock->m_dwConnAskNumber, UserHashToString(hash), ipstr(ip), ntohs(port));
+			}
+
 			T_TRACE("invalid ConnAck for ping.ConnAck=%d", ConnAck);
 			return;
 			//nsock->DumpData();
@@ -1969,11 +2036,20 @@ void CNatThread::OnPing(DWORD ip, WORD port, const uchar * pData, int nDataSize)
 
 		nsock->m_UserModeTCPConfig->TargetIP = ip;
 		nsock->m_UserModeTCPConfig->TargetPort = port;
-		uchar pack[21];
+		nsock->m_dwRecvKeepalive = time(NULL);
+
+		if (!bWakeupFromPool)
+		{
+			AddDebugLogLine(false, _T("[NAT-SYNC] recv peer keepalive ping user=%s ask=%08x from %s:%u"),
+				UserHashToString(hash), ConnAck, ipstr(ip), ntohs(port));
+			return;
+		}
+
+		uchar pack[20];
 		GetMyUserHash(pack);
 		memcpy(pack+16, &ConnAck, 4);
 
-		nsock->SendPacket(OP_NAT_PING, pack, 21);
+		nsock->SendPacket(OP_NAT_PING, pack, 20);
 		AddDebugLogLine(false, _T("I am connected, echo a ping for connecting.  %02X%02X%02X%02X\n"), hash[0], hash[1], hash[2], hash[3]);
 
 		//nsock->GetParent()->TriggerEvent(FD_CONNECT);
@@ -2107,6 +2183,19 @@ CAsyncSocketEx * CNatThread::GetTempASock(const uchar * pUserhash)
 void CNatThread::AddNatSocket(CAsyncSocketEx * asock, CNatSocket * nsock)
 {
 	CSingleLock locker(&m_Mutex, TRUE);
+	if (asock == NULL || nsock == NULL)
+		return;
+
+	if (asock->GetSocketHandle() == INVALID_SOCKET)
+	{
+		CClientReqSocket * pClientSock = DYNAMIC_DOWNCAST(CClientReqSocket, asock);
+		if (pClientSock == NULL || !pClientSock->Create())
+		{
+			AddDebugLogLine(false, _T("[NAT-SYNC] AddNatSocket failed to create event socket for user=%s"),
+				UserHashToString(nsock->GetUserHash()));
+			return;
+		}
+	}
 
 	// VC-SearchDream[2007-06-08]: new way statics Begin
 	if (nsock->m_TraversalType == CNatSocket::Traversal_bysvr)
@@ -2122,6 +2211,11 @@ void CNatThread::AddNatSocket(CAsyncSocketEx * asock, CNatSocket * nsock)
 	m_SockMap.SetAt(asock, nsock);
 	nsock->m_Parent->TriggerEvent(FD_CONNECT);	
 	nsock->m_Parent->TriggerEvent(FD_WRITE);
+	AddDebugLogLine(false, _T("[NAT-EVT] AddNatSocket -> TriggerEvent(FD_CONNECT|FD_WRITE) sock=%Iu useNat=%u"),
+		(size_t)asock->GetSocketHandle(), asock->m_bUseNat ? 1 : 0);
+	AddDebugLogLine(false, _T("[NAT-SYNC] AddNatSocket connected user=%s peer=%s:%u ask=%08x sock=%Iu"),
+		UserHashToString(nsock->GetUserHash()), ipstr(nsock->GetTargetIP()), ntohs(nsock->GetTargetPort()),
+		nsock->m_dwConnAskNumber, (size_t)asock->GetSocketHandle());
 	CClientReqSocket * pClientSock = DYNAMIC_DOWNCAST(CClientReqSocket, asock);
 	if(pClientSock && pClientSock->client)
 	{

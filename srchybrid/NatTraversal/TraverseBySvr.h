@@ -52,6 +52,7 @@ private:
 
 	bool		m_bAcceptor;
 	bool		m_bByBuddy;
+	bool		m_bPunchCompletedLogged;
 	DWORD		m_dwState;
 	DWORD		m_dwConnAskNumber;
 

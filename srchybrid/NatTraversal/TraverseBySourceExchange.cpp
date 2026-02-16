@@ -299,10 +299,16 @@ void CTraverseBySourceExchange::OnRecvSync(const uchar * data, int /*len*/, DWOR
 	SendPingPacket();
 }
 
-void CTraverseBySourceExchange::OnRecvPing(const uchar * data, int /*len*/, DWORD ip, WORD port)
+void CTraverseBySourceExchange::OnRecvPing(const uchar * data, int len, DWORD ip, WORD port)
 {
 	if( NULL==theApp.natthread )
 		return;
+
+	if (len != 21)
+	{
+		AddDebugLogLine(false, _T("drop invalid ping size=%d from %s:%u"), len, ipstr(ip), ntohs(port));
+		return;
+	}
 
 	AddDebugLogLine(false, _T("\nReceive Ping From Source Exchange!\n"));
 

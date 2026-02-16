@@ -263,6 +263,9 @@ void CUpDownClient::SendFileRequest()
 		ASSERT(0);
 		return;
 	}
+	AddDebugLogLine(false, _T("[NAT-L2L] SendFileRequest: useNat=%u file=%s client=%s"),
+		(socket != NULL && socket->m_bUseNat) ? 1 : 0,
+		m_reqfile->GetFileName(), (LPCTSTR)DbgGetClientInfo());
 	IncrementAskedCountDown();
 
 	if (SupportMultiPacket() || SupportsFileIdentifiers()) {

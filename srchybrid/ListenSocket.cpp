@@ -1683,6 +1683,10 @@ void CClientReqSocket::DbgAppendClientInfo(CString &str)
 
 void CClientReqSocket::OnConnect(int nErrorCode)
 {
+	if (m_bUseNat) {
+		AddDebugLogLine(false, _T("[NAT-EVT] CClientReqSocket::OnConnect err=%d sock=%Iu client=%s"),
+			nErrorCode, (size_t)GetSocketHandle(), client ? (LPCTSTR)client->DbgGetClientInfo() : _T("<null>"));
+	}
 	SetConState(SS_Complete);
 	CEMSocket::OnConnect(nErrorCode);
 	if (nErrorCode) {
@@ -1696,10 +1700,18 @@ void CClientReqSocket::OnConnect(int nErrorCode)
 	} else
 		//This socket may have been delayed by SP2 protection, lets make sure it doesn't time out instantly.
 		ResetTimeOutTimer();
+
+	if (nErrorCode == 0 && m_bUseNat && client != NULL) {
+		AddDebugLogLine(false, _T("[NAT-EVT] OnConnect -> SendHelloPacket sock=%Iu"), (size_t)GetSocketHandle());
+		client->SendHelloPacket();
+	}
 }
 
 void CClientReqSocket::OnSend(int nErrorCode)
 {
+	if (m_bUseNat) {
+		AddDebugLogLine(false, _T("[NAT-EVT] CClientReqSocket::OnSend err=%d sock=%Iu"), nErrorCode, (size_t)GetSocketHandle());
+	}
 	ResetTimeOutTimer();
 	CEMSocket::OnSend(nErrorCode);
 }

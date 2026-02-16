@@ -2069,6 +2069,7 @@ BEGIN
     IDS_CONNVIASERVER       "Connecting via server"
     IDS_ONQUEUE             "On Queue"
     IDS_TRANSFERRING        "Transferring"
+    IDS_LOWTOLOW_TRANSFERRING "LowToLow transferring"
     IDS_RECHASHSET          "Receiving hashset"
     IDS_NONEEDEDPARTS       "No needed parts"
     IDS_NOCONNECTLOW2LOW    "Cannot connect LowID to LowID"

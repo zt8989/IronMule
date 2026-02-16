@@ -52,6 +52,7 @@ CTraverseBySvr::CTraverseBySvr(const uchar * uh, CTraverseStrategy * pNext)  : C
 	m_bAcceptor = false;
 	m_dwClientIp = 0;
 	m_wClientPort = 0;
+	m_bPunchCompletedLogged = false;
 
 	m_dwState = 0;
 	m_nSendConnAck = 0;
@@ -285,7 +286,7 @@ void CTraverseBySvr::OnRecvSync(const uchar * data, int /*len*/, DWORD /*ip*/, W
 
 	DWORD ConnAck = 0;
 	memcpy(&ConnAck, id+16, 4);
-	AddDebugLogLine(false, _T("[NAT-SYNC] recv OP_NAT_SYNC/2 peer=%s:%u ask=%08x user=%s"),
+	AddDebugLogLine(false, _T("[NAT-SYNC] recv sync peer=%s:%u ask=%08x user=%s"),
 		ipstr(cip), ntohs(cport), ConnAck, UserHashToString(id));
 
 	T_TRACE("recv sync, ConnAck=%08x\n", ConnAck);
@@ -342,8 +343,14 @@ void CTraverseBySvr::OnRecvSync(const uchar * data, int /*len*/, DWORD /*ip*/, W
 	SendPingPacket();
 }
 
-void CTraverseBySvr::OnRecvPing(const uchar * data, int /*len*/, DWORD ip, WORD port)
+void CTraverseBySvr::OnRecvPing(const uchar * data, int len, DWORD ip, WORD port)
 {
+	if (len != 21)
+	{
+		AddDebugLogLine(false, _T("[NAT-SYNC] drop invalid ping size=%d from %s:%u"), len, ipstr(ip), ntohs(port));
+		return;
+	}
+
 	//UINT realsize=len-1;
 	const uchar * realdata=data+1;
 
@@ -351,12 +358,19 @@ void CTraverseBySvr::OnRecvPing(const uchar * data, int /*len*/, DWORD ip, WORD 
 
 	DWORD ConnAck=0;
 	memcpy(&ConnAck, hash+16, 4);
+	AddDebugLogLine(false, _T("[NAT-SYNC] recv ping peer=%s:%u ask=%08x user=%s"),
+		ipstr(ip), ntohs(port), ConnAck, UserHashToString(hash));
 	T_TRACE("recv ping 4. %02X%02X%02X%02X, ConnAck=%d\n", hash[0], hash[1], hash[2], hash[3],
 		ConnAck);
 	CAsyncSocketEx * pASock=NULL;
 
 	if(ConnAck && ConnAck!=m_dwConnAskNumber)
 		m_dwConnAskNumber = ConnAck;
+	if (!m_bPunchCompletedLogged && ConnAck == m_dwConnAskNumber) {
+		AddDebugLogLine(false, _T("[NAT-PUNCH] completed by ping exchange peer=%s:%u ask=%08x user=%s"),
+			ipstr(ip), ntohs(port), m_dwConnAskNumber, UserHashToString(hash));
+		m_bPunchCompletedLogged = true;
+	}
 	pASock = m_Sock;
 
 	ASSERT(pASock);
@@ -371,7 +385,7 @@ void CTraverseBySvr::OnRecvPing(const uchar * data, int /*len*/, DWORD ip, WORD 
 	
 	if( theApp.natthread )
 	{
-		theApp.natthread->FindNatSocket(hash);
+		nsock = theApp.natthread->FindNatSocket(hash);
 
 		if(nsock)
 		{
@@ -381,6 +395,7 @@ void CTraverseBySvr::OnRecvPing(const uchar * data, int /*len*/, DWORD ip, WORD 
 			}
 			//pASock->TriggerEvent(FD_CONNECT);
 			//pASock->TriggerEvent(FD_WRITE);
+			AddDebugLogLine(false, _T("[NAT-SYNC] reuse existing nat socket for %s"), UserHashToString(hash));
 			Finish();
 			return ;
 		}
@@ -406,6 +421,7 @@ void CTraverseBySvr::OnRecvPing(const uchar * data, int /*len*/, DWORD ip, WORD 
 
 		theApp.natthread->RemoveTempASock(hash);
 	}
+	AddDebugLogLine(false, _T("[NAT-SYNC] nat socket connected for %s"), UserHashToString(hash));
 
 	//pASock->TriggerEvent(FD_CONNECT);
 	//pASock->TriggerEvent(FD_WRITE);

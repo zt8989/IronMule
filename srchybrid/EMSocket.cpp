@@ -509,6 +509,10 @@ SocketSentBytes CEMSocket::SendEM(uint32 maxNumberOfBytesToSend, uint32 minFragS
 {
 	if (byConnected == EMS_DISCONNECTED)
 		return SocketSentBytes{};
+	// NAT virtual sockets are not kernel-connected TCP sockets.
+	// They must go through CAsyncSocketEx::Send -> CNatThread::Send.
+	if (m_bUseNat)
+		return SendStd(maxNumberOfBytesToSend, minFragSize, onlyAllowedToSendControlPacket);
 	if (m_bUseOverlappedSend)
 		return SendOv(maxNumberOfBytesToSend, minFragSize, onlyAllowedToSendControlPacket);
 	return SendStd(maxNumberOfBytesToSend, minFragSize, onlyAllowedToSendControlPacket);
@@ -682,6 +686,11 @@ SocketSentBytes CEMSocket::SendStd(uint32 maxNumberOfBytesToSend, uint32 minFrag
 			}
 		}
 	}
+	else if (m_bUseNat && (sendbuffer != NULL || !controlpacket_queue.IsEmpty() || !standardpacket_queue.IsEmpty())) {
+		AddDebugLogLine(false, _T("[NAT-L4] SendStd blocked sock=%Iu byConnected=%u encReady=%u ctrlQ=%u stdQ=%u sendbuf=%u"),
+			(size_t)GetSocketHandle(), (UINT)byConnected, IsEncryptionLayerReady() ? 1 : 0,
+			(UINT)controlpacket_queue.GetCount(), (UINT)standardpacket_queue.GetCount(), sendbuffer ? 1 : 0);
+	}
 
 	if (onlyAllowedToSendControlPacket && (!controlpacket_queue.IsEmpty() || (sendbuffer != NULL && m_currentPacket_is_controlpacket))) {
 		// enter control packet send queue
@@ -819,7 +828,9 @@ SocketSentBytes CEMSocket::SendOv(uint32 maxNumberOfBytesToSend, uint32 minFragS
 					int nError = WSAGetLastError();
 					if (nError != WSA_IO_PENDING) {
 						ret.success = false;
-						theApp.QueueDebugLogLineEx(ERROR, _T("WSASend() Error: %u, %s"), nError, (LPCTSTR)GetErrorMessage(nError));
+						theApp.QueueDebugLogLineEx(ERROR, _T("WSASend() Error: %u, %s [sock=%Iu useNat=%u state=%u]"),
+							nError, (LPCTSTR)GetErrorMessage(nError),
+							(size_t)GetSocketHandle(), m_bUseNat ? 1 : 0, (UINT)byConnected);
 						CleanUpOverlappedSendOperation(false);
 					}
 				}

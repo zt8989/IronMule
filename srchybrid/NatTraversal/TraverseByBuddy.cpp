@@ -292,8 +292,14 @@ void CTraverseByBuddy::OnRecvSync(const uchar * data, int /*len*/, DWORD /*ip*/,
 	SendPingPacket();
 }
 
-void CTraverseByBuddy::OnRecvPing(const uchar * data, int /*len*/, DWORD ip, WORD port)
+void CTraverseByBuddy::OnRecvPing(const uchar * data, int len, DWORD ip, WORD port)
 {
+	if (len != 21)
+	{
+		AddDebugLogLine(false, _T("drop invalid ping size=%d from %s:%u"), len, ipstr(ip), ntohs(port));
+		return;
+	}
+
 	//UINT realsize=len-1;
 	const uchar * realdata=data+1;
 

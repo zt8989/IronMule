@@ -250,6 +250,7 @@ BEGIN
     IDS_CONNVIASERVER       "通过服务器连接"
     IDS_ONQUEUE             "排队中"
     IDS_TRANSFERRING        "传输中"
+    IDS_LOWTOLOW_TRANSFERRING "LowToLow 传输中"
     IDS_RECHASHSET          "正在获取Hashset"
     IDS_NONEEDEDPARTS       "无需要部分"
     IDS_NOCONNECTLOW2LOW    "无法从LowID连接到LowID"
