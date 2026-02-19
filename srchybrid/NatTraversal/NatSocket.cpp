@@ -72,28 +72,6 @@ static LPCTSTR NatOpcodeToString(uint8 opcode)
 	}
 }
 
-static CString NatHexDump(const BYTE* data, UINT size, UINT maxBytes = 128)
-{
-	CString out;
-	if (data == NULL || size == 0)
-		return _T("<empty>");
-
-	const UINT limit = min(size, maxBytes);
-	for (UINT i = 0; i < limit; ++i) {
-		CString tmp;
-		tmp.Format(_T("%02X"), data[i]);
-		out += tmp;
-		if (i + 1 < limit)
-			out += _T(" ");
-	}
-	if (size > limit) {
-		CString tail;
-		tail.Format(_T(" ...(+%u bytes)"), size - limit);
-		out += tail;
-	}
-	return out;
-}
-
 int CNatSocket::SendPacket(DWORD ip, WORD port, const uchar * data, int len)
 {
 	SOCKADDR_IN addr;
@@ -105,9 +83,6 @@ int CNatSocket::SendPacket(DWORD ip, WORD port, const uchar * data, int len)
 		const int nErr = WSAGetLastError();
 		AddDebugLogLine(false, _T("[NAT-UDP] send raw failed err=%d sock=%Iu to %s:%u len=%d"),
 			nErr, (size_t)theApp.clientudp->m_hSocket, ipstr(ip), ntohs(port), len);
-	} else {
-		AddDebugLogLine(false, _T("[NAT-UDP] send raw ok sock=%Iu to %s:%u len=%d"),
-			(size_t)theApp.clientudp->m_hSocket, ipstr(ip), ntohs(port), len);
 	}
 	return ret;
 }
@@ -132,13 +107,6 @@ int CNatSocket::SendPacket(DWORD ip, WORD port, uchar opcode, const uchar * data
 			AddDebugLogLine(false, _T("[NAT-UDP] send op=%s(0x%02x) failed err=%d sock=%Iu to %s:%u payload=%d real=%u"),
 				NatOpcodeToString(opcode), opcode, nErr, (size_t)theApp.clientudp->m_hSocket, ipstr(ip), ntohs(port), len, uRealSize);
 		}
-	} else if (!bNatDataOrAck) {
-		AddDebugLogLine(false, _T("[NAT-UDP] send op=%s(0x%02x) ok sock=%Iu to %s:%u payload=%d real=%u"),
-			NatOpcodeToString(opcode), opcode, (size_t)theApp.clientudp->m_hSocket, ipstr(ip), ntohs(port), len, uRealSize);
-	}
-	if (opcode == OP_NAT_PING) {
-		AddDebugLogLine(false, _T("[NAT-UDP] framed packet op=%s hex=%s"),
-			NatOpcodeToString(opcode), NatHexDump((const BYTE*)pRealPacket, uRealSize));
 	}
 	return ret;
 }

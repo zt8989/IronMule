@@ -686,12 +686,6 @@ SocketSentBytes CEMSocket::SendStd(uint32 maxNumberOfBytesToSend, uint32 minFrag
 			}
 		}
 	}
-	else if (m_bUseNat && (sendbuffer != NULL || !controlpacket_queue.IsEmpty() || !standardpacket_queue.IsEmpty())) {
-		AddDebugLogLine(false, _T("[NAT-L4] SendStd blocked sock=%Iu byConnected=%u encReady=%u ctrlQ=%u stdQ=%u sendbuf=%u"),
-			(size_t)GetSocketHandle(), (UINT)byConnected, IsEncryptionLayerReady() ? 1 : 0,
-			(UINT)controlpacket_queue.GetCount(), (UINT)standardpacket_queue.GetCount(), sendbuffer ? 1 : 0);
-	}
-
 	if (onlyAllowedToSendControlPacket && (!controlpacket_queue.IsEmpty() || (sendbuffer != NULL && m_currentPacket_is_controlpacket))) {
 		// enter control packet send queue
 		// we might enter control packet queue several times for the same package,

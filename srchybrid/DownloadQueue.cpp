@@ -1706,7 +1706,6 @@ void CDownloadQueue::OnNatServerRegistered()
 		}
 	}
 
-	AddDebugLogLine(false, _T("[NAT-REG] notify downloads to retry lowid sources: candidates=%u triggered=%u"), nCandidates, nTriggered);
 }
 
 CString CDownloadQueue::GetOptimalTempDir(UINT nCat, EMFileSize nFileSize)

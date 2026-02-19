@@ -178,9 +178,6 @@ int CTraverseBySvr::SendConnectReq()
 	memcpy(pack+16, &m_dwConnAskNumber, 4);
 	memcpy(pack+20, m_UserHash, 16);
 
-	AddDebugLogLine(false, _T("[NAT-SYNC] send OP_NAT_SYNC2 ask=%08x target=%s via %s:%u"),
-		m_dwConnAskNumber, UserHashToString(m_UserHash), ipstr(m_dwTraverseIp), ntohs(m_wTraversePort));
-
 	return CNatSocket::SendPacket(m_dwTraverseIp, m_wTraversePort, OP_NAT_SYNC2, pack, 16*2+4);
 }
 
@@ -286,9 +283,6 @@ void CTraverseBySvr::OnRecvSync(const uchar * data, int /*len*/, DWORD /*ip*/, W
 
 	DWORD ConnAck = 0;
 	memcpy(&ConnAck, id+16, 4);
-	AddDebugLogLine(false, _T("[NAT-SYNC] recv sync peer=%s:%u ask=%08x user=%s"),
-		ipstr(cip), ntohs(cport), ConnAck, UserHashToString(id));
-
 	T_TRACE("recv sync, ConnAck=%08x\n", ConnAck);
 #ifdef _DEBUG
 	in_addr addr;
@@ -347,7 +341,6 @@ void CTraverseBySvr::OnRecvPing(const uchar * data, int len, DWORD ip, WORD port
 {
 	if (len != 21)
 	{
-		AddDebugLogLine(false, _T("[NAT-SYNC] drop invalid ping size=%d from %s:%u"), len, ipstr(ip), ntohs(port));
 		return;
 	}
 
@@ -358,8 +351,6 @@ void CTraverseBySvr::OnRecvPing(const uchar * data, int len, DWORD ip, WORD port
 
 	DWORD ConnAck=0;
 	memcpy(&ConnAck, hash+16, 4);
-	AddDebugLogLine(false, _T("[NAT-SYNC] recv ping peer=%s:%u ask=%08x user=%s"),
-		ipstr(ip), ntohs(port), ConnAck, UserHashToString(hash));
 	T_TRACE("recv ping 4. %02X%02X%02X%02X, ConnAck=%d\n", hash[0], hash[1], hash[2], hash[3],
 		ConnAck);
 	CAsyncSocketEx * pASock=NULL;
@@ -395,7 +386,6 @@ void CTraverseBySvr::OnRecvPing(const uchar * data, int len, DWORD ip, WORD port
 			}
 			//pASock->TriggerEvent(FD_CONNECT);
 			//pASock->TriggerEvent(FD_WRITE);
-			AddDebugLogLine(false, _T("[NAT-SYNC] reuse existing nat socket for %s"), UserHashToString(hash));
 			Finish();
 			return ;
 		}

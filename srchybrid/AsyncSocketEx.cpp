@@ -295,10 +295,6 @@ public:
 						if (nErrorCode)
 							pSocket->SetState(aborted);
 #endif //NOSOCKETSTATES
-						if (pSocket->m_bUseNat) {
-							AddDebugLogLine(false, _T("[NAT-EVT] dispatch FD_WRITE err=%d sock=%Iu state=%u"),
-								nErrorCode, (size_t)pSocket->GetSocketHandle(), (UINT)pSocket->GetState());
-						}
 						if (pSocket->m_lEvent & FD_WRITE)
 							pSocket->OnSend(nErrorCode);
 						break;
@@ -314,10 +310,6 @@ public:
 						else if (pSocket->m_bUseNat && pSocket->GetState() == unconnected && !nErrorCode)
 							pSocket->SetState(connected);
 #endif //NOSOCKETSTATES
-						if (pSocket->m_bUseNat) {
-							AddDebugLogLine(false, _T("[NAT-EVT] dispatch FD_CONNECT err=%d sock=%Iu state=%u"),
-								nErrorCode, (size_t)pSocket->GetSocketHandle(), (UINT)pSocket->GetState());
-						}
 						if (pSocket->m_lEvent & FD_CONNECT)
 							pSocket->OnConnect(nErrorCode);
 
@@ -443,10 +435,6 @@ public:
 						if (nErrorCode)
 							pSocket->SetState(aborted);
 #endif //NOSOCKETSTATES
-						if (pSocket->m_bUseNat) {
-							AddDebugLogLine(false, _T("[NAT-EVT] dispatch(trigger) FD_WRITE err=%d sock=%Iu state=%u"),
-								nErrorCode, (size_t)pSocket->GetSocketHandle(), (UINT)pSocket->GetState());
-						}
 						if (pSocket->m_lEvent & FD_WRITE)
 							pSocket->OnSend(nErrorCode);
 						break;
@@ -459,10 +447,6 @@ public:
 						else if (pSocket->m_bUseNat && pSocket->GetState() == unconnected && !nErrorCode)
 							pSocket->SetState(connected);
 #endif //NOSOCKETSTATES
-						if (pSocket->m_bUseNat) {
-							AddDebugLogLine(false, _T("[NAT-EVT] dispatch(trigger) FD_CONNECT err=%d sock=%Iu state=%u"),
-								nErrorCode, (size_t)pSocket->GetSocketHandle(), (UINT)pSocket->GetState());
-						}
 						if (pSocket->m_lEvent & FD_CONNECT)
 							pSocket->OnConnect(nErrorCode);
 
