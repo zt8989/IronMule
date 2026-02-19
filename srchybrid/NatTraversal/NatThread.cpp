@@ -2072,8 +2072,8 @@ void CNatThread::OnPing(DWORD ip, WORD port, const uchar * pData, int nDataSize)
 
 	ASSERT(m_SockMap.Lookup(pASock)==0);
 	//m_SockMap.SetAt(pASock, nsock);
-	AddNatSocket(pASock, nsock);
 	memcpy(nsock->GetUserHash(), hash, 16);
+	AddNatSocket(pASock, nsock);
 	POSITION pos =m_UnConnectSocket.Find(usock);
 	if(pos)
 	{
@@ -2208,6 +2208,8 @@ void CNatThread::AddNatSocket(CAsyncSocketEx * asock, CNatSocket * nsock)
 	}
 	// VC-SearchDream[2007-06-08]: new way statics End
 
+	// Ensure NAT virtual sockets are always marked as NAT before event dispatch.
+	asock->m_bUseNat = true;
 	m_SockMap.SetAt(asock, nsock);
 	nsock->m_Parent->TriggerEvent(FD_CONNECT);	
 	nsock->m_Parent->TriggerEvent(FD_WRITE);
